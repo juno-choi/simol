@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  simol-back:
+    container_name: simol-back
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - /log:/log
