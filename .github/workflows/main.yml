@@ -24,4 +24,5 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
+        path: back/Dockerfile
         tags: juno941030/simol-back:latest
