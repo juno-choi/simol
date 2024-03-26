@@ -19,12 +19,22 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - proxy    
+
+  auth:
+    image: juno941030/simol-auth:latest
+    labels:
+      - "traefik.http.middlewares.simol-auth.addprefix.prefix=/auth"
+    environment:
+      - TZ=Asia/Seoul
+    networks:
+      - proxy
       
   back:
-    image: juno941030/simol-back:1.0
+    image: juno941030/simol-back:latest
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.simol-back.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.simol-back.middlewares=simol-auth"
     environment:
       - TZ=Asia/Seoul
     networks:
