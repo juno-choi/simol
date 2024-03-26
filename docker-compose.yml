@@ -7,7 +7,6 @@ networks:
 services:
   traefik:
     image: traefik:v2.9
-    container_name: traefik
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
@@ -18,13 +17,11 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /home/admin/traefik:/etc/traefik/
     networks:
       - proxy    
       
   back:
     image: juno941030/simol-back:1.0
-    container_name: back
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.simol-back.rule=PathPrefix(`/api`)"
