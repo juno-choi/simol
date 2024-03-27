@@ -23,7 +23,7 @@ services:
   auth:
     image: juno941030/simol-auth:latest
     labels:
-      - "traefik.http.middlewares.simol-auth.addprefix.prefix=/auth"
+      - "traefik.http.middlewares.simol-auth.forwardauth.address=http://auth:8080/auth"
     environment:
       - TZ=Asia/Seoul
     networks:
