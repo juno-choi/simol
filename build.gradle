@@ -63,5 +63,6 @@ subprojects {
 project(':oun-api') {
 	dependencies {
 		implementation project(':oun-common')
+		implementation project(':oun-user')
 	}
 }
