@@ -1,0 +1,7 @@
+// common
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+//    compileOnly 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+}
