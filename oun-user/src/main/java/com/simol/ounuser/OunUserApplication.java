@@ -1,4 +1,4 @@
-package com.simol.oun_user;
+package com.simol.ounuser;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

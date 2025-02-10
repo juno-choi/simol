@@ -66,3 +66,9 @@ project(':oun-api') {
 		implementation project(':oun-user')
 	}
 }
+
+project(':oun-user') {
+	dependencies {
+		implementation project(':oun-common')
+	}
+}
