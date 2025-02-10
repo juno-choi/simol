@@ -1,4 +1,4 @@
-package com.simol.ounuser.config;
+package com.simol.ounuser.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
