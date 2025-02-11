@@ -2,13 +2,13 @@ package com.simol.ounuser.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.simol.ounuser.user.service.MyAOuth2UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,14 +16,13 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final MyEntryPoint myEntryPoint;
-    private final MyAccessDeniedHandler myAccessDeniedHandler;
-
+    private final MyAOuth2UserService myAOuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
             .csrf(AbstractHttpConfigurer::disable)
+            .headers(c -> c.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable).disable())   // h2 설정
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/",
@@ -31,27 +30,16 @@ public class SecurityConfig {
                     "/swagger-ui.html",
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
-                    "/swagger-resources/**"
+                    "/swagger-resources/**",
+                    "/h2-console/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
-            .oauth2Login(Customizer.withDefaults())
+            .oauth2Login(oauth2 -> 
+                oauth2.userInfoEndpoint(userInfo -> 
+                    userInfo.userService(myAOuth2UserService)
+                )
+            )
             .build();
     }
-    
-    // @Bean
-    // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    //     return http.csrf(AbstractHttpConfigurer::disable)
-    //             .authorizeRequests(auth -> auth.requestMatchers("/login")
-    //             .permitAll().anyRequest().authenticated())
-    //             .oauth2Login(Customizer.withDefaults())
-    //             .cors(AbstractHttpConfigurer::disable)
-    //             .headers(c -> c.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable).disable())   // h2 설정
-    //             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-    //             .exceptionHandling(
-    //                     e -> e.authenticationEntryPoint(myEntryPoint)
-    //                             .accessDeniedHandler(myAccessDeniedHandler)
-    //             ) // 인증 예외처리
-    //             .build();
-    // }
 }
