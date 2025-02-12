@@ -8,12 +8,12 @@ spring:
           google:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: "{baseUrl}/api/auth/google/callback"
             scope:
               - email
               - profile
         provider:
           google:
-            authorization-uri: https://accounts.google.com/o/oauth2/auth
             token-uri: https://oauth2.googleapis.com/token
             user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
   jpa:
@@ -31,3 +31,6 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
