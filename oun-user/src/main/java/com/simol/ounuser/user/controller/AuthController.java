@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.simol.ouncommon.api.CommonApi;
 import com.simol.ounuser.user.service.AuthService;
-import com.simol.ounuser.user.vo.RedirectUrlVo;
+import com.simol.ounuser.user.vo.RedirectUrlResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -42,8 +42,8 @@ public class AuthController {
         @ApiResponse(responseCode = "200", description = "유저 조회 성공"),
         @ApiResponse(responseCode = "400", description = "유저 조회 실패")
     })
-    public ResponseEntity<CommonApi<RedirectUrlVo>> redirectUrlByGoogle(@RequestParam(name = "redirect_uri") @Schema(description = "리다이렉트 URI", example = "http://localhost:3000/api/user/auth/google/callback") String redirectUri) {
-        RedirectUrlVo redirectUrlVo = authService.redirectUrlByGoogle(redirectUri);
+    public ResponseEntity<CommonApi<RedirectUrlResponse>> redirectUrlByGoogle(@RequestParam(name = "redirect_uri") @Schema(description = "리다이렉트 URI", example = "http://localhost:3000/api/user/auth/google/callback") String redirectUri) {
+        RedirectUrlResponse redirectUrlVo = authService.redirectUrlByGoogle(redirectUri);
         return ResponseEntity.ok(CommonApi.of("0000", "success", redirectUrlVo));
     }
 }

@@ -8,17 +8,17 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @Builder
-public class RedirectUrlVo {
+public class RedirectUrlResponse {
     @Schema(description = "리다이렉트 URL", example = "https://accounts.google.com/o/oauth2/auth")
     private String url;
 
-    public static RedirectUrlVo googleOf(String clientId, String redirectUri) {
+    public static RedirectUrlResponse googleOf(String clientId, String redirectUri) {
         String url = "https://accounts.google.com/o/oauth2/auth"
         + "?client_id=" + clientId
         + "&redirect_uri=" + redirectUri
         + "&response_type=token"
         + "&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
-        return RedirectUrlVo.builder()
+        return RedirectUrlResponse.builder()
             .url(url)
             .build();
     }

@@ -6,7 +6,7 @@ import org.springframework.web.client.RestClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simol.ounuser.config.jwt.JwtProvider;
-import com.simol.ounuser.user.vo.RedirectUrlVo;
+import com.simol.ounuser.user.vo.RedirectUrlResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,8 +41,8 @@ public class AuthService {
         // 토큰 발급
     }
 
-    public RedirectUrlVo redirectUrlByGoogle(String redirectUri) {
-        return RedirectUrlVo.googleOf(clientId, redirectUri);
+    public RedirectUrlResponse redirectUrlByGoogle(String redirectUri) {
+        return RedirectUrlResponse.googleOf(clientId, redirectUri);
     }
     
 }
