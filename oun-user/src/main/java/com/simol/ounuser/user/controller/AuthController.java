@@ -40,7 +40,7 @@ public class AuthController {
         @ApiResponse(responseCode = "200", description = "유저 조회 성공"),
         @ApiResponse(responseCode = "400", description = "유저 조회 실패")
     })
-    public ResponseEntity<CommonApi<RedirectUrlVo>> redirectUrlByGoogle(@RequestParam(name = "redirectUri") @Schema(description = "리다이렉트 URI", example = "http://localhost:3000/api/user/auth/google/callback") String redirectUri) {
+    public ResponseEntity<CommonApi<RedirectUrlVo>> redirectUrlByGoogle(@RequestParam(name = "redirect_uri") @Schema(description = "리다이렉트 URI", example = "http://localhost:3000/api/user/auth/google/callback") String redirectUri) {
         RedirectUrlVo redirectUrlVo = authService.redirectUrlByGoogle(redirectUri);
         return ResponseEntity.ok(CommonApi.of("0000", "success", redirectUrlVo));
     }

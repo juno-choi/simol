@@ -33,6 +33,7 @@ public class SecurityConfig {
                     "/v3/api-docs/**",
                     "/swagger-resources/**",
                     "/h2-console/**",
+                    "/api/user/auth/google",
                     "/api/user/auth/google/url"
                 ).permitAll()
                 .anyRequest().authenticated()
