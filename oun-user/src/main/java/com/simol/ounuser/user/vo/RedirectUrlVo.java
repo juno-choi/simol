@@ -16,8 +16,8 @@ public class RedirectUrlVo {
         String url = "https://accounts.google.com/o/oauth2/auth"
         + "?client_id=" + clientId
         + "&redirect_uri=" + redirectUri
-        + "&response_type=code"
-        + "&scope=email profile";
+        + "&response_type=token"
+        + "&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
         return RedirectUrlVo.builder()
             .url(url)
             .build();
