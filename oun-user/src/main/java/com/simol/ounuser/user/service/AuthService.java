@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.simol.ouncommon.auth.vo.AuthTokenResponse;
+import com.simol.ouncommon.auth.vo.Token;
 import com.simol.ouncommon.user.entity.UserEntity;
 import com.simol.ouncommon.user.repository.UsersRepository;
 import com.simol.ounuser.config.jwt.JwtProvider;
@@ -31,9 +33,9 @@ public class AuthService {
     private String clientSecret;
 
     @Transactional
-    public void authenticateWithGoogle(String accessToken) {
-        log.debug("accessToken: {}", accessToken);
-        final String GOOGLE_USER_INFO_URL = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s".formatted(accessToken);
+    public AuthTokenResponse authenticateWithGoogle(String googleToken) {
+        log.debug("accessToken: {}", googleToken);
+        final String GOOGLE_USER_INFO_URL = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s".formatted(googleToken);
         // 구글에서 계정 정보 받아오기
         GoogleUserInfoResponse googleUserInfoResponse = restClient.get().uri(GOOGLE_USER_INFO_URL)
             .retrieve()
@@ -50,12 +52,14 @@ public class AuthService {
             );
         usersRepository.save(user);
         // access token 발급, refresh token 발급
-        String refreshToken = jwtProvider.createRefreshToken(user);
-
-        log.info("token: {}", refreshToken);
+        Token refreshToken = jwtProvider.createRefreshToken(user, 60L);
+        Token accessToken = jwtProvider.createAccessToken(user, 10L);
+        
+        AuthTokenResponse authTokenResponse = AuthTokenResponse.of(refreshToken.getToken(), accessToken.getToken(), refreshToken.getExpiredAt(), accessToken.getExpiredAt());
         // redis 적용
 
         // 발급된 토큰 반환
+        return authTokenResponse;
     }
 
     public RedirectUrlResponse redirectUrlByGoogle(String redirectUri) {

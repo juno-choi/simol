@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simol.ouncommon.api.CommonApi;
+import com.simol.ouncommon.auth.vo.AuthTokenResponse;
 import com.simol.ounuser.user.service.AuthService;
 import com.simol.ounuser.user.vo.RedirectUrlResponse;
 
@@ -31,9 +32,9 @@ public class AuthController {
         @ApiResponse(responseCode = "200", description = "유저 조회 성공"),
         @ApiResponse(responseCode = "400", description = "유저 조회 실패")
     })
-    public ResponseEntity<?> googleLogin(@RequestParam(name = "access_token") @Schema(description = "액세스 토큰", example = "1234567890") String accessToken) {
-        authService.authenticateWithGoogle(accessToken);
-        return ResponseEntity.ok(CommonApi.of("0000", "success", null));
+    public ResponseEntity<CommonApi<AuthTokenResponse>> googleLogin(@RequestParam(name = "access_token") @Schema(description = "액세스 토큰", example = "1234567890") String accessToken) {
+        AuthTokenResponse authTokenResponse = authService.authenticateWithGoogle(accessToken);
+        return ResponseEntity.ok(CommonApi.of("0000", "success", authTokenResponse));
     }
 
     @GetMapping("/google/url")
