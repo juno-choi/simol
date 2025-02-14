@@ -24,10 +24,10 @@ public class AuthService {
     private final RestClient restClient;
     private final UsersRepository usersRepository;
 
-    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    @Value("${oauth2.google.client-id}")
     private String clientId;
 
-    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
+    @Value("${oauth2.google.client-secret}")
     private String clientSecret;
 
     @Transactional
@@ -50,8 +50,9 @@ public class AuthService {
             );
         usersRepository.save(user);
         // access token 발급, refresh token 발급
-        String token = jwtProvider.createToken(user);
-        log.info("token: {}", token);
+        String refreshToken = jwtProvider.createRefreshToken(user);
+
+        log.info("token: {}", refreshToken);
         // redis 적용
 
         // 발급된 토큰 반환

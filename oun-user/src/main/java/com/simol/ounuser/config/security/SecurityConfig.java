@@ -8,15 +8,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.simol.ounuser.user.service.MyAOuth2UserService;
-
-import lombok.RequiredArgsConstructor;
-
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
-    private final MyAOuth2UserService myAOuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,11 +32,7 @@ public class SecurityConfig {
                 ).permitAll()
                 .anyRequest().authenticated()
             )
-            .oauth2Login(oauth2 -> 
-                oauth2.userInfoEndpoint(userInfo -> 
-                    userInfo.userService(myAOuth2UserService)
-                )
-            )
+            .oauth2Login(oauth2 -> oauth2.disable())
             .build();
     }
 
