@@ -55,8 +55,12 @@ public class AuthService {
         usersRepository.save(user);
         // access token 발급, refresh token 발급
         LocalDateTime now = LocalDateTime.now();
-        Token refreshToken = jwtProvider.createRefreshToken(user, now, 60L);
-        Token accessToken = jwtProvider.createAccessToken(user, now, 10L);
+
+        final long REFRESH_TOKEN_EXPIRATION_TIME = 360L;
+        final long ACCESS_TOKEN_EXPIRATION_TIME = 60L;
+
+        Token refreshToken = jwtProvider.createRefreshToken(user, now, REFRESH_TOKEN_EXPIRATION_TIME);
+        Token accessToken = jwtProvider.createAccessToken(user, now, ACCESS_TOKEN_EXPIRATION_TIME);
         
         AuthTokenResponse authTokenResponse = AuthTokenResponse.of(accessToken.getToken(), refreshToken.getToken(), accessToken.getExpiredAt(), refreshToken.getExpiredAt());
         // redis 적용
