@@ -21,8 +21,7 @@ public class JwtProvider {
     @Value("${jwt.secret-key}")
     private String secretKey;
 
-    public Token createRefreshToken(UserEntity userEntity, Long plusMinutes) {
-        LocalDateTime now = LocalDateTime.now();
+    public Token createRefreshToken(UserEntity userEntity, LocalDateTime now, Long plusMinutes) {
         LocalDateTime expirationDateTime = now.plusMinutes(plusMinutes);
         Instant instant = expirationDateTime.atZone(ZoneId.systemDefault()).toInstant();
         Date expiration = Date.from(instant);
@@ -38,8 +37,7 @@ public class JwtProvider {
         return Token.of(token, expiration.getTime());
     }
 
-    public Token createAccessToken(UserEntity userEntity, long plusMinutes) {
-        LocalDateTime now = LocalDateTime.now();
+    public Token createAccessToken(UserEntity userEntity, LocalDateTime now, long plusMinutes) {
         LocalDateTime expirationDateTime = now.plusMinutes(plusMinutes);
         Instant instant = expirationDateTime.atZone(ZoneId.systemDefault()).toInstant();
         Date expiration = Date.from(instant);

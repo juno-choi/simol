@@ -1,5 +1,7 @@
 package com.simol.ounuser.user.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,10 +54,11 @@ public class AuthService {
             );
         usersRepository.save(user);
         // access token 발급, refresh token 발급
-        Token refreshToken = jwtProvider.createRefreshToken(user, 60L);
-        Token accessToken = jwtProvider.createAccessToken(user, 10L);
+        LocalDateTime now = LocalDateTime.now();
+        Token refreshToken = jwtProvider.createRefreshToken(user, now, 60L);
+        Token accessToken = jwtProvider.createAccessToken(user, now, 10L);
         
-        AuthTokenResponse authTokenResponse = AuthTokenResponse.of(refreshToken.getToken(), accessToken.getToken(), refreshToken.getExpiredAt(), accessToken.getExpiredAt());
+        AuthTokenResponse authTokenResponse = AuthTokenResponse.of(accessToken.getToken(), refreshToken.getToken(), accessToken.getExpiredAt(), refreshToken.getExpiredAt());
         // redis 적용
 
         // 발급된 토큰 반환
