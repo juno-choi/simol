@@ -1,8 +1,10 @@
 package com.simol.ounuser.user.service;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
@@ -26,6 +28,7 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final RestClient restClient;
     private final UsersRepository usersRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Value("${oauth2.google.client-id}")
     private String clientId;
@@ -62,8 +65,11 @@ public class AuthService {
         Token accessToken = jwtProvider.createAccessToken(user, now, ACCESS_TOKEN_EXPIRATION_TIME);
         
         AuthTokenResponse authTokenResponse = AuthTokenResponse.of(accessToken.getToken(), refreshToken.getToken(), accessToken.getExpiredAt(), refreshToken.getExpiredAt());
-        // redis 적용
 
+        // redis 적용
+        String refreshTokenAsString = refreshToken.getToken();
+        // 토큰 만료 시간 설정
+        redisTemplate.opsForValue().set(refreshTokenAsString, user.getEmail(), REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MINUTES);
         // 발급된 토큰 반환
         return authTokenResponse;
     }
