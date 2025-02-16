@@ -8,8 +8,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.auth.vo.Token;
-import com.simol.ouncommon.user.entity.UserEntity;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

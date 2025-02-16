@@ -1,4 +1,4 @@
-package com.simol.ouncommon.user.dto;
+package com.simol.ouncommon.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

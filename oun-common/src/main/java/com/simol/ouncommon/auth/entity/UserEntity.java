@@ -1,4 +1,4 @@
-package com.simol.ouncommon.user.entity;
+package com.simol.ouncommon.auth.entity;
 
 import java.time.LocalDateTime;
 import java.util.function.Supplier;

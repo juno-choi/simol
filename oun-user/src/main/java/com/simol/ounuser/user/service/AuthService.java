@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.simol.ouncommon.auth.entity.UserEntity;
+import com.simol.ouncommon.auth.repository.UsersRepository;
 import com.simol.ouncommon.auth.vo.AuthTokenResponse;
 import com.simol.ouncommon.auth.vo.Token;
-import com.simol.ouncommon.user.entity.UserEntity;
-import com.simol.ouncommon.user.repository.UsersRepository;
 import com.simol.ounuser.config.jwt.JwtProvider;
 import com.simol.ounuser.user.vo.GoogleUserInfoResponse;
 import com.simol.ounuser.user.vo.RedirectUrlResponse;
