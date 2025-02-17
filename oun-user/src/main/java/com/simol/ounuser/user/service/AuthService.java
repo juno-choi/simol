@@ -1,6 +1,7 @@
 package com.simol.ounuser.user.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +31,9 @@ public class AuthService {
     private final UsersRepository usersRepository;
     private final RedisTemplate<String, Object> redisTemplate;
 
+    private final long REFRESH_TOKEN_EXPIRATION_TIME = 360L;
+    private final long ACCESS_TOKEN_EXPIRATION_TIME = 60L;
+
     @Value("${oauth2.google.client-id}")
     private String clientId;
 
@@ -58,9 +62,6 @@ public class AuthService {
         // access token 발급, refresh token 발급
         LocalDateTime now = LocalDateTime.now();
 
-        final long REFRESH_TOKEN_EXPIRATION_TIME = 360L;
-        final long ACCESS_TOKEN_EXPIRATION_TIME = 60L;
-
         Token refreshToken = jwtProvider.createRefreshToken(user, now, REFRESH_TOKEN_EXPIRATION_TIME);
         Token accessToken = jwtProvider.createAccessToken(user, now, ACCESS_TOKEN_EXPIRATION_TIME);
         
@@ -69,13 +70,40 @@ public class AuthService {
         // redis 적용
         String refreshTokenAsString = refreshToken.getToken();
         // 토큰 만료 시간 설정
-        redisTemplate.opsForValue().set(refreshTokenAsString, user.getEmail(), REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(refreshTokenAsString, String.valueOf(user.getId()), REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MINUTES);
         // 발급된 토큰 반환
         return authTokenResponse;
     }
 
     public RedirectUrlResponse redirectUrlByGoogle(String redirectUri) {
         return RedirectUrlResponse.googleOf(clientId, redirectUri);
+    }
+
+    public AuthTokenResponse refreshToken(String token) {
+        // 토큰 유효성 검사
+        if (! jwtProvider.validateToken(token)) {
+            throw new RuntimeException("Refresh token is invalid");
+        }
+        // redis 에서 토큰 조회
+        String userIdAsString = Optional.ofNullable(redisTemplate.opsForValue().get(token))
+            .orElseThrow(() -> new RuntimeException("Refresh token is not found"))
+            .toString();
+        long userId = Long.parseLong(userIdAsString);
+        // 유저 조회
+        UserEntity user = usersRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+        // access token 발급, refresh token 발급
+        LocalDateTime now = LocalDateTime.now();
+        Token accessToken = jwtProvider.createAccessToken(user, now, ACCESS_TOKEN_EXPIRATION_TIME);
+        Token refreshToken = jwtProvider.createRefreshToken(user, now, REFRESH_TOKEN_EXPIRATION_TIME);
+        
+        // 기존 토큰 삭제
+        redisTemplate.delete(token);
+        // redis 적용
+        String refreshTokenAsString = refreshToken.getToken();
+        redisTemplate.opsForValue().set(refreshTokenAsString, String.valueOf(user.getId()), REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MINUTES);
+        // 발급된 토큰 반환
+        return AuthTokenResponse.of(accessToken.getToken(), refreshToken.getToken(), accessToken.getExpiredAt(), refreshToken.getExpiredAt());
     }
     
 }
