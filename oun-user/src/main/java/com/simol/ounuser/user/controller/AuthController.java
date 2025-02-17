@@ -8,6 +8,7 @@ import com.simol.ouncommon.api.CommonApi;
 import com.simol.ouncommon.auth.vo.AuthTokenResponse;
 import com.simol.ounuser.user.service.AuthService;
 import com.simol.ounuser.user.vo.RedirectUrlResponse;
+import com.simol.ounuser.user.vo.UserInfoResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -63,4 +64,15 @@ public class AuthController {
         return ResponseEntity.ok(CommonApi.of("0000", "success", authTokenResponse));
     }
     
+    @GetMapping("/info{access_token}")
+    @Operation(summary = "user 정보 조회 (access token)", description = "access token을 사용하여 유저 정보 조회 API")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "성공"),
+        @ApiResponse(responseCode = "400", description = "실패"),
+        @ApiResponse(responseCode = "500", description = "서버 오류"),
+    })
+    public ResponseEntity<CommonApi<UserInfoResponse>> userInfo(@PathVariable(name = "access_token") @Schema(description = "access_token", example = "ACCESS_TOKEN") String accessToken) {
+        UserInfoResponse userInfo = authService.getUserInfo(accessToken);
+        return ResponseEntity.ok(CommonApi.of("0000", "success", userInfo));
+    }
 }

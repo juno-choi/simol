@@ -17,6 +17,7 @@ import com.simol.ouncommon.auth.vo.Token;
 import com.simol.ounuser.config.jwt.JwtProvider;
 import com.simol.ounuser.user.vo.GoogleUserInfoResponse;
 import com.simol.ounuser.user.vo.RedirectUrlResponse;
+import com.simol.ounuser.user.vo.UserInfoResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -104,6 +105,22 @@ public class AuthService {
         redisTemplate.opsForValue().set(refreshTokenAsString, String.valueOf(user.getId()), REFRESH_TOKEN_EXPIRATION_TIME, TimeUnit.MINUTES);
         // 발급된 토큰 반환
         return AuthTokenResponse.of(accessToken.getToken(), refreshToken.getToken(), accessToken.getExpiredAt(), refreshToken.getExpiredAt());
+    }
+
+    public UserInfoResponse getUserInfo(String token) {
+        // 토큰 유효성 검사
+        if (! jwtProvider.validateToken(token)) {
+            throw new RuntimeException("Access token is invalid");
+        }
+
+        // access token 값을 파싱하여 userId 값 가져오기
+        String userIdAsString = jwtProvider.getSubject(token);
+        long userId = Long.parseLong(userIdAsString);
+        // 유저 조회
+        UserEntity user = usersRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+        // 유저 정보 반환
+        return UserInfoResponse.from(user);
     }
     
 }
