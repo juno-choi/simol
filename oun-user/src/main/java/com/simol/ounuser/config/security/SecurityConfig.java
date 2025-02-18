@@ -28,7 +28,10 @@ public class SecurityConfig {
                     "/swagger-resources/**",
                     "/h2-console/**",
                     "/api/user/auth/google",
-                    "/api/user/auth/google/url"
+                    "/api/user/auth/google/url",
+                    "/api/user/auth/refresh",
+                    "/api/user/auth/unauthorized",
+                    "/api/user/auth/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )

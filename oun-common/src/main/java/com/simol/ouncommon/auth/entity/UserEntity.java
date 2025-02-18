@@ -26,6 +26,7 @@ public class UserEntity {
     @Column(name = "user_id")
     private Long id;
 
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
     private String name;
     private String profileImage;
