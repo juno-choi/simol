@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,4 +76,16 @@ public class AuthController {
         UserInfoResponse userInfo = authService.getUserInfo(accessToken);
         return ResponseEntity.ok(CommonApi.of("0000", "success", userInfo));
     }
+
+    @GetMapping("/unauthorized")
+    @Operation(summary = "401 에러 테스트", description = "401 에러 테스트 API")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "성공"),
+        @ApiResponse(responseCode = "400", description = "실패"),
+        @ApiResponse(responseCode = "500", description = "서버 오류"),
+    })
+    public ResponseEntity<CommonApi<String>> unauthorized() {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonApi.of("0401", "success", "unauthorized"));
+    }
+    
 }
