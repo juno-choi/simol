@@ -1,7 +1,6 @@
 package com.simol.ouncommon.auth.entity;
 
 import java.time.LocalDateTime;
-import java.util.function.Supplier;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
