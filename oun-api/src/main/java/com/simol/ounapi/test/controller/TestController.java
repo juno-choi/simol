@@ -13,9 +13,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotNull;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/test")
@@ -32,7 +35,8 @@ public class TestController {
     @Operation(summary = "에러 테스트 API", description = "에러 테스트 API")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "성공", content = @Content(schema = @Schema(implementation = CommonApi.class))),
-        @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class)))
+        @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
+        
     })
     public ResponseEntity<CommonApi<String>> error() {
         if (true) {
@@ -40,4 +44,10 @@ public class TestController {
         }
         return ResponseEntity.ok(CommonApi.of("0000", "success", "test"));
     }
+
+    @GetMapping("/validation")
+    public String failValidation(@RequestParam @NotNull String param) {
+        return new String();
+    }
+    
 }
