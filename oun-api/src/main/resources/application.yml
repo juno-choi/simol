@@ -18,5 +18,10 @@ spring:
       enabled: true
       path: /h2-console
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
 jwt:
-  secret-key: oun_temp_secret_key_123456789012
+  secret-key: ${JWT_SECRET_KEY:oun_temp_secret_key_123456789012}

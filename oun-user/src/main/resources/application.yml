@@ -24,7 +24,7 @@ spring:
       port: 6379
 
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
+  secret-key: ${JWT_SECRET_KEY:oun_temp_secret_key_123456789012}
 oauth2:
   google:
     client-id: ${GOOGLE_CLIENT_ID}
