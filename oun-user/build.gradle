@@ -1,4 +1,7 @@
 // user
+tasks.withType(org.springframework.boot.gradle.tasks.bundling.BootJar) {
+    enabled = true
+}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'

@@ -65,7 +65,7 @@ public class AuthController {
         return ResponseEntity.ok(CommonApi.of("0000", "success", authTokenResponse));
     }
     
-    @GetMapping("/info{access_token}")
+    @GetMapping("/info/{access_token}")
     @Operation(summary = "user 정보 조회 (access token)", description = "access token을 사용하여 유저 정보 조회 API")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "성공"),
