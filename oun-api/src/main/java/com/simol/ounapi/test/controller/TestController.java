@@ -3,6 +3,7 @@ package com.simol.ounapi.test.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simol.ounapi.test.domain.dto.TestValidationRequest;
 import com.simol.ouncommon.api.CommonApi;
 import com.simol.ouncommon.api.ErrorApi;
 import com.simol.ouncommon.exception.BadRequestException;
@@ -13,16 +14,20 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
 @RequestMapping("/test")
 @Tag(name = "테스트 API")
+@Slf4j
 public class TestController {
     
     @GetMapping
@@ -46,8 +51,18 @@ public class TestController {
     }
 
     @GetMapping("/validation")
-    public String failValidation(@RequestParam @NotNull String param) {
-        return new String();
+    public ResponseEntity<CommonApi<String>> failValidation(
+        @Validated @ModelAttribute TestValidationRequest testValidationRequest
+    ) {
+        return ResponseEntity.ok(CommonApi.of("0000", "success", "test"));
+    }
+
+    @PostMapping("/validation")
+    public ResponseEntity<CommonApi<String>> failValidation2(
+        @Validated @RequestBody TestValidationRequest testValidationRequest
+    ) {
+        log.info("testValidationRequest: {}, {}", testValidationRequest.getName(), testValidationRequest.getAge());
+        return ResponseEntity.ok(CommonApi.of("0000", "success", "test"));
     }
     
 }

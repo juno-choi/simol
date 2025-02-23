@@ -32,7 +32,8 @@ public class ApiSecurityConfig {
                     "/**"
                 ).permitAll()
                 .anyRequest().authenticated()
-            ).addFilterBefore(new AuthFilter(apiJwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+            )
+            .addFilterBefore(new AuthFilter(apiJwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .build();
     }
 
