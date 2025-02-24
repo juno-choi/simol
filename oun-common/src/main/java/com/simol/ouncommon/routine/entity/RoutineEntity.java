@@ -2,15 +2,19 @@ package com.simol.ouncommon.routine.entity;
 
 import java.time.LocalDateTime;
 
+import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -26,8 +30,10 @@ public class RoutineEntity {
     @Column(name = "routine_id")
     private Long id;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    // user와 연관관계 맺기
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @Column(nullable = false)
     private String name;    //루틴 이름
@@ -57,18 +63,18 @@ public class RoutineEntity {
     }
 
     @Builder
-    private RoutineEntity(String name, String description, Long userId) {
+    private RoutineEntity(String name, String description, UserEntity user) {
         this.name = name;
         this.description = description;
-        this.userId = userId;
+        this.user = user;
         this.status = RoutineStatus.ACTIVE;
     }
 
-    public static RoutineEntity create(String name, String description, Long userId) {
+    public static RoutineEntity create(String name, String description, UserEntity user) {
         return RoutineEntity.builder()
             .name(name)
             .description(description)
-            .userId(userId)
+            .user(user)
             .build();
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -64,16 +64,8 @@ public class AuthFilter extends OncePerRequestFilter{
 
         token = token.substring(PREFIX.length());
 
-        // 테스트 토큰 처리
-        if (token.equals("oun-test-token")) {
-            request.setAttribute("userId", 1L);
-            request.setAttribute("authorities", List.of(new SimpleGrantedAuthority("ROLE_USER")));
-            // 정상 처리
-            filterChain.doFilter(request, response);    
-            return ;
-        } 
-
         Authentication authentication = apiJwtTokenProvider.getAuthentication(token);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         request.setAttribute("userId", authentication.getName());
         request.setAttribute("authorities", authentication.getAuthorities());
