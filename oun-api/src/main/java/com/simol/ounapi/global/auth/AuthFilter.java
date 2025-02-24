@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,7 +30,8 @@ public class AuthFilter extends OncePerRequestFilter{
         "/swagger-resources/**",
         "/h2-console",
         "/h2-console/**",
-        "/test/**"
+        "/test/**",
+        "/favicon.ico"
     );
 
     @Override
@@ -44,10 +46,31 @@ public class AuthFilter extends OncePerRequestFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        log.info("requestURI: {}", request.getRequestURI());
+        log.info("인증 requestURI: {}", request.getRequestURI());
 
         // 인증 처리
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        final String PREFIX = "Bearer ";
+
+        if (token == null) {
+            throw new RuntimeException("토큰이 없습니다.");
+        }
+        if (!token.startsWith(PREFIX)) {
+            throw new RuntimeException("토큰 형식이 올바르지 않습니다.");
+        }
+
+        token = token.substring(PREFIX.length());
+
+        // 테스트 토큰 처리
+        if (token.equals("oun-test-token")) {
+            request.setAttribute("memberId", 1L);
+            request.setAttribute("authorities", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+            // 정상 처리
+            filterChain.doFilter(request, response);    
+            return ;
+        } 
+
         Authentication authentication = apiJwtTokenProvider.getAuthentication(token);
 
         request.setAttribute("memberId", authentication.getName());
