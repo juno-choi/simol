@@ -18,6 +18,8 @@ public class RoutineServiceImpl implements RoutineService {
     @Override
     public RoutineCreateResponse createRoutine(RoutineCreateRequest routineCreateRequest, HttpServletRequest request) {
         Long userId = (Long) request.getAttribute("userId");
+        // todo userId로 user를 조회하여 routine에 넣어주기
+
         RoutineEntity requestRoutineEntity = RoutineEntity.create(routineCreateRequest.getName(), routineCreateRequest.getDescription(), userId);
         RoutineEntity routineEntity = routineRepository.save(requestRoutineEntity);
 

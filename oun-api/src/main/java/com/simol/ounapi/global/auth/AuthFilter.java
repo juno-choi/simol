@@ -10,6 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.simol.ouncommon.exception.UnAuthorizedException;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,17 +56,17 @@ public class AuthFilter extends OncePerRequestFilter{
         final String PREFIX = "Bearer ";
 
         if (token == null) {
-            throw new RuntimeException("토큰이 없습니다.");
+            throw new UnAuthorizedException("token is null.");
         }
         if (!token.startsWith(PREFIX)) {
-            throw new RuntimeException("토큰 형식이 올바르지 않습니다.");
+            throw new UnAuthorizedException("token format is invalid.");
         }
 
         token = token.substring(PREFIX.length());
 
         // 테스트 토큰 처리
         if (token.equals("oun-test-token")) {
-            request.setAttribute("memberId", 1L);
+            request.setAttribute("userId", 1L);
             request.setAttribute("authorities", List.of(new SimpleGrantedAuthority("ROLE_USER")));
             // 정상 처리
             filterChain.doFilter(request, response);    
@@ -73,7 +75,7 @@ public class AuthFilter extends OncePerRequestFilter{
 
         Authentication authentication = apiJwtTokenProvider.getAuthentication(token);
 
-        request.setAttribute("memberId", authentication.getName());
+        request.setAttribute("userId", authentication.getName());
         request.setAttribute("authorities", authentication.getAuthorities());
         
         // 정상 처리
