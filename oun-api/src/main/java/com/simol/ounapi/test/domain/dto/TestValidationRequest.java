@@ -11,8 +11,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TestValidationRequest {
     @NotNull(message = "이름은 필수 입력 사항입니다.")
     @Schema(description = "이름", example = "홍길동")
