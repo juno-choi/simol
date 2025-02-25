@@ -13,22 +13,22 @@ import lombok.Getter;
 @Builder
 @Schema(description = "루틴 생성 응답")
 public class RoutineCreateResponse {
-    @Schema(description = "루틴 ID")
+    @Schema(description = "루틴 ID", example = "1")
     @JsonProperty("routine_id")
     private Long routineId;
-    @Schema(description = "루틴 이름")
+    @Schema(description = "루틴 이름", example = "월요일 루틴")
     @JsonProperty("name")
     private String name;
-    @Schema(description = "루틴 설명")
+    @Schema(description = "루틴 설명", example = "하체 부시기")
     @JsonProperty("description")
     private String description;
-    @Schema(description = "루틴 상태")
+    @Schema(description = "루틴 상태", example = "ACTIVE")
     @JsonProperty("status")
     private RoutineStatus status;
-    @Schema(description = "루틴 생성일")
+    @Schema(description = "루틴 생성일", example = "2025-01-01T00:00:00")
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
-    @Schema(description = "루틴 수정일")
-    @JsonProperty("updated_at")
+    @Schema(description = "루틴 수정일", example = "2025-01-01T00:00:00")
+    @JsonProperty("updated_at") 
     private LocalDateTime updatedAt;
 }

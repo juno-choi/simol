@@ -18,12 +18,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Table(name = "routine")
+@Builder
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RoutineEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,18 +68,11 @@ public class RoutineEntity {
         this.updatedAt = LocalDateTime.now();
     }
 
-    @Builder
-    private RoutineEntity(String name, String description, UserEntity user) {
-        this.name = name;
-        this.description = description;
-        this.user = user;
-        this.status = RoutineStatus.ACTIVE;
-    }
-
     public static RoutineEntity create(String name, String description, UserEntity user) {
         return RoutineEntity.builder()
             .name(name)
             .description(description)
+            .status(RoutineStatus.ACTIVE)
             .user(user)
             .build();
     }

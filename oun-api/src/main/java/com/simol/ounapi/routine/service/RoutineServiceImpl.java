@@ -12,6 +12,7 @@ import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 import com.simol.ouncommon.routine.repository.RoutineRepository;
 import com.simol.ouncommon.routine.vo.RoutineCreateResponse;
+import com.simol.ouncommon.routine.vo.RoutineResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +38,13 @@ public class RoutineServiceImpl implements RoutineService {
             .createdAt(routineEntity.getCreatedAt())
             .updatedAt(routineEntity.getUpdatedAt())
             .build();
+    }
+
+    @Override
+    public RoutineResponse getRoutine(Long routineId) {
+        RoutineEntity routineEntity = routineRepository.findById(routineId)
+            .orElseThrow(() -> new BadRequestException("Routine not found"));
+
+        return RoutineResponse.of(routineEntity);
     }
 }

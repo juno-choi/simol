@@ -34,6 +34,14 @@ public class CommonApi<T> {
             .data(data)
             .build();
     }
+
+    public static <T> CommonApi<T> success(T data) {
+        return CommonApi.<T>builder()
+            .code("0000")
+            .message("success")
+            .data(data)
+            .build();
+    }
     
 }
 
