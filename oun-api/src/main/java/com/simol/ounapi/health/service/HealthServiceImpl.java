@@ -11,6 +11,7 @@ import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.health.repository.HealthRepository;
 import com.simol.ouncommon.health.service.HealthService;
 import com.simol.ouncommon.health.vo.HealthCreateResponse;
+import com.simol.ouncommon.health.vo.HealthResponse;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 import com.simol.ouncommon.routine.repository.RoutineRepository;
 
@@ -40,6 +41,13 @@ public class HealthServiceImpl implements HealthService {
         HealthEntity saveHealth = healthRepository.save(healthEntity);
 
         return HealthCreateResponse.of(saveHealth);
+    }
+
+    @Override
+    public HealthResponse getHealth(Long healthId) {
+        HealthEntity healthEntity = healthRepository.findById(healthId)
+            .orElseThrow(() -> new BadRequestException("Health not found"));
+        return HealthResponse.of(healthEntity);
     }
     
 }
