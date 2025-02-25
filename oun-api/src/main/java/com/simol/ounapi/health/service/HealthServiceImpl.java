@@ -39,7 +39,7 @@ public class HealthServiceImpl implements HealthService {
         HealthEntity healthEntity = HealthEntity.create(healthCreateRequest, routineEntity, user);
         HealthEntity saveHealth = healthRepository.save(healthEntity);
 
-        return HealthCreateResponse.create(saveHealth);
+        return HealthCreateResponse.of(saveHealth);
     }
     
 }

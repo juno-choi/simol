@@ -3,6 +3,7 @@ package com.simol.ouncommon.routine.vo;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.simol.ouncommon.routine.entity.RoutineEntity;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,4 +32,15 @@ public class RoutineCreateResponse {
     @Schema(description = "루틴 수정일", example = "2025-01-01T00:00:00")
     @JsonProperty("updated_at") 
     private LocalDateTime updatedAt;
+    
+    public static RoutineCreateResponse of(RoutineEntity routineEntity) {
+        return RoutineCreateResponse.builder()
+            .routineId(routineEntity.getId())
+            .name(routineEntity.getName())
+            .description(routineEntity.getDescription())
+            .status(routineEntity.getStatus())
+            .createdAt(routineEntity.getCreatedAt())
+            .updatedAt(routineEntity.getUpdatedAt())
+            .build();
+    }
 }

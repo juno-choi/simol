@@ -34,14 +34,7 @@ public class RoutineServiceImpl implements RoutineService {
         RoutineEntity requestRoutineEntity = RoutineEntity.create(routineCreateRequest.getName(), routineCreateRequest.getDescription(), user);
         RoutineEntity routineEntity = routineRepository.save(requestRoutineEntity);
 
-        return RoutineCreateResponse.builder()
-            .routineId(routineEntity.getId())
-            .name(routineEntity.getName())
-            .description(routineEntity.getDescription())
-            .status(routineEntity.getStatus())
-            .createdAt(routineEntity.getCreatedAt())
-            .updatedAt(routineEntity.getUpdatedAt())
-            .build();
+        return RoutineCreateResponse.of(routineEntity);
     }
 
     @Override

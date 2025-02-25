@@ -44,7 +44,7 @@ public class HealthCreateResponse {
     @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
 
-    public static HealthCreateResponse create(HealthEntity saveHealth) {
+    public static HealthCreateResponse of(HealthEntity saveHealth) {
         return HealthCreateResponse.builder()
             .healthId(saveHealth.getId())
             .name(saveHealth.getName())
