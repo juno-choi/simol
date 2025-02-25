@@ -7,5 +7,5 @@ public enum HealthStatus {
     ACTIVE("활성"),
     INACTIVE("비활성")
     ;
-    private String description;
+    public String description;
 }
