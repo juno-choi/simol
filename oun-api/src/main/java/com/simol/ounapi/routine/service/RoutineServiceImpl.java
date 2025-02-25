@@ -23,7 +23,7 @@ public class RoutineServiceImpl implements RoutineService {
     @Override
     public RoutineCreateResponse createRoutine(RoutineCreateRequest routineCreateRequest, HttpServletRequest request) {
         long userId = Long.parseLong(request.getAttribute("userId").toString());
-        // todo userId로 user를 조회하여 routine에 넣어주기
+        
         UserEntity user = usersRepository.findById(userId)
             .orElseThrow(() -> new BadRequestException("User not found"));
 
