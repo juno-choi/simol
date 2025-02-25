@@ -39,6 +39,7 @@ erDiagram
         bigint health_id PK "자동 증가"
         bigint routine_id FK "routine ID"
         varchar name "health 이름"
+        int sort "순서"
         enum status "health 상태 (ACTIVE, INACTIVE)"
     }
 

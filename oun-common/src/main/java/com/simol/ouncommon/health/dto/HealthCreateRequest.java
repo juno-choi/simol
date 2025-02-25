@@ -23,4 +23,7 @@ public class HealthCreateRequest {
 
     @Schema(description = "설명", example = "허리 꽂꽂히 아래에 내려가서는 천천히 올라오기!")
     private String description;
+
+    @Schema(description = "순서", example = "1")
+    private int sort;
 }

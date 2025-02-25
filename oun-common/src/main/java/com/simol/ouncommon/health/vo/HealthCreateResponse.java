@@ -3,6 +3,8 @@ package com.simol.ouncommon.health.vo;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.simol.ouncommon.health.entity.HealthEntity;
+import com.simol.ouncommon.health.enums.HealthStatus;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,13 @@ public class HealthCreateResponse {
     @JsonProperty("description")
     private String description;
 
+    @Schema(description = "순서", example = "1")
+    private int sort;
+
+    @Schema(description = "상태", example = "활성")
+    @JsonProperty("status")
+    private HealthStatus status;
+
     @Schema(description = "생성일", example = "2025-01-01 12:00:00")
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
@@ -34,4 +43,16 @@ public class HealthCreateResponse {
     @Schema(description = "수정일", example = "2025-01-01 12:00:00")
     @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
+
+    public static HealthCreateResponse create(HealthEntity saveHealth) {
+        return HealthCreateResponse.builder()
+            .healthId(saveHealth.getId())
+            .name(saveHealth.getName())
+            .description(saveHealth.getDescription())
+            .sort(saveHealth.getSort())
+            .status(saveHealth.getStatus())
+            .createdAt(saveHealth.getCreatedAt())
+            .updatedAt(saveHealth.getUpdatedAt())
+            .build();
+    }
 }

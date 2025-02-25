@@ -1,6 +1,8 @@
 package com.simol.ounapi.routine.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -16,11 +18,13 @@ import com.simol.ouncommon.routine.vo.RoutineResponse;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RoutineServiceImpl implements RoutineService {
     private final RoutineRepository routineRepository;
     private final UsersRepository usersRepository;
     
     @Override
+    @Transactional
     public RoutineCreateResponse createRoutine(RoutineCreateRequest routineCreateRequest, HttpServletRequest request) {
         long userId = Long.parseLong(request.getAttribute("userId").toString());
         

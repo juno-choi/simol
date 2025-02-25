@@ -1,9 +1,15 @@
 package com.simol.ouncommon.health.entity;
 
+import com.simol.ouncommon.auth.entity.UserEntity;
+import com.simol.ouncommon.global.entity.GlobalEntity;
+import com.simol.ouncommon.health.dto.HealthCreateRequest;
+import com.simol.ouncommon.health.enums.HealthStatus;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +29,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class HealthEntity {
+public class HealthEntity extends GlobalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "health_id")
@@ -34,12 +40,27 @@ public class HealthEntity {
     @JoinColumn(name = "routine_id")
     private RoutineEntity routine;
 
-    // 건강 이름
-    @Column(name = "name")
+    // health 상태
+    @Enumerated(EnumType.STRING)
+    private HealthStatus status;
+
+    // health 이름
     private String name;
 
-    // 건강 설명
-    @Column(name = "description")
+    // health 설명
     private String description;
+
+    // health 순서
+    private int sort;
+
+    public static HealthEntity create(HealthCreateRequest healthCreateRequest, RoutineEntity routine, UserEntity user) {
+        return HealthEntity.builder()
+                .routine(routine)
+                .name(healthCreateRequest.getName())
+                .description(healthCreateRequest.getDescription())
+                .sort(healthCreateRequest.getSort())
+                .status(HealthStatus.ACTIVE)
+                .build();
+    }
 
 }
