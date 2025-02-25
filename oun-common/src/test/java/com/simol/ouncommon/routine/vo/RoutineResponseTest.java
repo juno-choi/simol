@@ -1,7 +1,5 @@
 package com.simol.ouncommon.routine.vo;
 
-import java.time.LocalDateTime;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
