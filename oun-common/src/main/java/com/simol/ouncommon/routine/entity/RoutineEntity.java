@@ -1,8 +1,7 @@
 package com.simol.ouncommon.routine.entity;
 
-import java.time.LocalDateTime;
-
 import com.simol.ouncommon.auth.entity.UserEntity;
+import com.simol.ouncommon.global.entity.GlobalEntity;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import jakarta.persistence.Column;
@@ -15,8 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RoutineEntity {
+public class RoutineEntity extends GlobalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "routine_id")
@@ -49,24 +46,6 @@ public class RoutineEntity {
 
     @Enumerated(EnumType.STRING)
     private RoutineStatus status;   //루틴 상태
-
-    @Column(nullable = false)
-    private LocalDateTime createdAt; //루틴 생성일
-
-    @Column(nullable = false)
-    private LocalDateTime updatedAt; //루틴 수정일
-
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-    
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
 
     public static RoutineEntity create(String name, String description, UserEntity user) {
         return RoutineEntity.builder()
