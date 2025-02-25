@@ -16,8 +16,6 @@ public class RoutineResponseTest {
             .name("test")
             .description("test")
             .status(RoutineStatus.ACTIVE)
-            .createdAt(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
             .build();
 
         RoutineResponse response = RoutineResponse.of(routine);
