@@ -1,6 +1,10 @@
 # 🔴 project 실행
 
-## 1. redis 실행
+## 🟠 Reference
+
+[참고자료](./global/reference/README.md)
+
+## 🟠 redis 실행
 
 colima or docker desktop 설치 후
 ```bash
