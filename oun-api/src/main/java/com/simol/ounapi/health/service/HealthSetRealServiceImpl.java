@@ -9,6 +9,7 @@ import com.simol.ouncommon.health.repository.HealthSetRealRepository;
 import com.simol.ouncommon.health.repository.HealthSetRepository;
 import com.simol.ouncommon.health.service.HealthSetRealService;
 import com.simol.ouncommon.health.vo.HealthSetRealCreateResponse;
+import com.simol.ouncommon.health.vo.HealthSetRealResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +19,7 @@ public class HealthSetRealServiceImpl implements HealthSetRealService {
     private final HealthSetRealRepository healthSetRealRepository;
     private final HealthSetRepository healthSetRepository;
     @Override
-    public HealthSetRealCreateResponse create(HealthSetRealCreateRequest healthSetRealCreateRequest) {
+    public HealthSetRealCreateResponse createHealthSetReal(HealthSetRealCreateRequest healthSetRealCreateRequest) {
         HealthSetEntity healthSet = healthSetRepository.findById(healthSetRealCreateRequest.getHealthSetId())
             .orElseThrow(() -> new RuntimeException("HealthSet not found"));
 
@@ -26,5 +27,12 @@ public class HealthSetRealServiceImpl implements HealthSetRealService {
         HealthSetRealEntity savedHealthSetReal = healthSetRealRepository.save(healthSetReal);
 
         return HealthSetRealCreateResponse.of(savedHealthSetReal);
+    }
+    @Override
+    public HealthSetRealResponse getHealthSetReal(Long healthSetRealId) {
+        HealthSetRealEntity healthSetReal = healthSetRealRepository.findById(healthSetRealId)
+            .orElseThrow(() -> new RuntimeException("HealthSetReal not found"));
+
+        return HealthSetRealResponse.of(healthSetReal);
     }
 }

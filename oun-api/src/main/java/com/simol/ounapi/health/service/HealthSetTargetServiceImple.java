@@ -10,6 +10,7 @@ import com.simol.ouncommon.health.repository.HealthSetRepository;
 import com.simol.ouncommon.health.repository.HealthSetTargetRepository;
 import com.simol.ouncommon.health.service.HealthSetTargetService;
 import com.simol.ouncommon.health.vo.HealthSetTargetCreateResponse;
+import com.simol.ouncommon.health.vo.HealthSetTargetResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,13 @@ public class HealthSetTargetServiceImple implements HealthSetTargetService{
         HealthSetTargetEntity savedHealthSetTarget = healthSetTargetRepository.save(healthSetTarget);
 
         return HealthSetTargetCreateResponse.of(savedHealthSetTarget);
+    }
+    @Override
+    public HealthSetTargetResponse getHealthSetTarget(Long healthSetTargetId) {
+        HealthSetTargetEntity healthSetTarget = healthSetTargetRepository.findById(healthSetTargetId)
+            .orElseThrow(() -> new BadRequestException("HealthSetTarget not found"));
+
+        return HealthSetTargetResponse.of(healthSetTarget);
     }
     
 }
