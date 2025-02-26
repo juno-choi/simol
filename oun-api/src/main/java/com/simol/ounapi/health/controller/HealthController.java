@@ -44,13 +44,13 @@ public class HealthController {
         return ResponseEntity.ok(CommonApi.create(healthCreateResponse));
     }
 
-    @GetMapping("/{healthId}")
+    @GetMapping("/{health_id}")
     @Operation(summary = "2. 운동 조회", description = "운동을 조회합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = HealthResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
     })
-    public ResponseEntity<CommonApi<HealthResponse>> getHealth(@PathVariable Long healthId) {
+    public ResponseEntity<CommonApi<HealthResponse>> getHealth(@PathVariable(name = "health_id") Long healthId) {
         HealthResponse healthResponse = healthService.getHealth(healthId);
         return ResponseEntity.ok(CommonApi.create(healthResponse));
     }

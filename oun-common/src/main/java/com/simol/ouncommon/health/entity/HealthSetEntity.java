@@ -3,7 +3,7 @@ package com.simol.ouncommon.health.entity;
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
 import com.simol.ouncommon.health.dto.HealthSetCreateRequest;
-import com.simol.ouncommon.health.enums.HealthDetailStatus;
+import com.simol.ouncommon.health.enums.HealthSetStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,14 +43,14 @@ public class HealthSetEntity extends GlobalEntity {
     private int sort;
 
     @Enumerated(EnumType.STRING)
-    private HealthDetailStatus status;
+    private HealthSetStatus status;
 
     public static HealthSetEntity create(HealthSetCreateRequest healthDetailCreateRequest, HealthEntity health, UserEntity user) {
         return HealthSetEntity.builder()
             .health(health)
             .description(healthDetailCreateRequest.getDescription())
             .sort(healthDetailCreateRequest.getSort())
-            .status(HealthDetailStatus.ACTIVE)
+            .status(HealthSetStatus.ACTIVE)
             .build();
     }
 }

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.simol.ouncommon.health.entity.HealthSetEntity;
 
-public interface HealthDetailRepository extends JpaRepository<HealthSetEntity, Long> {
+public interface HealthSetRepository extends JpaRepository<HealthSetEntity, Long> {
     
 }
