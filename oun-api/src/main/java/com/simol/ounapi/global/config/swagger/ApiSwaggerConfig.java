@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

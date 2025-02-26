@@ -1,5 +1,6 @@
 package com.simol.ounapi.health.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.ErrorResponse;
@@ -39,8 +40,8 @@ public class HealthSetController {
         @ApiResponse(responseCode = "400", description = "운동 세트 생성 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<CommonApi<HealthSetCreateResponse>> createHealthSet(@RequestBody @Validated HealthSetCreateRequest healthDetailCreateRequest, HttpServletRequest request) {
-        HealthSetCreateResponse healthSetCreateResponse = healthDetailService.createHealthSet(healthDetailCreateRequest, request);
-        return ResponseEntity.ok(CommonApi.create(healthSetCreateResponse));
+        HealthSetCreateResponse healthSetCreateResponse = healthDetailService.createHealthSet(healthDetailCreateRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(CommonApi.create(healthSetCreateResponse));
     }
 
     @GetMapping("/{health_set_id}")

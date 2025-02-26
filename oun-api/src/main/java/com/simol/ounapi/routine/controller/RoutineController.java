@@ -1,5 +1,6 @@
 package com.simol.ounapi.routine.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +44,7 @@ public class RoutineController {
         @RequestBody RoutineCreateRequest routineCreateRequest, HttpServletRequest request
     ) {
         RoutineCreateResponse routineCreateResponse = routineService.createRoutine(routineCreateRequest, request);
-        return ResponseEntity.ok(CommonApi.create(routineCreateResponse));
+        return ResponseEntity.status(HttpStatus.CREATED).body(CommonApi.create(routineCreateResponse));
     }
 
     @GetMapping("/{routine_id}")

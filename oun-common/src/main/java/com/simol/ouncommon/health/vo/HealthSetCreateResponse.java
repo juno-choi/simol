@@ -24,12 +24,12 @@ public class HealthSetCreateResponse {
     private int sort;
     private HealthSetStatus status;
 
-    public static HealthSetCreateResponse of(HealthSetEntity healthDetailEntity) {
+    public static HealthSetCreateResponse of(HealthSetEntity healthSetEntity) {
         return HealthSetCreateResponse.builder()
-            .id(healthDetailEntity.getId())
-            .description(healthDetailEntity.getDescription())
-            .sort(healthDetailEntity.getSort())
-            .status(healthDetailEntity.getStatus())
+            .id(healthSetEntity.getId())
+            .description(healthSetEntity.getDescription())
+            .sort(healthSetEntity.getSort())
+            .status(healthSetEntity.getStatus())
             .build();
     }   
 }

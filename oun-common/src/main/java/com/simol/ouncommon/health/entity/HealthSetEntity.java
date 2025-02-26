@@ -1,6 +1,5 @@
 package com.simol.ouncommon.health.entity;
 
-import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
 import com.simol.ouncommon.health.dto.HealthSetCreateRequest;
 import com.simol.ouncommon.health.enums.HealthSetStatus;
@@ -45,7 +44,7 @@ public class HealthSetEntity extends GlobalEntity {
     @Enumerated(EnumType.STRING)
     private HealthSetStatus status;
 
-    public static HealthSetEntity create(HealthSetCreateRequest healthDetailCreateRequest, HealthEntity health, UserEntity user) {
+    public static HealthSetEntity create(HealthSetCreateRequest healthDetailCreateRequest, HealthEntity health) {
         return HealthSetEntity.builder()
             .health(health)
             .description(healthDetailCreateRequest.getDescription())
