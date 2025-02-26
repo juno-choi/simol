@@ -6,8 +6,11 @@ import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.simol.ouncommon.exception.UnAuthorizedException;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -29,7 +32,8 @@ public class AuthFilter extends OncePerRequestFilter{
         "/swagger-resources/**",
         "/h2-console",
         "/h2-console/**",
-        "/test/**"
+        "/test/**",
+        "/favicon.ico"
     );
 
     @Override
@@ -44,13 +48,26 @@ public class AuthFilter extends OncePerRequestFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        log.info("requestURI: {}", request.getRequestURI());
+        log.info("인증 requestURI: {}", request.getRequestURI());
 
         // 인증 처리
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-        Authentication authentication = apiJwtTokenProvider.getAuthentication(token);
 
-        request.setAttribute("memberId", authentication.getName());
+        final String PREFIX = "Bearer ";
+
+        if (token == null) {
+            throw new UnAuthorizedException("token is null.");
+        }
+        if (!token.startsWith(PREFIX)) {
+            throw new UnAuthorizedException("token format is invalid.");
+        }
+
+        token = token.substring(PREFIX.length());
+
+        Authentication authentication = apiJwtTokenProvider.getAuthentication(token);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        request.setAttribute("userId", authentication.getName());
         request.setAttribute("authorities", authentication.getAuthorities());
         
         // 정상 처리
