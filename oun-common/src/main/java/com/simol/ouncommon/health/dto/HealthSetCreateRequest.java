@@ -1,7 +1,5 @@
 package com.simol.ouncommon.health.dto;
 
-import java.util.Optional;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.v3.oas.annotations.media.Schema;
