@@ -57,17 +57,21 @@ erDiagram
 
     HealthSetTarget {
         bigint health_set_target_id PK "자동 증가"
+        bigint health_set_id FK "health set id"
         int number "목표 횟수"
         int weight "목표 무게"
         int distance "목표 거리"
+        int time "목표 수행 시간"
         int spped "목표 속도"
     }
 
     HealthSetReal {
         bigint health_set_real_id PK "자동 증가"
+        bigint health_set_id FK "health set id"
         int number "실제 횟수"
         int weight "실제 무게"
         int distance "실제 거리"
+        int time "실제 수행 시간"
         int spped "실제 속도"
     }
     
