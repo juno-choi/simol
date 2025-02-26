@@ -1,5 +1,6 @@
 package com.simol.ounapi.health.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,31 +27,31 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/health")
+@RequestMapping("/api/routine/health")
 @RequiredArgsConstructor
-@Tag(name = "Health", description = "운동 관리 API")
+@Tag(name = "02. Health", description = "운동 관리 API")
 @SecurityRequirement(name = "bearerAuth")
 public class HealthController {
     private final HealthService healthService;
     
     @PostMapping
-    @Operation(summary = "운동 생성", description = "운동을 생성합니다.", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "1. 운동 생성", description = "운동을 생성합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = HealthCreateResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
     })
     public ResponseEntity<CommonApi<HealthCreateResponse>> createHealth(@RequestBody HealthCreateRequest healthCreateRequest, HttpServletRequest request) {
         HealthCreateResponse healthCreateResponse = healthService.createHealth(healthCreateRequest, request);
-        return ResponseEntity.ok(CommonApi.create(healthCreateResponse));
+        return ResponseEntity.status(HttpStatus.CREATED).body(CommonApi.create(healthCreateResponse));
     }
 
-    @GetMapping("/{healthId}")
-    @Operation(summary = "운동 조회", description = "운동을 조회합니다.", security = @SecurityRequirement(name = "bearerAuth"))
+    @GetMapping("/{health_id}")
+    @Operation(summary = "2. 운동 조회", description = "운동을 조회합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = HealthResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
     })
-    public ResponseEntity<CommonApi<HealthResponse>> getHealth(@PathVariable Long healthId) {
+    public ResponseEntity<CommonApi<HealthResponse>> getHealth(@PathVariable(name = "health_id") Long healthId) {
         HealthResponse healthResponse = healthService.getHealth(healthId);
         return ResponseEntity.ok(CommonApi.create(healthResponse));
     }

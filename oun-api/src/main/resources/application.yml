@@ -25,3 +25,11 @@ spring:
 
 jwt:
   secret-key: ${JWT_SECRET_KEY:oun_temp_secret_key_123456789012}
+
+springdoc:
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    persist-authorization: true # 브라우저를 새로고침 하더라도 인증정보 유지
+    urlsPrimaryName: total api
+    groups-order: desc

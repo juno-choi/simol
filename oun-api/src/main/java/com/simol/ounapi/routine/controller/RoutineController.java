@@ -1,5 +1,6 @@
 package com.simol.ounapi.routine.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,13 +29,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/routine")
 @RequiredArgsConstructor
-@Tag(name = "루틴 API")
+@Tag(name = "01. Routine", description = "루틴 API")
 @SecurityRequirement(name = "bearerAuth")  // swagger security 설정
 public class RoutineController {
     private final RoutineService routineService;
 
     @PostMapping
-    @Operation(summary = "루틴 생성", description = "루틴을 생성합니다.")
+    @Operation(summary = "1. routine 생성", description = "루틴을 생성합니다.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = RoutineCreateResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
@@ -43,11 +44,11 @@ public class RoutineController {
         @RequestBody RoutineCreateRequest routineCreateRequest, HttpServletRequest request
     ) {
         RoutineCreateResponse routineCreateResponse = routineService.createRoutine(routineCreateRequest, request);
-        return ResponseEntity.ok(CommonApi.create(routineCreateResponse));
+        return ResponseEntity.status(HttpStatus.CREATED).body(CommonApi.create(routineCreateResponse));
     }
 
     @GetMapping("/{routine_id}")
-    @Operation(summary = "루틴 조회", description = "루틴을 조회합니다.")
+    @Operation(summary = "2. routine 조회", description = "루틴을 조회합니다.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = RoutineResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),

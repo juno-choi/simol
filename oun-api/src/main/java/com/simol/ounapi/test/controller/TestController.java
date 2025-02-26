@@ -44,7 +44,8 @@ public class TestController {
         
     })
     public ResponseEntity<CommonApi<String>> error() {
-        if (true) {
+        String test = "A";
+        if ("A".equals(test)) {
             throw new BadRequestException("test");
         }
         return ResponseEntity.ok(CommonApi.of("0000", "success", "test"));
