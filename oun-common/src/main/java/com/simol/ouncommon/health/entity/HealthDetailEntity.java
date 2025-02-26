@@ -23,7 +23,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "health_detail")
+@Table(name = "HEALTH_DETAIL")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,7 +40,7 @@ public class HealthDetailEntity extends GlobalEntity {
 
     private String description;
     
-    private int set;
+    private int sets;   //세트 set이 예약어라 sets로 변경
 
     private int count;
     
@@ -59,7 +59,7 @@ public class HealthDetailEntity extends GlobalEntity {
         return HealthDetailEntity.builder()
             .health(health)
             .description(healthDetailCreateRequest.getDescription())
-            .set(healthDetailCreateRequest.getSet())
+            .sets(healthDetailCreateRequest.getSets())
             .count(healthDetailCreateRequest.getCount())
             .weight(healthDetailCreateRequest.getWeight())
             .distance(healthDetailCreateRequest.getDistance())

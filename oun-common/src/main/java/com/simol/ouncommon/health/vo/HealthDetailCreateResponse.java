@@ -1,5 +1,8 @@
 package com.simol.ouncommon.health.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.simol.ouncommon.health.entity.HealthDetailEntity;
 import com.simol.ouncommon.health.enums.HealthDetailStatus;
 
@@ -13,10 +16,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class HealthDetailCreateResponse {
     private Long id;
     private String description;
-    private int set;
+    private int sets;
     private int count;
     private int weight;
     private int distance;
@@ -28,7 +33,7 @@ public class HealthDetailCreateResponse {
         return HealthDetailCreateResponse.builder()
             .id(healthDetailEntity.getId())
             .description(healthDetailEntity.getDescription())
-            .set(healthDetailEntity.getSet())
+            .sets(healthDetailEntity.getSets())
             .count(healthDetailEntity.getCount())
             .weight(healthDetailEntity.getWeight())
             .distance(healthDetailEntity.getDistance())

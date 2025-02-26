@@ -17,12 +17,12 @@ public class HealthDetailCreateRequest {
     @Schema(description = "운동 아이디", example = "1")
     private Long healthId;
 
-    @Schema(description = "설명", example = "팔굽혀펴기 설명")
+    @Schema(description = "설명", example = "스쿼트 설명")
     private String description;
 
     @NotNull(message = "세트는 필수 입력 값입니다.")
     @Schema(description = "세트(정렬 기준)", example = "10")
-    private int set;
+    private int sets;
 
     @Schema(description = "횟수", example = "10")
     private int count;
@@ -47,8 +47,8 @@ public class HealthDetailCreateRequest {
         return description;
     }
 
-    public int getSet() {
-        return set;
+    public int getSets() {
+        return sets;
     }
 
     public int getCount() {
