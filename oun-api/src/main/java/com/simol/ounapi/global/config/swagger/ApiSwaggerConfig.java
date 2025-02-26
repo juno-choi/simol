@@ -1,7 +1,10 @@
 package com.simol.ounapi.global.config.swagger;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 
@@ -33,5 +37,14 @@ public class ApiSwaggerConfig {
                 .version("0.0.1")
                 .description("OUN API")
             );
+    }
+
+    // Sort Schema Alphabetically
+    @Bean
+    public OpenApiCustomizer sortSchemasAlphabetically() {
+        return openApi -> {
+            Map<String, Schema> schemas = openApi.getComponents().getSchemas();
+            openApi.getComponents().setSchemas(new TreeMap<>(schemas));
+        };
     }
 }
