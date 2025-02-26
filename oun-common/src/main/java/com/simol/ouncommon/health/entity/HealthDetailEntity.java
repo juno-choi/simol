@@ -1,6 +1,8 @@
 package com.simol.ouncommon.health.entity;
 
+import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
+import com.simol.ouncommon.health.dto.HealthDetailCreateRequest;
 import com.simol.ouncommon.health.enums.HealthDetailStatus;
 
 import jakarta.persistence.Column;
@@ -36,8 +38,6 @@ public class HealthDetailEntity extends GlobalEntity {
     @JoinColumn(name = "health_id")
     private HealthEntity health;
 
-    private String name;
-
     private String description;
     
     private int set;
@@ -50,6 +50,22 @@ public class HealthDetailEntity extends GlobalEntity {
 
     private int speed;
 
+    private int time;
+
     @Enumerated(EnumType.STRING)
     private HealthDetailStatus status;
+
+    public static HealthDetailEntity create(HealthDetailCreateRequest healthDetailCreateRequest, HealthEntity health, UserEntity user) {
+        return HealthDetailEntity.builder()
+            .health(health)
+            .description(healthDetailCreateRequest.getDescription())
+            .set(healthDetailCreateRequest.getSet())
+            .count(healthDetailCreateRequest.getCount())
+            .weight(healthDetailCreateRequest.getWeight())
+            .distance(healthDetailCreateRequest.getDistance())
+            .speed(healthDetailCreateRequest.getSpeed())
+            .time(healthDetailCreateRequest.getTime())
+            .status(HealthDetailStatus.ACTIVE)
+            .build();
+    }
 }
