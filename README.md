@@ -50,6 +50,7 @@ erDiagram
     HealthSet {
         bigint health_set_id PK "자동 증가"
         bigint health_id FK "health ID"
+        varchar description "세트에 대한 설명"
         int sort "순서"
         enum status "health detail 상태 (ACTIVE, INACTIVE)"
     }

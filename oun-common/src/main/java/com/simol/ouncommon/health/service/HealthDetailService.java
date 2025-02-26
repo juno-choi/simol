@@ -1,10 +1,10 @@
 package com.simol.ouncommon.health.service;
 
-import com.simol.ouncommon.health.dto.HealthDetailCreateRequest;
-import com.simol.ouncommon.health.vo.HealthDetailCreateResponse;
+import com.simol.ouncommon.health.dto.HealthSetCreateRequest;
+import com.simol.ouncommon.health.vo.HealthSetCreateResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface HealthDetailService {
-    HealthDetailCreateResponse createHealthDetail(HealthDetailCreateRequest healthDetailCreateRequest, HttpServletRequest request);
+    HealthSetCreateResponse createHealthDetail(HealthSetCreateRequest healthDetailCreateRequest, HttpServletRequest request);
 }

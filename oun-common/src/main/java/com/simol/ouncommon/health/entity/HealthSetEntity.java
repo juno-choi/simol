@@ -2,7 +2,7 @@ package com.simol.ouncommon.health.entity;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
-import com.simol.ouncommon.health.dto.HealthDetailCreateRequest;
+import com.simol.ouncommon.health.dto.HealthSetCreateRequest;
 import com.simol.ouncommon.health.enums.HealthDetailStatus;
 
 import jakarta.persistence.Column;
@@ -23,15 +23,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "HEALTH_DETAIL")
+@Table(name = "HEALTH_SET")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class HealthDetailEntity extends GlobalEntity {
+public class HealthSetEntity extends GlobalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "health_detail_id")
+    @Column(name = "health_set_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,31 +40,16 @@ public class HealthDetailEntity extends GlobalEntity {
 
     private String description;
     
-    private int sets;   //세트 set이 예약어라 sets로 변경
-
-    private int count;
-    
-    private int weight;
-
-    private int distance;
-
-    private int speed;
-
-    private int time;
+    private int sort;
 
     @Enumerated(EnumType.STRING)
     private HealthDetailStatus status;
 
-    public static HealthDetailEntity create(HealthDetailCreateRequest healthDetailCreateRequest, HealthEntity health, UserEntity user) {
-        return HealthDetailEntity.builder()
+    public static HealthSetEntity create(HealthSetCreateRequest healthDetailCreateRequest, HealthEntity health, UserEntity user) {
+        return HealthSetEntity.builder()
             .health(health)
             .description(healthDetailCreateRequest.getDescription())
-            .sets(healthDetailCreateRequest.getSets())
-            .count(healthDetailCreateRequest.getCount())
-            .weight(healthDetailCreateRequest.getWeight())
-            .distance(healthDetailCreateRequest.getDistance())
-            .speed(healthDetailCreateRequest.getSpeed())
-            .time(healthDetailCreateRequest.getTime())
+            .sort(healthDetailCreateRequest.getSort())
             .status(HealthDetailStatus.ACTIVE)
             .build();
     }
