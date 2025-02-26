@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class HealthDetailServiceImpl implements HealthDetailService {
+public class HealthSetServiceImpl implements HealthDetailService {
     private final UsersRepository usersRepository;
     private final HealthRepository healthRepository;
     private final HealthDetailRepository healthDetailRepository;

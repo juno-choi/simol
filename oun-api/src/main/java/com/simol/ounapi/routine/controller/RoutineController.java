@@ -28,13 +28,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/routine")
 @RequiredArgsConstructor
-@Tag(name = "루틴 API")
+@Tag(name = "Routine", description = "루틴 API")
 @SecurityRequirement(name = "bearerAuth")  // swagger security 설정
 public class RoutineController {
     private final RoutineService routineService;
 
     @PostMapping
-    @Operation(summary = "루틴 생성", description = "루틴을 생성합니다.")
+    @Operation(summary = "routine 생성", description = "루틴을 생성합니다.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = RoutineCreateResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
@@ -47,7 +47,7 @@ public class RoutineController {
     }
 
     @GetMapping("/{routine_id}")
-    @Operation(summary = "루틴 조회", description = "루틴을 조회합니다.")
+    @Operation(summary = "routine 조회", description = "루틴을 조회합니다.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = RoutineResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),

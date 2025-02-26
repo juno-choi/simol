@@ -17,10 +17,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/health/detail")
-@Tag(name = "HealthDetail", description = "운동 상세 정보 API")
+@RequestMapping("/api/health/set")
+@Tag(name = "HealthSet", description = "운동 세트 정보 API")
 @RequiredArgsConstructor
-public class HealthDetailController {
+public class HealthSetController {
     private final HealthDetailService healthDetailService;
 
     @PostMapping
