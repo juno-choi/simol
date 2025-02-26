@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.springdoc.core.customizers.OpenApiCustomizer;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -39,12 +40,28 @@ public class ApiSwaggerConfig {
             );
     }
 
-    // Sort Schema Alphabetically
     @Bean
-    public OpenApiCustomizer sortSchemasAlphabetically() {
-        return openApi -> {
-            Map<String, Schema> schemas = openApi.getComponents().getSchemas();
-            openApi.getComponents().setSchemas(new TreeMap<>(schemas));
-        };
+    public GroupedOpenApi routineApi() {
+        return GroupedOpenApi.builder()
+            .group("routine api")
+            .pathsToMatch("/api/routine/**")
+            .addOpenApiCustomizer(openApi -> {
+                Map<String, Schema> schemas = openApi.getComponents().getSchemas();
+                openApi.getComponents().setSchemas(new TreeMap<>(schemas));
+            })
+            .build();
     }
+
+    @Bean
+    public GroupedOpenApi totalApi() {
+        return GroupedOpenApi.builder()
+            .group("total api")
+            .pathsToMatch("/**")
+            .addOpenApiCustomizer(openApi -> {
+                Map<String, Schema> schemas = openApi.getComponents().getSchemas();
+                openApi.getComponents().setSchemas(new TreeMap<>(schemas));
+            })
+            .build();
+    }
+
 }
