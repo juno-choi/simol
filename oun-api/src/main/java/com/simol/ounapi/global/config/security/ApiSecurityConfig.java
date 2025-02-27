@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.simol.ounapi.global.auth.ApiAccessDeniedHandler;
+import com.simol.ounapi.global.auth.ApiAuthenticationEntryPoint;
 import com.simol.ounapi.global.auth.ApiJwtTokenProvider;
 import com.simol.ounapi.global.auth.AuthFilter;
 
@@ -23,6 +25,8 @@ public class ApiSecurityConfig {
     private final ApiJwtTokenProvider apiJwtTokenProvider;
     private final String[] WHITE_LIST = {"/test", "/test/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**"};
     private final String[] USER_LIST = {"/api/**"};
+    private final ApiAuthenticationEntryPoint apiAuthenticationEntryPoint;
+    private final ApiAccessDeniedHandler apiAccessDeniedHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -37,6 +41,10 @@ public class ApiSecurityConfig {
                 .anyRequest().authenticated()
             )
             .addFilterBefore(new AuthFilter(apiJwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+            .exceptionHandling(exception -> exception
+                .authenticationEntryPoint(apiAuthenticationEntryPoint)
+                .accessDeniedHandler(apiAccessDeniedHandler)
+            )
             .build();
     }
 

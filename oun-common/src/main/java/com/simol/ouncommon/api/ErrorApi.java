@@ -26,4 +26,20 @@ public class ErrorApi {
             .errors(errors)
             .build();
     }
+
+    public static ErrorApi unauthorized(String message, List<ErrorDto> errors) {
+        return ErrorApi.builder()
+            .code("0401")
+            .message(message)
+            .errors(errors)
+            .build();
+    }
+
+    public static ErrorApi accessDenied(String message, List<ErrorDto> errors) {
+        return ErrorApi.builder()
+            .code("0403")
+            .message(message)
+            .errors(errors)
+            .build();
+    }
 }
