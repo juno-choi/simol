@@ -45,6 +45,7 @@ public class ApiSwaggerConfig {
             .group("routine api")
             .pathsToMatch("/api/routine/**")
             .addOpenApiCustomizer(openApi -> {
+                @SuppressWarnings("rawtypes")
                 Map<String, Schema> schemas = openApi.getComponents().getSchemas();
                 openApi.getComponents().setSchemas(new TreeMap<>(schemas));
             })
@@ -57,6 +58,7 @@ public class ApiSwaggerConfig {
             .group("total api")
             .pathsToMatch("/**")
             .addOpenApiCustomizer(openApi -> {
+                @SuppressWarnings("rawtypes")
                 Map<String, Schema> schemas = openApi.getComponents().getSchemas();
                 openApi.getComponents().setSchemas(new TreeMap<>(schemas));
             })
