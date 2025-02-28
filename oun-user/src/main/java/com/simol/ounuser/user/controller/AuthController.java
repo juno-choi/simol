@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/api/user/auth")
+@RequestMapping("/user/auth")
 @RequiredArgsConstructor
 @Tag(name = "Auth", description = "인증 API")
 public class AuthController {
