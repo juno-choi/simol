@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  oun-user:
+    container_name: ${CONTAINER_NAME}
+    build: .
+    ports:
+      - 8081:8080
+    environment:
+      - TZ=Asia/Seoul
+      - SERVER_PROFILE=${SERVER_PROFILE}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    networks:
+      - oun-network  # 네트워크 연결 추가
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
+# oun-user와 redis 네트워크 동일하게 처리
+networks:
+  oun-network:
+    name: oun-network
+    driver: bridge

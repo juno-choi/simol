@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  oun-mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: oun-mysql
+    environment:
+      - MYSQL_DATABASE=oun
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - oun-network
+
+volumes:
+  mysql-data:
+
+networks:
+  oun-network:
+    name: oun-network
+    driver: bridge

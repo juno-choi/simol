@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  oun-user:
+    container_name: ${CONTAINER_NAME}
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Asia/Seoul
+      - SERVER_PROFILE=${SERVER_PROFILE}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    networks:
+      - oun-network  # 네트워크 연결 추가
+
+# oun-user와 redis 네트워크 동일하게 처리
+networks:
+  oun-network:
+    name: oun-network
+    driver: bridge

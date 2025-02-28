@@ -1,7 +1,17 @@
 version: '3.7'
 services:
   redis:
-    container_name: redis
-    image: redis
+    container_name: oun-redis
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 6379:6379
+    networks:
+      - oun-network
+      
+networks:
+  oun-network:
+    name: oun-network
+    driver: bridge
+
