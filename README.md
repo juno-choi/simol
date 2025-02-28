@@ -34,6 +34,27 @@ MYSQL_PASSWORD=your_db_user_password
 MYSQL_ROOT_PASSWORD=your_db_root_password
 ```
 
+### 🟢 mysql 환경 변수 설정
+
+```
+MYSQL_USER=your_db_user
+MYSQL_PASSWORD=your_db_user_password
+MYSQL_ROOT_PASSWORD=your_db_root_password
+```
+
+### 🟢 traefik 환경 변수 설정
+
+```
+CONTAINER_NAME=oun-auth
+SERVER_PROFILE=dev
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+JWT_SECRET_KEY=your_jwt_secret_key
+MYSQL_USER=your_db_user
+MYSQL_PASSWORD=your_db_user_password
+MYSQL_ROOT_PASSWORD=your_db_root_password
+```
+
 ## 🟠 project 실행
 
 모든 실행 전
