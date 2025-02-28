@@ -1,19 +1,40 @@
 # 🔴 project 실행
 
-## 🟠 Reference
+## 🟠 project 환경변수 설정
 
-[참고자료](./global/reference/README.md)
+### 🟢 oun-user 환경 변수 설정
+oun-user 폴더 내 `.env` 파일에 아래 환경 변수를 설정해주세요.
 
-## 🟠 redis 실행
-
-colima or docker desktop 설치 후
-```bash
-colima start
+```
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+JWT_SECRET_KEY=your_jwt_secret_key
 ```
 
+## 🟠 project 실행
+
+모든 실행 전
+
 ```bash
-docker-compose -f redis/docker-compose.yml up -d
+./gradlew clean build
 ```
+실행 후 진행해주세요~!
+
+### 🟢 oun-user만 실행
+
+```bash
+docker-compose -f ./oun-user/docker-compose.yml up -d --build
+```
+
+### 🟢 local에서 개발시
+
+```bash
+docker-compose -f ./redis/docker-compose.yml up -d --build
+```
+
+로컬에서 개발툴로 실행시 redis 서버를 실행하여 진행해주세요.
+
+# 🔴 project 구성
 
 ## 🟠 oun ERD
 
@@ -81,3 +102,7 @@ erDiagram
     HealthSet ||--|| HealthSetTarget : "1 1"
     HealthSet ||--|| HealthSetReal : "1 1"
 ```
+
+# 📗 Reference
+
+[참고자료](./global/reference/README.md)
