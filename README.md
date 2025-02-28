@@ -2,14 +2,29 @@
 
 ## 🟠 project 환경변수 설정
 
+프로젝트 폴더 내 `.env` 파일을 생성하여 아래 환경 변수를 설정해주세요.
+
+기본 port 값 변경시 docker-compose.yml 파일에서 수정해서 사용해주세요~!
+
 ### 🟢 oun-user 환경 변수 설정
-oun-user 폴더 내 `.env` 파일을 생성하여 아래 환경 변수를 설정해주세요.
+
+`기본 port` 8080
 
 ```
 CONTAINER_NAME=oun-auth
 SERVER_PROFILE=dev
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
+JWT_SECRET_KEY=your_jwt_secret_key
+```
+
+### 🟢 oun-api 환경 변수 설정
+
+`기본 port` 8081
+
+```
+CONTAINER_NAME=oun-api
+SERVER_PROFILE=dev
 JWT_SECRET_KEY=your_jwt_secret_key
 ```
 
@@ -22,19 +37,27 @@ JWT_SECRET_KEY=your_jwt_secret_key
 ```
 실행 후 진행해주세요~!
 
-### 🟢 oun-user만 실행
+### 🟢 oun-user
+
+`dev`
 
 ```bash
 docker-compose -f ./oun-user/docker-compose.yml up -d --build
 ```
 
-### 🟢 local에서 개발시
+`local 개발시`
 
 ```bash
 docker-compose -f ./redis/docker-compose.yml up -d --build
 ```
 
 로컬에서 개발툴로 실행시 redis 서버를 실행하여 진행해주세요.
+
+### 🟢 oun-api
+
+```bash
+docker-compose -f ./oun-api/docker-compose.yml up -d --build
+```
 
 # 🔴 project 구성
 
