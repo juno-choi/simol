@@ -11,18 +11,8 @@ services:
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-    networks:
-      - oun-network  # 네트워크 연결 추가
-    depends_on: # redis가 먼저 실행
-      - redis
-# redis
-  redis:
-    build:
-      context: ../redis
-      dockerfile: Dockerfile
-    container_name: redis
-    ports:
-      - 6379:6379
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
       - oun-network  # 네트워크 연결 추가
 

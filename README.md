@@ -16,6 +16,9 @@ SERVER_PROFILE=dev
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 JWT_SECRET_KEY=your_jwt_secret_key
+MYSQL_USER=your_db_user
+MYSQL_PASSWORD=your_db_user_password
+MYSQL_ROOT_PASSWORD=your_db_root_password
 ```
 
 ### 🟢 oun-api 환경 변수 설정
@@ -26,6 +29,9 @@ JWT_SECRET_KEY=your_jwt_secret_key
 CONTAINER_NAME=oun-api
 SERVER_PROFILE=dev
 JWT_SECRET_KEY=your_jwt_secret_key
+MYSQL_USER=your_db_user
+MYSQL_PASSWORD=your_db_user_password
+MYSQL_ROOT_PASSWORD=your_db_root_password
 ```
 
 ## 🟠 project 실행
@@ -37,27 +43,25 @@ JWT_SECRET_KEY=your_jwt_secret_key
 ```
 실행 후 진행해주세요~!
 
-### 🟢 oun-user
+1. redis
+2. mysql
+3. oun-user
+4. oun-api
 
-`dev`
+순서로 실행해주시면 됩니다.
 
-```bash
-docker-compose -f ./oun-user/docker-compose.yml up -d --build
+### 🟢 실행 명령어
+
 ```
-
-`local 개발시`
-
-```bash
 docker-compose -f ./redis/docker-compose.yml up -d --build
+docker-compose -f ./mysql/docker-compose.yml up -d --build
+docker-compose -f ./oun-user/docker-compose.yml up -d --build
+docker-compose -f ./oun-api/docker-compose.yml up -d --build
 ```
 
 로컬에서 개발툴로 실행시 redis 서버를 실행하여 진행해주세요.
 
-### 🟢 oun-api
-
-```bash
-docker-compose -f ./oun-api/docker-compose.yml up -d --build
-```
+---
 
 # 🔴 project 구성
 

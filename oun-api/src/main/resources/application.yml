@@ -4,6 +4,23 @@ spring:
   profiles:
     active: ${SERVER_PROFILE:local}
 
+jwt:
+  secret-key: ${JWT_SECRET_KEY:oun_temp_secret_key_123456789012}
+
+springdoc:
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    persist-authorization: true # 브라우저를 새로고침 하더라도 인증정보 유지
+    urlsPrimaryName: total api
+    groups-order: desc
+
+---
+# local
+spring:
+  config:
+    activate:
+      on-profile: local
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -21,21 +38,18 @@ spring:
       path: /h2-console
       settings:
         web-allow-others: true
-
-jwt:
-  secret-key: ${JWT_SECRET_KEY:oun_temp_secret_key_123456789012}
-
-springdoc:
-  swagger-ui:
-    operations-sorter: alpha
-    tags-sorter: alpha
-    persist-authorization: true # 브라우저를 새로고침 하더라도 인증정보 유지
-    urlsPrimaryName: total api
-    groups-order: desc
-
 ---
 # dev
 spring:
   config:
     activate:
       on-profile: dev
+  datasource:
+    url: jdbc:mysql://oun-mysql:3306/oun?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
