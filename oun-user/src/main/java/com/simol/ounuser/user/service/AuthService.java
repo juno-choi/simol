@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
@@ -19,6 +20,8 @@ import com.simol.ounuser.user.vo.GoogleUserInfoResponse;
 import com.simol.ounuser.user.vo.RedirectUrlResponse;
 import com.simol.ounuser.user.vo.UserInfoResponse;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -121,6 +124,26 @@ public class AuthService {
             .orElseThrow(() -> new RuntimeException("User not found"));
         // 유저 정보 반환
         return UserInfoResponse.from(user);
+    }
+
+    public void getUserInfo(HttpServletRequest request, HttpServletResponse response) {
+        String token = request.getHeader("Authorization");
+        final String BEARER = "Bearer ";
+        // 토큰 유효성 검사
+        if(token == null) {
+            throw new RuntimeException("Token is null");
+        }
+        // bearer 토큰 형식 검사
+        if(!token.startsWith(BEARER)) {
+            throw new RuntimeException("Token is not Bearer");
+        }
+
+        token = token.substring(BEARER.length());
+        // 토큰 유효성 검사
+        Authentication authentication = jwtProvider.getAuthentication(token);
+
+        response.setHeader("X-User-Id", authentication.getName());
+        response.setHeader("X-User-Role", authentication.getAuthorities().toString());
     }
     
 }

@@ -30,7 +30,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/routine/health")
 @RequiredArgsConstructor
 @Tag(name = "02. Health", description = "운동 관리 API")
-@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "X-User-Id")
+@SecurityRequirement(name = "X-User-Role")
 public class HealthController {
     private final HealthService healthService;
     

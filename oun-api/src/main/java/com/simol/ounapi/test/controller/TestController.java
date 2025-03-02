@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/test")
 @Tag(name = "테스트 API")
 @Slf4j
 public class TestController {

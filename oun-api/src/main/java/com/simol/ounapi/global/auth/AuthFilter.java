@@ -2,15 +2,13 @@ package com.simol.ounapi.global.auth;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.simol.ouncommon.exception.UnAuthorizedException;
+import com.simol.ouncommon.auth.vo.WhiteList;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,21 +23,10 @@ public class AuthFilter extends OncePerRequestFilter{
 
     private final ApiJwtTokenProvider apiJwtTokenProvider;
 
-    private final List<String> WHITE_LIST = Arrays.asList(
-        "/swagger-ui.html",
-        "/swagger-ui/**",
-        "/v3/api-docs/**",
-        "/swagger-resources/**",
-        "/h2-console",
-        "/h2-console/**",
-        "/test/**",
-        "/favicon.ico"
-    );
-
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String requestURI = request.getRequestURI();
-        return WHITE_LIST.stream()
+        return Arrays.stream(WhiteList.LIST)
         .anyMatch(pattern -> 
             new AntPathMatcher().match(pattern, requestURI));
     }
@@ -50,25 +37,14 @@ public class AuthFilter extends OncePerRequestFilter{
 
         log.info("인증 requestURI: {}", request.getRequestURI());
 
-        // 인증 처리
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-
-        final String PREFIX = "Bearer ";
-
-        if (token == null) {
-            throw new UnAuthorizedException("token is null.");
-        }
-        if (!token.startsWith(PREFIX)) {
-            throw new UnAuthorizedException("token format is invalid.");
-        }
-
-        token = token.substring(PREFIX.length());
-
-        Authentication authentication = apiJwtTokenProvider.getAuthentication(token);
+        // Traefik에서 전달한 사용자 정보 헤더 읽기
+        
+        Authentication authentication = apiJwtTokenProvider.getAuthentication(request);
+        // SecurityContext에 인증 객체 설정
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         request.setAttribute("userId", authentication.getName());
-        request.setAttribute("authorities", authentication.getAuthorities());
+        request.setAttribute("userRole", authentication.getAuthorities());
         
         // 정상 처리
         filterChain.doFilter(request, response);

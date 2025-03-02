@@ -14,6 +14,18 @@ oauth2:
     token-uri: https://oauth2.googleapis.com/token
     user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
 
+springdoc:
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    persist-authorization: true # 브라우저를 새로고침 하더라도 인증정보 유지
+    urlsPrimaryName: total api
+    groups-order: desc
+    path: /user/swagger-ui.html  # 다시 /user 접두사 추가
+  # API 문서 경로 설정 추가
+  api-docs:
+    path: /user/v3/api-docs  # /user 접두사 추가
+
 ---
 # local
 spring:

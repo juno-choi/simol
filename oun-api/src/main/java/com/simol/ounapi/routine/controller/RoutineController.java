@@ -30,7 +30,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/routine")
 @RequiredArgsConstructor
 @Tag(name = "01. Routine", description = "루틴 API")
-@SecurityRequirement(name = "bearerAuth")  // swagger security 설정
+@SecurityRequirement(name = "X-User-Id")
+@SecurityRequirement(name = "X-User-Role")
 public class RoutineController {
     private final RoutineService routineService;
 

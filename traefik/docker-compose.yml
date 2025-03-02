@@ -1,0 +1,72 @@
+version: '3.7'
+
+services:
+  traefik:
+    image: traefik:v3.3
+    container_name: oun-traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+    labels: 
+      - "traefik.enable=true"
+      # 인증 미들웨어 정의
+      - "traefik.http.middlewares.auth-forward.forwardauth.address=http://oun-user:8080/user/auth"
+      - "traefik.http.middlewares.auth-forward.forwardauth.authResponseHeaders=X-User-Id,X-User-Role"
+        # CORS 미들웨어 설정
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE,OPTIONS"
+      - "traefik.http.middlewares.cors.headers.accesscontrolalloworiginlist=*"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowheaders=Content-Type,Authorization,X-User-Id,X-User-Role"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowcredentials=true"
+      - "traefik.http.middlewares.cors.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.cors.headers.addvaryheader=true"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+    networks:
+      - oun-network    
+      
+  oun-user:
+    build:
+      context: ../oun-user
+      dockerfile: Dockerfile
+    container_name: oun-user
+    environment:
+      - TZ=Asia/Seoul
+      - SERVER_PROFILE=${SERVER_PROFILE}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    labels:
+      - traefik.http.routers.oun-user.rule=PathPrefix(`/user`)
+      - traefik.http.routers.oun-user.middlewares=cors
+    networks:
+      - oun-network
+
+  oun-api:
+    build:
+      context: ../oun-api
+      dockerfile: Dockerfile
+    container_name: oun-api
+    environment:
+      - TZ=Asia/Seoul
+      - SERVER_PROFILE=${SERVER_PROFILE}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    labels:
+      - traefik.http.routers.oun-api.rule=PathPrefix(`/api`)
+       # API 요청에 인증 미들웨어 적용
+      - traefik.http.routers.oun-api.middlewares=cors,auth-forward
+    networks:
+      - oun-network
+
+networks:
+  oun-network:
+    name: oun-network
+    driver: bridge
