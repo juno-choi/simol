@@ -1,28 +1,18 @@
 package com.simol.ounapi.global.auth;
 
-import java.security.Key;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.auth.repository.UsersRepository;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,42 +26,24 @@ public class ApiJwtTokenProvider {
     private final UsersRepository usersRepository;
 
 
-    public Authentication getAuthentication(String token) {
+    public Authentication getAuthentication(HttpServletRequest request) {
         // test token이 아니면 패스
-        if(isTestProccess(token)) {
+        String userId = request.getHeader("X-User-Id");
+        String userRole = request.getHeader("X-User-Role").toString().toUpperCase(Locale.ROOT);
+
+        if(isTestProccess(userId, userRole)) {
             log.info("test access");
             return createTestAuthentication();
         }
 
-        // key 생성
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        Key key = Keys.hmacShaKeyFor(keyBytes);
-
-        // parseClaims
-        Claims claims = null;
-        try {
-            JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
-            claims = jwtParser.parseClaimsJws(token).getBody();
-        } catch (MalformedJwtException me) {
-            // invalid token
-        } catch (ExpiredJwtException ee) {
-            // token expired
-            claims = ee.getClaims();
-        }
-        
-        // claims authentication 가져오기
-        String claimsBody = Optional.ofNullable(claims.get("auth")).orElse("").toString();
-        List<GrantedAuthority> authorities = Arrays.stream(claimsBody.split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-
-        return new UsernamePasswordAuthenticationToken(claims.getSubject(), "", authorities);
+        return new UsernamePasswordAuthenticationToken(userId, "", List.of(new SimpleGrantedAuthority(userRole)));
     }
 
 
-    private boolean isTestProccess(String token) {
-        final String TEST_TOKEN = "oun-test-token";
-        return token.equals(TEST_TOKEN);
+    private boolean isTestProccess(String userId, String userRole) {
+        final String TEST_USER_ID = "0";
+        final String TEST_ROLE = "ROLE_TESTER";
+        return TEST_USER_ID.equals(userId) && TEST_ROLE.equals(userRole);
     }
 
     private UsernamePasswordAuthenticationToken createTestAuthentication() {

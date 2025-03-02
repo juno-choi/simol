@@ -20,17 +20,25 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 public class ApiSwaggerConfig {
     @Bean
     public OpenAPI openApi() {
-        SecurityScheme bearerAuth = new SecurityScheme()
-            .type(SecurityScheme.Type.HTTP)
-            .scheme("bearer")
-            .bearerFormat("JWT")
+        final String USER_ID = "X-User-Id";
+        final String USER_ROLE = "X-User-Role";
+        
+        SecurityScheme userId = new SecurityScheme()
+            .type(SecurityScheme.Type.APIKEY)
             .in(SecurityScheme.In.HEADER)
-            .name(HttpHeaders.AUTHORIZATION);
+            .name(USER_ID)
+            .description("사용자 아이디");
 
-        SecurityRequirement requirement = new SecurityRequirement().addList("bearerAuth"); // 이름 일치 필요
+        SecurityScheme userRole = new SecurityScheme()
+            .type(SecurityScheme.Type.APIKEY)
+            .in(SecurityScheme.In.HEADER)
+            .name(USER_ROLE)
+            .description("사용자 역할");
+
+        SecurityRequirement requirement = new SecurityRequirement().addList(USER_ID).addList(USER_ROLE); // 이름 일치 필요
 
         return new OpenAPI()
-            .components(new Components().addSecuritySchemes("bearerAuth", bearerAuth))
+            .components(new Components().addSecuritySchemes(USER_ID, userId).addSecuritySchemes(USER_ROLE, userRole))
             .security(List.of(requirement))  // 전역 설정
             .info(new Info()
                 .title("OUN API")
