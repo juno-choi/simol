@@ -21,7 +21,6 @@ springdoc:
     persist-authorization: true # 브라우저를 새로고침 하더라도 인증정보 유지
     urlsPrimaryName: total api
     groups-order: desc
-    path: /user/swagger-ui.html
 
 ---
 # local

@@ -31,7 +31,8 @@ public class SecurityConfig {
                     "/user/auth/google/url",
                     "/user/auth/refresh",
                     "/user/auth/unauthorized",
-                    "/user/auth/**"
+                    "/user/auth/**",
+                    "/user/health"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
