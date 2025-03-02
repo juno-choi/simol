@@ -57,12 +57,16 @@ services:
       - oun-network
     depends_on:
       - oun-user
+      - mysql
+      - redis
 
   redis:
     build:
       context: ../redis
       dockerfile: Dockerfile
     container_name: oun-redis
+    ports:
+      - "6379:6379"
     networks:
       - oun-network
   mysql:
@@ -70,6 +74,8 @@ services:
       context: ../mysql
       dockerfile: Dockerfile
     container_name: oun-mysql
+    ports:
+      - "3306:3306"
     environment:
       - MYSQL_DATABASE=oun
       - MYSQL_USER=${MYSQL_USER}
