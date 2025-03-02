@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -88,4 +90,16 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(CommonApi.of("0401", "success", "unauthorized"));
     }
     
+    @GetMapping("")
+    @Operation(summary = "검증 end point api", description = "token에 대한 검증 처리 api 입니다. header에 userId와 userRole를 추가하여 반환합니다.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "성공"),
+        @ApiResponse(responseCode = "400", description = "실패"),
+        @ApiResponse(responseCode = "500", description = "서버 오류"),
+    })
+    public ResponseEntity<Void> auth(HttpServletRequest request, HttpServletResponse response) {
+        authService.getUserInfo(request, response);
+        return ResponseEntity.ok().build();
+    }
+
 }
