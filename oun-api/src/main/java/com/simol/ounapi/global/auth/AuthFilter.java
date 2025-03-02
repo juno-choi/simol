@@ -25,16 +25,7 @@ public class AuthFilter extends OncePerRequestFilter{
 
     private final ApiJwtTokenProvider apiJwtTokenProvider;
 
-    private final List<String> WHITE_LIST = Arrays.asList(
-        "/swagger-ui.html",
-        "/swagger-ui/**",
-        "/v3/api-docs/**",
-        "/swagger-resources/**",
-        "/h2-console",
-        "/h2-console/**",
-        "/test/**",
-        "/favicon.ico"
-    );
+    private final List<String> WHITE_LIST = Arrays.asList("/**");
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {

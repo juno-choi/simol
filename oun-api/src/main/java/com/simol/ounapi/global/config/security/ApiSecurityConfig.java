@@ -23,8 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class ApiSecurityConfig {
 
     private final ApiJwtTokenProvider apiJwtTokenProvider;
-    private final String[] WHITE_LIST = {"/test", "/test/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**"};
-    private final String[] USER_LIST = {"/api/**"};
+    private final String[] WHITE_LIST = {"/**"};
     private final ApiAuthenticationEntryPoint apiAuthenticationEntryPoint;
     private final ApiAccessDeniedHandler apiAccessDeniedHandler;
 
@@ -35,7 +34,6 @@ public class ApiSecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .headers(c -> c.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable).disable())   // h2 설정
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(USER_LIST).hasRole("USER")
                 .requestMatchers(WHITE_LIST).permitAll()
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()

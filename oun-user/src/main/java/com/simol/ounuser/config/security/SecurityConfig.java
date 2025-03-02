@@ -20,19 +20,7 @@ public class SecurityConfig {
             .headers(c -> c.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable).disable())   // h2 설정
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/",
-                    "/login",
-                    "/swagger-ui.html",
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**",
-                    "/swagger-resources/**",
-                    "/h2-console/**",
-                    "/user/auth/google",
-                    "/user/auth/google/url",
-                    "/user/auth/refresh",
-                    "/user/auth/unauthorized",
-                    "/user/auth/**",
-                    "/user/health"
+                    "/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )

@@ -36,8 +36,8 @@ services:
     networks:
       - oun-network
     depends_on:
-      - redis
-      - mysql
+      - oun-redis
+      - oun-mysql
 
   oun-api:
     build:
@@ -57,10 +57,10 @@ services:
       - oun-network
     depends_on:
       - oun-user
-      - mysql
-      - redis
+      - oun-mysql
+      - oun-redis
 
-  redis:
+  oun-redis:
     build:
       context: ../redis
       dockerfile: Dockerfile
@@ -69,7 +69,7 @@ services:
       - "6379:6379"
     networks:
       - oun-network
-  mysql:
+  oun-mysql:
     build:
       context: ../mysql
       dockerfile: Dockerfile
@@ -92,3 +92,4 @@ volumes:
 networks:
   oun-network:
     name: oun-network
+    driver: bridge
