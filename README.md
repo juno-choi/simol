@@ -57,6 +57,8 @@ MYSQL_ROOT_PASSWORD=your_db_root_password
 
 ## 🟠 project 실행
 
+### 🟢 각 프로젝트 별로 실행
+
 모든 실행 전
 
 ```bash
@@ -71,7 +73,6 @@ MYSQL_ROOT_PASSWORD=your_db_root_password
 
 순서로 실행해주시면 됩니다.
 
-### 🟢 실행 명령어
 
 ```
 docker-compose -f ./redis/docker-compose.yml up -d --build
@@ -80,7 +81,21 @@ docker-compose -f ./oun-user/docker-compose.yml up -d --build
 docker-compose -f ./oun-api/docker-compose.yml up -d --build
 ```
 
-로컬에서 개발툴로 실행시 redis 서버를 실행하여 진행해주세요.
+### 🟢 traefik 실행
+
+1. redis
+2. mysql
+3. traefik
+
+순서로 실행해주시면 됩니다.
+
+
+
+```
+docker-compose -f ./redis/docker-compose.yml up -d --build
+docker-compose -f ./mysql/docker-compose.yml up -d --build
+docker-compose -f ./traefik/docker-compose.yml up -d --build
+```
 
 ---
 
