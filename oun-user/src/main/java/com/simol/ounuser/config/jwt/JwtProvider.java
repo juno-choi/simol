@@ -28,9 +28,7 @@ import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -67,6 +65,7 @@ public class JwtProvider {
 
         String token = Jwts.builder()
             .setSubject(String.valueOf(userEntity.getId()))
+            .claim("role", userEntity.getRole())
             .setIssuedAt(new Date())
             .setExpiration(expiration)
             .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
@@ -110,8 +109,7 @@ public class JwtProvider {
         }
 
         // key 생성
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        Key key = Keys.hmacShaKeyFor(keyBytes);
+        Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
         // parseClaims
         Claims claims = null;
@@ -126,7 +124,9 @@ public class JwtProvider {
         }
         
         // claims authentication 가져오기
-        String claimsBody = Optional.ofNullable(claims.get("auth")).orElse("").toString();
+        String claimsBody = Optional.ofNullable(claims.get("role")).orElse("").toString();
+        log.info("claimsBody: {}", claimsBody);
+
         List<GrantedAuthority> authorities = Arrays.stream(claimsBody.split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
