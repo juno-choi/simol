@@ -2,18 +2,13 @@ package com.simol.ounapi.global.auth;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.simol.ouncommon.exception.UnAuthorizedException;
+import com.simol.ouncommon.auth.vo.WhiteList;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
