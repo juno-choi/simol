@@ -9,6 +9,16 @@ services:
       - "--providers.docker=true"
     labels: 
       - "traefik.enable=true"
+      # 인증 미들웨어 정의
+      - "traefik.http.middlewares.auth-forward.forwardauth.address=http://oun-user:8080/user/auth"
+      - "traefik.http.middlewares.auth-forward.forwardauth.authResponseHeaders=X-User-Id,X-User-Role"
+        # CORS 미들웨어 설정
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE,OPTIONS"
+      - "traefik.http.middlewares.cors.headers.accesscontrolalloworiginlist=*"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowheaders=Content-Type,Authorization,X-User-Id,X-User-Role"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowcredentials=true"
+      - "traefik.http.middlewares.cors.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.cors.headers.addvaryheader=true"
     ports:
       - "80:80"
       - "8080:8080"
@@ -33,11 +43,9 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     labels:
       - traefik.http.routers.oun-user.rule=PathPrefix(`/user`)
+      - traefik.http.routers.oun-user.middlewares=cors
     networks:
       - oun-network
-    depends_on:
-      - oun-redis
-      - oun-mysql
 
   oun-api:
     build:
@@ -53,41 +61,10 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     labels:
       - traefik.http.routers.oun-api.rule=PathPrefix(`/api`)
+       # API 요청에 인증 미들웨어 적용
+      - traefik.http.routers.oun-api.middlewares=cors,auth-forward
     networks:
       - oun-network
-    depends_on:
-      - oun-user
-      - oun-mysql
-      - oun-redis
-
-  oun-redis:
-    build:
-      context: ../redis
-      dockerfile: Dockerfile
-    container_name: oun-redis
-    ports:
-      - "6379:6379"
-    networks:
-      - oun-network
-  oun-mysql:
-    build:
-      context: ../mysql
-      dockerfile: Dockerfile
-    container_name: oun-mysql
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_DATABASE=oun
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    networks:
-      - oun-network
-    volumes:
-      - mysql-data:/var/lib/mysql
-
-volumes:
-  mysql-data:
 
 networks:
   oun-network:
