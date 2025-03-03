@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.auth.repository.UsersRepository;
 import com.simol.ouncommon.auth.vo.Token;
+import com.simol.ouncommon.auth.vo.WhiteList;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -148,5 +149,10 @@ public class JwtProvider {
             .orElseGet(() -> UserEntity.create(TEST_EMAIL, TEST_NAME, TEST_PROFILE_IMAGE, TEST_ROLE));
         UserEntity saveUser = usersRepository.save(userEntity);
         return new UsernamePasswordAuthenticationToken(saveUser.getId(), "", List.of(new SimpleGrantedAuthority(TEST_ROLE)));
+    }
+
+    public boolean isWhiteList(String requestURI) {
+        String[] whiteList = WhiteList.LIST;
+        return Arrays.stream(whiteList).anyMatch(uri -> requestURI.equals(uri));
     }
 }

@@ -127,6 +127,11 @@ public class AuthService {
     }
 
     public void getUserInfo(HttpServletRequest request, HttpServletResponse response) {
+        String requestURI = request.getRequestURI();
+        if(jwtProvider.isWhiteList(requestURI)) {
+            return;
+        }
+
         String token = request.getHeader("Authorization");
         final String BEARER = "Bearer ";
         // 토큰 유효성 검사
