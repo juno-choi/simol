@@ -11,13 +11,14 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.simol.ouncommon.routine.entity.QRoutineEntity;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
+import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
 public class CustomRoutineRepositoryImpl implements CustomRoutineRepository {
-    private final JPAQueryFactory query;
+    private final JPAQueryFactory jpaQueryFactory;
 
     @Override
     public Page<RoutineEntity> findAllByPage(Pageable pageable, Long userId) {
@@ -25,13 +26,16 @@ public class CustomRoutineRepositoryImpl implements CustomRoutineRepository {
         BooleanBuilder builder = new BooleanBuilder();
 
         builder.and(routine.user.id.eq(userId));
-        List<RoutineEntity> fetchResults = query.selectFrom(routine)
+        builder.and(routine.status.eq(RoutineStatus.ACTIVE));
+
+        List<RoutineEntity> fetchResults = jpaQueryFactory.selectFrom(routine)
             .where(builder)
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
+            .orderBy(routine.id.desc())
             .fetch();
 
-        Long total = query.from(routine).where(builder).stream().count();
+        Long total = jpaQueryFactory.from(routine).where(builder).stream().count();
 
         return new PageImpl<>(fetchResults, pageable, total);
     }
