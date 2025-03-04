@@ -128,6 +128,8 @@ public class AuthService {
 
     public void getUserInfo(HttpServletRequest request, HttpServletResponse response) {
         String requestURI = request.getRequestURI();
+        log.info("requestURI: {}", requestURI);
+        
         if(jwtProvider.isWhiteList(requestURI)) {
             return;
         }
