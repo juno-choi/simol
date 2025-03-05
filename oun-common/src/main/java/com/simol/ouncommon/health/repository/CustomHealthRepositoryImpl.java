@@ -21,18 +21,18 @@ public class CustomHealthRepositoryImpl implements CustomHealthRepository{
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<HealthEntity> findAllByPage(Pageable pageable, Long healthId) {
+    public Page<HealthEntity> findAllByPage(Pageable pageable, Long routineId) {
         QHealthEntity health = QHealthEntity.healthEntity;
         BooleanBuilder builder = new BooleanBuilder();
 
-        builder.and(health.id.eq(healthId));
+        builder.and(health.routine.id.eq(routineId));
         builder.and(health.status.eq(HealthStatus.ACTIVE));
 
         List<HealthEntity> fetchResults = jpaQueryFactory.selectFrom(health)
             .where(builder)
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
-            .orderBy(health.id.desc())
+            .orderBy(health.sort.asc())
             .fetch();
 
         Long total = jpaQueryFactory.from(health).where(builder).stream().count();

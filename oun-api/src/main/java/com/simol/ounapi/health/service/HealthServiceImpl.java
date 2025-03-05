@@ -56,9 +56,9 @@ public class HealthServiceImpl implements HealthService {
     }
 
     @Override
-    public HealthListResponse getHealthList(Long healthId, int page, int size) {
+    public HealthListResponse getHealthList(Long routineId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<HealthEntity> healthPage = healthRepository.findAllByPage(pageable, healthId);
+        Page<HealthEntity> healthPage = healthRepository.findAllByPage(pageable, routineId);
         return HealthListResponse.of(healthPage);
     }
 

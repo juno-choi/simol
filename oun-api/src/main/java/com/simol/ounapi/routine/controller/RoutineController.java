@@ -3,6 +3,8 @@ package com.simol.ounapi.routine.controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +50,7 @@ public class RoutineController {
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
     })
     public ResponseEntity<CommonApi<RoutineCreateResponse>> createRoutine(
-        @RequestBody RoutineCreateRequest routineCreateRequest, HttpServletRequest request
+        @RequestBody @Validated RoutineCreateRequest routineCreateRequest, HttpServletRequest request, BindingResult bindingResult
     ) {
         RoutineCreateResponse routineCreateResponse = routineService.createRoutine(routineCreateRequest, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(CommonApi.create(routineCreateResponse));
@@ -89,7 +91,7 @@ public class RoutineController {
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
     })
     public ResponseEntity<CommonApi<RoutineResponse>> updateRoutine(
-        @RequestBody RoutineUpdateRequest routineUpdateRequest, HttpServletRequest request
+        @RequestBody @Validated RoutineUpdateRequest routineUpdateRequest, HttpServletRequest request, BindingResult bindingResult
     ) {
         RoutineResponse routineResponse = routineService.updateRoutine(routineUpdateRequest, request);
         return ResponseEntity.ok(CommonApi.success(routineResponse));
