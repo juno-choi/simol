@@ -11,14 +11,12 @@ public class HealthResponseTest {
     @Test
     @DisplayName("HealthResponse 생성 테스트")
     void ofSuccess() {
-        final Long HEALTH_ID = 1L;
         final String NAME = "test";
         final String DESCRIPTION = "test";
         final int SORT = 1;
         final HealthStatus STATUS = HealthStatus.ACTIVE;
 
         HealthEntity health = HealthEntity.builder()
-            .id(HEALTH_ID)
             .name(NAME)
             .description(DESCRIPTION)
             .sort(SORT)
@@ -27,7 +25,6 @@ public class HealthResponseTest {
 
         HealthResponse healthResponse = HealthResponse.of(health);
 
-        Assertions.assertThat(healthResponse.getHealthId()).isEqualTo(HEALTH_ID);
         Assertions.assertThat(healthResponse.getName()).isEqualTo(NAME);
         Assertions.assertThat(healthResponse.getDescription()).isEqualTo(DESCRIPTION);
         Assertions.assertThat(healthResponse.getSort()).isEqualTo(SORT);

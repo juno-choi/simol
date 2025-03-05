@@ -11,13 +11,11 @@ public class RoutineCreateResponseTest {
     @Test
     @DisplayName("RoutineCreateResponse 생성 테스트")
     void ofSuccess() {
-        final Long ROUTINE_ID = 1L;
         final String NAME = "test";
         final String DESCRIPTION = "test";
         final RoutineStatus STATUS = RoutineStatus.ACTIVE;
 
         RoutineEntity routineEntity = RoutineEntity.builder()
-            .id(ROUTINE_ID)
             .name(NAME)
             .description(DESCRIPTION)
             .status(STATUS)
@@ -25,7 +23,6 @@ public class RoutineCreateResponseTest {
 
         RoutineCreateResponse routineCreateResponse = RoutineCreateResponse.of(routineEntity);
 
-        Assertions.assertThat(routineCreateResponse.getRoutineId()).isEqualTo(ROUTINE_ID);
         Assertions.assertThat(routineCreateResponse.getName()).isEqualTo(NAME);
         Assertions.assertThat(routineCreateResponse.getDescription()).isEqualTo(DESCRIPTION);
         Assertions.assertThat(routineCreateResponse.getStatus()).isEqualTo(STATUS);

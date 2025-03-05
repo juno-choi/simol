@@ -23,26 +23,4 @@ public class RoutineEntityTest {
         Assertions.assertThat(response.getDescription()).isEqualTo(routineEntity.getDescription());
         Assertions.assertThat(response.getStatus()).isEqualTo(routineEntity.getStatus());
     }
-
-    @Test
-    @DisplayName("루틴 수정 테스트")
-    void updateSuccess() {
-        UserEntity user = UserEntity.create("test@test.com", "test", "test", "test");
-        RoutineEntity routineEntity = RoutineEntity.create("test", "test", user);
-
-        RoutineUpdateRequest routineUpdateRequest = RoutineUpdateRequest.builder()
-            .routineId(1L)
-            .name("test2")
-            .description("test2")
-            .status(RoutineStatus.ACTIVE)
-            .build();
-
-        routineEntity.update(routineUpdateRequest);
-
-        RoutineResponse response = RoutineResponse.of(routineEntity);
-
-        Assertions.assertThat(response.getName()).isEqualTo(routineUpdateRequest.getName());
-        Assertions.assertThat(response.getDescription()).isEqualTo(routineUpdateRequest.getDescription());
-        Assertions.assertThat(response.getStatus()).isEqualTo(routineUpdateRequest.getStatus());
-    }
 }

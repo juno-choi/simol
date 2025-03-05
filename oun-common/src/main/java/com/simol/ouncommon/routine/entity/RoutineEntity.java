@@ -31,8 +31,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Table(name = "routine")
-@Builder
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RoutineEntity extends GlobalEntity {
     @Id
@@ -56,6 +54,15 @@ public class RoutineEntity extends GlobalEntity {
 
     @Enumerated(EnumType.STRING)
     private RoutineStatus status;   //루틴 상태
+
+    @Builder
+    protected RoutineEntity(String name, String description, RoutineStatus status, List<HealthEntity> healthList, UserEntity user) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.user = user;
+        this.healthList = healthList;
+    }
 
     public static RoutineEntity create(String name, String description, UserEntity user) {
         return RoutineEntity.builder()

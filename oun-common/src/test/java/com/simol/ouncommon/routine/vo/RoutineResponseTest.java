@@ -10,7 +10,6 @@ public class RoutineResponseTest {
     @Test
     void ofSuccess() {
         RoutineEntity routine = RoutineEntity.builder()
-            .id(1L)
             .name("test")
             .description("test")
             .status(RoutineStatus.ACTIVE)
@@ -18,7 +17,6 @@ public class RoutineResponseTest {
 
         RoutineResponse response = RoutineResponse.of(routine);
 
-        Assertions.assertThat(response.getRoutineId()).isEqualTo(1L);
         Assertions.assertThat(response.getName()).isEqualTo("test");
         Assertions.assertThat(response.getDescription()).isEqualTo("test");
     }
