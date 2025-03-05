@@ -21,14 +21,24 @@ import lombok.NoArgsConstructor;
 public class HealthSetCreateResponse {
     private Long id;
     private String description;
-    private int sort;
+    private int setNumber;
+    private int setCount;
+    private int setWeight;
+    private int setDistance;
+    private int setTime;
+    private int setSpeed;
     private HealthSetStatus status;
 
     public static HealthSetCreateResponse of(HealthSetEntity healthSetEntity) {
         return HealthSetCreateResponse.builder()
             .id(healthSetEntity.getId())
             .description(healthSetEntity.getDescription())
-            .sort(healthSetEntity.getSort())
+            .setNumber(healthSetEntity.getSetNumber())
+            .setCount(healthSetEntity.getSetCount())
+            .setWeight(healthSetEntity.getSetWeight())
+            .setDistance(healthSetEntity.getSetDistance())
+            .setTime(healthSetEntity.getSetTime())
+            .setSpeed(healthSetEntity.getSetSpeed())
             .status(healthSetEntity.getStatus())
             .build();
     }   

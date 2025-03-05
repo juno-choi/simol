@@ -23,7 +23,12 @@ public class HealthSetResponse {
     private Long healthSetId;
     private String description;
     private HealthSetStatus status;
-    private int sort;
+    private int setNumber;
+    private int setCount;
+    private int setWeight;
+    private int setDistance;
+    private int setTime;
+    private int setSpeed;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -32,7 +37,12 @@ public class HealthSetResponse {
             .healthSetId(healthSet.getId())
             .description(healthSet.getDescription())
             .status(healthSet.getStatus())
-            .sort(healthSet.getSort())
+            .setNumber(healthSet.getSetNumber())
+            .setCount(healthSet.getSetCount())
+            .setWeight(healthSet.getSetWeight())
+            .setDistance(healthSet.getSetDistance())
+            .setTime(healthSet.getSetTime())
+            .setSpeed(healthSet.getSetSpeed())
             .createdAt(healthSet.getCreatedAt())
             .updatedAt(healthSet.getUpdatedAt())
             .build();

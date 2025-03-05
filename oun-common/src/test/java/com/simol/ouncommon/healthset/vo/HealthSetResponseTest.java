@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import com.simol.ouncommon.healthset.entity.HealthSetEntity;
 import com.simol.ouncommon.healthset.enums.HealthSetStatus;
+import com.simol.ouncommon.healthset.enums.HealthSetType;
 
 public class HealthSetResponseTest {
     @Test
@@ -14,13 +15,18 @@ public class HealthSetResponseTest {
         final Long HEALTH_SET_ID = 1L;
         final String DESCRIPTION = "test";
         final HealthSetStatus STATUS = HealthSetStatus.ACTIVE;
-        final int SORT = 1;
 
         HealthSetEntity healthSet = HealthSetEntity.builder()
             .id(HEALTH_SET_ID)
             .description(DESCRIPTION)
             .status(STATUS)
-            .sort(SORT)
+            .healthSetType(HealthSetType.WEIGHT)
+            .setNumber(1)
+            .setCount(10)
+            .setWeight(100)
+            .setDistance(1000)
+            .setTime(100)
+            .setSpeed(10)
             .build();
 
         HealthSetResponse healthSetResponse = HealthSetResponse.of(healthSet);
@@ -28,6 +34,11 @@ public class HealthSetResponseTest {
         Assertions.assertThat(healthSetResponse.getHealthSetId()).isEqualTo(HEALTH_SET_ID);
         Assertions.assertThat(healthSetResponse.getDescription()).isEqualTo(DESCRIPTION);
         Assertions.assertThat(healthSetResponse.getStatus()).isEqualTo(STATUS);
-        Assertions.assertThat(healthSetResponse.getSort()).isEqualTo(SORT);
+        Assertions.assertThat(healthSetResponse.getSetNumber()).isEqualTo(1);
+        Assertions.assertThat(healthSetResponse.getSetCount()).isEqualTo(10);
+        Assertions.assertThat(healthSetResponse.getSetWeight()).isEqualTo(100);
+        Assertions.assertThat(healthSetResponse.getSetDistance()).isEqualTo(1000);
+        Assertions.assertThat(healthSetResponse.getSetTime()).isEqualTo(100);
+        Assertions.assertThat(healthSetResponse.getSetSpeed()).isEqualTo(10);
     }
 }

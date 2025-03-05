@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.simol.ouncommon.health.entity.QHealthSetEntity;
 import com.simol.ouncommon.healthset.entity.HealthSetEntity;
+import com.simol.ouncommon.healthset.entity.QHealthSetEntity;
 import com.simol.ouncommon.healthset.enums.HealthSetStatus;
 
 import lombok.RequiredArgsConstructor;
@@ -31,8 +31,8 @@ public class CustomHealthSetRepositoryImpl implements CustomHealthSetRepository{
         List<HealthSetEntity> fetchResults = jpaQueryFactory.selectFrom(healthSet)
             .where(builder)
             .offset(pageable.getOffset())
+            .orderBy(healthSet.setNumber.asc())
             .limit(pageable.getPageSize())
-            .orderBy(healthSet.sort.asc())
             .fetch();
 
         Long total = jpaQueryFactory.from(healthSet).where(builder).stream().count();

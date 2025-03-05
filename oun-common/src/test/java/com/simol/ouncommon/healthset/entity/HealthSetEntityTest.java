@@ -8,6 +8,7 @@ import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.health.enums.HealthStatus;
 import com.simol.ouncommon.healthset.dto.HealthSetCreateRequest;
+import com.simol.ouncommon.healthset.enums.HealthSetType;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 
 public class HealthSetEntityTest {
@@ -16,7 +17,13 @@ public class HealthSetEntityTest {
     void createSuccess() {
         HealthSetCreateRequest healthSetCreateRequest = HealthSetCreateRequest.builder()
             .description("test")
-            .sort(1)
+            .healthSetType(HealthSetType.WEIGHT)
+            .setNumber(1)
+            .setCount(10)
+            .setWeight(100)
+            .setDistance(1000)
+            .setTime(100)
+            .setSpeed(10)
             .build();
 
         UserEntity user = UserEntity.create("test@test.com", "test", "test", "test");
@@ -34,6 +41,11 @@ public class HealthSetEntityTest {
 
         Assertions.assertThat(healthSet.getHealth()).isEqualTo(health);
         Assertions.assertThat(healthSet.getDescription()).isEqualTo("test");
-        Assertions.assertThat(healthSet.getSort()).isEqualTo(1);
+        Assertions.assertThat(healthSet.getHealthSetType()).isEqualTo(HealthSetType.WEIGHT);
+        Assertions.assertThat(healthSet.getSetNumber()).isEqualTo(1);
+        Assertions.assertThat(healthSet.getSetCount()).isEqualTo(10);
+        Assertions.assertThat(healthSet.getSetWeight()).isEqualTo(100);
+        Assertions.assertThat(healthSet.getSetDistance()).isEqualTo(1000);
+        Assertions.assertThat(healthSet.getSetTime()).isEqualTo(100);
     }
 }
