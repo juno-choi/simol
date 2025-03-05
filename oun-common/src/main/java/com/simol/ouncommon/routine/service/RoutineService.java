@@ -1,7 +1,5 @@
 package com.simol.ouncommon.routine.service;
 
-import org.springframework.data.domain.Pageable;
-
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.vo.RoutineCreateResponse;
 import com.simol.ouncommon.routine.vo.RoutineListResponse;
