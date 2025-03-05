@@ -32,7 +32,7 @@ public class RoutineUpdateRequest {
     @Schema(description = "루틴 설명", example = "하체 부시는 날")
     private String description;
 
-    @Schema(description = "루틴 상태(활성화 : ACTIVE, 비활성화 : INACTIVE)", example = "ACTIVE")
+    @Schema(description = "루틴 상태(활성화 : ACTIVE, 비활성화 : INACTIVE)", example = "INACTIVE")
     @NotNull(message = "루틴 상태는 필수 입력 값입니다.")
     private RoutineStatus status;
 }
