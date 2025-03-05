@@ -60,9 +60,20 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     labels:
-      - traefik.http.routers.oun-api.rule=PathPrefix(`/api`)
-       # API 요청에 인증 미들웨어 적용
-      - traefik.http.routers.oun-api.middlewares=cors,auth-forward
+      # 기본 API 라우터 (인증 필요)
+      - "traefik.http.routers.oun-api.rule=PathPrefix(`/api`) && !PathPrefix(`/api/swagger-ui`) && !PathPrefix(`/api/v3/api-docs`) && !Path(`/api/swagger-ui.html`) && !Path(`/api/test`)"
+      - "traefik.http.routers.oun-api.middlewares=cors,auth-forward"
+      
+      # Swagger UI 라우터 (인증 불필요)
+      - "traefik.http.routers.oun-api-swagger.rule=PathPrefix(`/api/swagger-ui/`) || PathPrefix(`/api/v3/api-docs`) || Path(`/api/swagger-ui.html`)"
+      - "traefik.http.routers.oun-api-swagger.middlewares=cors"
+      
+      # 테스트 엔드포인트 (인증 불필요)
+      - "traefik.http.routers.oun-api-test.rule=Path(`/api/test`)"
+      - "traefik.http.routers.oun-api-test.middlewares=cors"
+      
+      # 공통 서비스 설정
+      - "traefik.http.services.oun-api.loadbalancer.server.port=8080"
     networks:
       - oun-network
 
