@@ -23,10 +23,10 @@ public class SwaggerConfig {
             .in(SecurityScheme.In.HEADER)
             .name(HttpHeaders.AUTHORIZATION);
 
-        SecurityRequirement requirement = new SecurityRequirement().addList("bearerAuth"); // 이름 일치 필요
+        SecurityRequirement requirement = new SecurityRequirement().addList(HttpHeaders.AUTHORIZATION); // 이름 일치 필요
 
         return new OpenAPI()
-            .components(new Components().addSecuritySchemes("bearerAuth", bearerAuth))
+            .components(new Components().addSecuritySchemes(HttpHeaders.AUTHORIZATION, bearerAuth))
             .security(List.of(requirement))  // 전역 설정
             .info(new Info()
                 .title("OUN User API")

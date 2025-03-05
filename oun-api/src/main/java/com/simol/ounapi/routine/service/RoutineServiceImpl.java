@@ -1,5 +1,8 @@
 package com.simol.ounapi.routine.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +17,7 @@ import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 import com.simol.ouncommon.routine.repository.RoutineRepository;
 import com.simol.ouncommon.routine.vo.RoutineCreateResponse;
+import com.simol.ouncommon.routine.vo.RoutineListResponse;
 import com.simol.ouncommon.routine.vo.RoutineResponse;
 
 @Service
@@ -43,5 +47,14 @@ public class RoutineServiceImpl implements RoutineService {
             .orElseThrow(() -> new BadRequestException("Routine not found"));
 
         return RoutineResponse.of(routineEntity);
+    }
+
+    @Override
+    public RoutineListResponse getRoutineList(int page, int size, HttpServletRequest request) {
+        long userId = Long.parseLong(request.getAttribute("userId").toString());
+        Pageable pageable = PageRequest.of(page, size);
+        Page<RoutineEntity> routineEntityPage = routineRepository.findAllByPage(pageable, userId);
+
+        return RoutineListResponse.of(routineEntityPage);
     }
 }

@@ -15,6 +15,7 @@ import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.auth.repository.UsersRepository;
 import com.simol.ouncommon.auth.vo.AuthTokenResponse;
 import com.simol.ouncommon.auth.vo.Token;
+import com.simol.ouncommon.exception.UnAuthorizedException;
 import com.simol.ounuser.config.jwt.JwtProvider;
 import com.simol.ounuser.user.vo.GoogleUserInfoResponse;
 import com.simol.ounuser.user.vo.RedirectUrlResponse;
@@ -126,29 +127,34 @@ public class AuthService {
         return UserInfoResponse.from(user);
     }
 
+    @Transactional
     public void getUserInfo(HttpServletRequest request, HttpServletResponse response) {
         String requestURI = request.getRequestURI();
+        log.info("requestURI: {}", requestURI);
+        
         if(jwtProvider.isWhiteList(requestURI)) {
             return;
         }
+        final String USER_ID_KEY = "X-User-Id";
+        final String USER_ROLE_KEY = "X-User-Role";
 
         String token = request.getHeader("Authorization");
         final String BEARER = "Bearer ";
         // 토큰 유효성 검사
         if(token == null) {
-            throw new RuntimeException("Token is null");
+            throw new UnAuthorizedException("Token is null");
         }
         // bearer 토큰 형식 검사
         if(!token.startsWith(BEARER)) {
-            throw new RuntimeException("Token is not Bearer");
+            throw new UnAuthorizedException("Token is not Bearer");
         }
 
         token = token.substring(BEARER.length());
         // 토큰 유효성 검사
         Authentication authentication = jwtProvider.getAuthentication(token);
 
-        response.setHeader("X-User-Id", authentication.getName());
-        response.setHeader("X-User-Role", authentication.getAuthorities().toString());
+        response.setHeader(USER_ID_KEY, authentication.getName());
+        response.setHeader(USER_ROLE_KEY, authentication.getAuthorities().toString());
     }
     
 }
