@@ -1,5 +1,8 @@
 package com.simol.ounapi.healthset.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +14,7 @@ import com.simol.ouncommon.healthset.dto.HealthSetCreateRequest;
 import com.simol.ouncommon.healthset.entity.HealthSetEntity;
 import com.simol.ouncommon.healthset.repository.HealthSetRepository;
 import com.simol.ouncommon.healthset.vo.HealthSetCreateResponse;
+import com.simol.ouncommon.healthset.vo.HealthSetListResponse;
 import com.simol.ouncommon.healthset.vo.HealthSetResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -40,5 +44,12 @@ public class HealthSetServiceImpl implements HealthSetService {
             .orElseThrow(() -> new BadRequestException("HealthSet not found"));
 
         return HealthSetResponse.of(healthSet);
+    }
+
+    @Override
+    public HealthSetListResponse getHealthSetList(int page, int size, Long healthId) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<HealthSetEntity> healthSetEntityPage = healthSetRepository.findAllByHealthIdPage(pageable, healthId);
+        return HealthSetListResponse.of(healthSetEntityPage);
     }
 }
