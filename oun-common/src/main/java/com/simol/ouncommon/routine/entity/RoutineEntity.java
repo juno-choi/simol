@@ -2,6 +2,7 @@ package com.simol.ouncommon.routine.entity;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
+import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import jakarta.persistence.Column;
@@ -54,5 +55,11 @@ public class RoutineEntity extends GlobalEntity {
             .status(RoutineStatus.ACTIVE)
             .user(user)
             .build();
+    }
+
+    public void update(RoutineUpdateRequest routineUpdateRequest) {
+        this.name = routineUpdateRequest.getName();
+        this.description = routineUpdateRequest.getDescription();
+        this.status = routineUpdateRequest.getStatus();
     }
 }

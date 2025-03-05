@@ -14,6 +14,7 @@ import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.auth.repository.UsersRepository;
 import com.simol.ouncommon.exception.BadRequestException;
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
+import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 import com.simol.ouncommon.routine.repository.RoutineRepository;
 import com.simol.ouncommon.routine.vo.RoutineCreateResponse;
@@ -56,5 +57,21 @@ public class RoutineServiceImpl implements RoutineService {
         Page<RoutineEntity> routineEntityPage = routineRepository.findAllByPage(pageable, userId);
 
         return RoutineListResponse.of(routineEntityPage);
+    }
+
+    @Override
+    @Transactional
+    public RoutineResponse updateRoutine(RoutineUpdateRequest routineUpdateRequest, HttpServletRequest request) {
+        long userId = Long.parseLong(request.getAttribute("userId").toString());
+        RoutineEntity routineEntity = routineRepository.findById(routineUpdateRequest.getRoutineId())
+            .orElseThrow(() -> new BadRequestException("Routine not found"));
+
+        if (!routineEntity.getUser().getId().equals(userId)) {
+            throw new BadRequestException("Routine not found");
+        }
+        
+        routineEntity.update(routineUpdateRequest);
+
+        return RoutineResponse.of(routineEntity);
     }
 }

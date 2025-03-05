@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.simol.ouncommon.api.CommonApi;
 import com.simol.ouncommon.api.ErrorApi;
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
+import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
 import com.simol.ouncommon.routine.service.RoutineService;
 import com.simol.ouncommon.routine.vo.RoutineCreateResponse;
 import com.simol.ouncommon.routine.vo.RoutineListResponse;
@@ -78,5 +80,18 @@ public class RoutineController {
     ) {
         RoutineListResponse routineListResponse = routineService.getRoutineList(page, size, request);
         return ResponseEntity.ok(CommonApi.success(routineListResponse));
+    }
+
+    @PatchMapping("")
+    @Operation(summary = "4. routine 수정", description = "루틴을 수정합니다.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = RoutineResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
+    })
+    public ResponseEntity<CommonApi<RoutineResponse>> updateRoutine(
+        @RequestBody RoutineUpdateRequest routineUpdateRequest, HttpServletRequest request
+    ) {
+        RoutineResponse routineResponse = routineService.updateRoutine(routineUpdateRequest, request);
+        return ResponseEntity.ok(CommonApi.success(routineResponse));
     }
 }
