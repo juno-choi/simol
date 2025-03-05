@@ -44,7 +44,9 @@ public class HealthServiceImpl implements HealthService {
             .orElseThrow(() -> new BadRequestException("Routine not found"));
         HealthEntity healthEntity = HealthEntity.create(healthCreateRequest, routineEntity, user);
         HealthEntity saveHealth = healthRepository.save(healthEntity);
-
+        // 루틴에 추가
+        routineEntity.addHealth(healthEntity);
+        
         return HealthCreateResponse.of(saveHealth);
     }
 

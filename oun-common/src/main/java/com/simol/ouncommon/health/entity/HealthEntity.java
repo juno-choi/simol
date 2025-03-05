@@ -71,4 +71,8 @@ public class HealthEntity extends GlobalEntity {
         this.status = healthUpdateRequest.getStatus();
     }
 
+    public void updateRoutine(RoutineEntity routine) {
+        this.routine = routine;
+    }
+
 }
