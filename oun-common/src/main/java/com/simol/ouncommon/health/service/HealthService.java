@@ -11,6 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 public interface HealthService {
     HealthCreateResponse createHealth(HealthCreateRequest healthCreateRequest, HttpServletRequest request);
     HealthResponse getHealth(Long healthId);
-    HealthListResponse getHealthList(int page, int size, HttpServletRequest request);
+    HealthListResponse getHealthList(Long healthId, int page, int size);
     HealthResponse updateHealth(HealthUpdateRequest healthUpdateRequest, HttpServletRequest request);
 }

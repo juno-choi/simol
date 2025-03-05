@@ -3,6 +3,7 @@ package com.simol.ouncommon.health.entity;
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
 import com.simol.ouncommon.health.dto.HealthCreateRequest;
+import com.simol.ouncommon.health.dto.HealthUpdateRequest;
 import com.simol.ouncommon.health.enums.HealthStatus;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 
@@ -61,6 +62,13 @@ public class HealthEntity extends GlobalEntity {
                 .sort(healthCreateRequest.getSort())
                 .status(HealthStatus.ACTIVE)
                 .build();
+    }
+
+    public void update(HealthUpdateRequest healthUpdateRequest) {
+        this.name = healthUpdateRequest.getName();
+        this.description = healthUpdateRequest.getDescription();
+        this.sort = healthUpdateRequest.getSort();
+        this.status = healthUpdateRequest.getStatus();
     }
 
 }

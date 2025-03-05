@@ -1,6 +1,7 @@
 package com.simol.ouncommon.health.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.simol.ouncommon.health.enums.HealthStatus;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -30,4 +31,8 @@ public class HealthUpdateRequest {
     @Schema(description = "운동 순서", example = "1")
     @NotNull(message = "운동 순서는 필수 입력 값입니다.")
     private int sort;
+
+    @Schema(description = "운동 상태", example = "INACTIVE")
+    @NotNull(message = "운동 상태는 필수 입력 값입니다.")
+    private HealthStatus status;
 }
