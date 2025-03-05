@@ -9,9 +9,9 @@ import com.simol.ouncommon.health.repository.HealthRepository;
 import com.simol.ouncommon.healthset.service.HealthSetService;
 import com.simol.ouncommon.healthset.dto.HealthSetCreateRequest;
 import com.simol.ouncommon.healthset.entity.HealthSetEntity;
+import com.simol.ouncommon.healthset.repository.HealthSetRepository;
 import com.simol.ouncommon.healthset.vo.HealthSetCreateResponse;
 import com.simol.ouncommon.healthset.vo.HealthSetResponse;
-import com.simol.ouncommon.healthsetreal.repository.HealthSetRepository;
 
 import lombok.RequiredArgsConstructor;
 

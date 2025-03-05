@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.simol.ouncommon.exception.BadRequestException;
 import com.simol.ouncommon.healthset.entity.HealthSetEntity;
-import com.simol.ouncommon.healthsetreal.repository.HealthSetRepository;
+import com.simol.ouncommon.healthset.repository.HealthSetRepository;
 import com.simol.ouncommon.healthsettarget.dto.HealthSetTargetCreateRequest;
 import com.simol.ouncommon.healthsettarget.entity.HealthSetTargetEntity;
 import com.simol.ouncommon.healthsettarget.repository.HealthSetTargetRepository;

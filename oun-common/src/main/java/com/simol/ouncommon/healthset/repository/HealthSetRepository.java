@@ -1,4 +1,4 @@
-package com.simol.ouncommon.healthsetreal.repository;
+package com.simol.ouncommon.healthset.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
