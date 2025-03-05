@@ -1,5 +1,6 @@
 package com.simol.ounapi.routine.controller;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "01. Routine", description = "루틴 API")
 @SecurityRequirement(name = "X-User-Id")
 @SecurityRequirement(name = "X-User-Role")
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class RoutineController {
     private final RoutineService routineService;
 

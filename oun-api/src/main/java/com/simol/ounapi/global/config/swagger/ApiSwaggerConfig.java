@@ -35,10 +35,24 @@ public class ApiSwaggerConfig {
             .name(USER_ROLE)
             .description("사용자 역할");
 
-        SecurityRequirement requirement = new SecurityRequirement().addList(USER_ID).addList(USER_ROLE); // 이름 일치 필요
+
+        SecurityScheme bearerAuth = new SecurityScheme()
+            .type(SecurityScheme.Type.HTTP)
+            .scheme("bearer")
+            .bearerFormat("JWT")
+            .in(SecurityScheme.In.HEADER)
+            .name(HttpHeaders.AUTHORIZATION);
+
+        SecurityRequirement requirement = new SecurityRequirement()
+            .addList(USER_ID)
+            .addList(USER_ROLE)
+            .addList(HttpHeaders.AUTHORIZATION);
 
         return new OpenAPI()
-            .components(new Components().addSecuritySchemes(USER_ID, userId).addSecuritySchemes(USER_ROLE, userRole))
+            .components(new Components()
+                .addSecuritySchemes(USER_ID, userId)
+                .addSecuritySchemes(USER_ROLE, userRole)
+                .addSecuritySchemes(HttpHeaders.AUTHORIZATION, bearerAuth))
             .security(List.of(requirement))  // 전역 설정
             .info(new Info()
                 .title("OUN API")

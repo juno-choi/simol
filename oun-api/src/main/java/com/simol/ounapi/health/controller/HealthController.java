@@ -1,5 +1,6 @@
 package com.simol.ounapi.health.controller;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,11 +33,12 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "02. Health", description = "운동 관리 API")
 @SecurityRequirement(name = "X-User-Id")
 @SecurityRequirement(name = "X-User-Role")
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class HealthController {
     private final HealthService healthService;
     
     @PostMapping
-    @Operation(summary = "1. 운동 생성", description = "운동을 생성합니다.", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "1. 운동 생성", description = "운동을 생성합니다.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = HealthCreateResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
@@ -47,7 +49,7 @@ public class HealthController {
     }
 
     @GetMapping("/{health_id}")
-    @Operation(summary = "2. 운동 조회", description = "운동을 조회합니다.", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "2. 운동 조회", description = "운동을 조회합니다.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = HealthResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
