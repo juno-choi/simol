@@ -11,6 +11,7 @@ import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.health.repository.HealthRepository;
 import com.simol.ouncommon.healthset.service.HealthSetService;
 import com.simol.ouncommon.healthset.dto.HealthSetCreateRequest;
+import com.simol.ouncommon.healthset.dto.HealthSetUpdateRequest;
 import com.simol.ouncommon.healthset.entity.HealthSetEntity;
 import com.simol.ouncommon.healthset.repository.HealthSetRepository;
 import com.simol.ouncommon.healthset.vo.HealthSetCreateResponse;
@@ -52,5 +53,16 @@ public class HealthSetServiceImpl implements HealthSetService {
         Pageable pageable = PageRequest.of(page, size);
         Page<HealthSetEntity> healthSetEntityPage = healthSetRepository.findAllByHealthIdPage(pageable, healthId);
         return HealthSetListResponse.of(healthSetEntityPage);
+    }
+
+    @Override
+    @Transactional
+    public HealthSetResponse updateHealthSet(HealthSetUpdateRequest healthSetUpdateRequest) {
+        HealthSetEntity healthSet = healthSetRepository.findById(healthSetUpdateRequest.getHealthSetId())
+            .orElseThrow(() -> new BadRequestException("HealthSet not found"));
+
+        healthSet.update(healthSetUpdateRequest);
+
+        return HealthSetResponse.of(healthSet);
     }
 }

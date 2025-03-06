@@ -92,4 +92,5 @@ public class HealthController {
         HealthResponse healthResponse = healthService.updateHealth(healthUpdateRequest, request);
         return ResponseEntity.ok(CommonApi.success(healthResponse));
     }
+    
 }

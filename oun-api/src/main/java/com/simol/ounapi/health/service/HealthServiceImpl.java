@@ -75,8 +75,7 @@ public class HealthServiceImpl implements HealthService {
         // healthSetList 수정
         healthEntity.updateHealthSetList(healthUpdateRequest.getHealthSetList());
 
-        HealthEntity saveHealth = healthRepository.save(healthEntity);
-        return HealthResponse.of(saveHealth);
+        return HealthResponse.of(healthEntity);
     }
     
 }

@@ -4,6 +4,7 @@ import com.simol.ouncommon.global.entity.GlobalEntity;
 import com.simol.ouncommon.health.dto.HealthHealthSetUpdateRequest;
 import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.healthset.dto.HealthSetCreateRequest;
+import com.simol.ouncommon.healthset.dto.HealthSetUpdateRequest;
 import com.simol.ouncommon.healthset.enums.HealthSetStatus;
 import com.simol.ouncommon.healthset.enums.HealthSetType;
 
@@ -105,5 +106,16 @@ public class HealthSetEntity extends GlobalEntity {
             .description(healthSetRequest.getDescription())
             .status(HealthSetStatus.ACTIVE)
             .build();
+    }
+
+    public void update(HealthSetUpdateRequest healthSetUpdateRequest) {
+        this.healthSetType = healthSetUpdateRequest.getHealthSetType();
+        this.setNumber = healthSetUpdateRequest.getSetNumber();
+        this.setCount = healthSetUpdateRequest.getSetCount();
+        this.setWeight = healthSetUpdateRequest.getSetWeight();
+        this.setDistance = healthSetUpdateRequest.getSetDistance();
+        this.setTime = healthSetUpdateRequest.getSetTime();
+        this.setSpeed = healthSetUpdateRequest.getSetSpeed();
+        this.description = healthSetUpdateRequest.getDescription();
     }
 }
