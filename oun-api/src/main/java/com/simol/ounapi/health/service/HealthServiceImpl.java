@@ -71,6 +71,10 @@ public class HealthServiceImpl implements HealthService {
             .orElseThrow(() -> new BadRequestException("Health not found"));
         
         healthEntity.update(healthUpdateRequest);
+
+        // healthSetList 수정
+        healthEntity.updateHealthSetList(healthUpdateRequest.getHealthSetList());
+
         HealthEntity saveHealth = healthRepository.save(healthEntity);
         return HealthResponse.of(saveHealth);
     }

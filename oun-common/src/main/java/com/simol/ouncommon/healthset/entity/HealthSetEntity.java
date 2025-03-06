@@ -1,6 +1,7 @@
 package com.simol.ouncommon.healthset.entity;
 
 import com.simol.ouncommon.global.entity.GlobalEntity;
+import com.simol.ouncommon.health.dto.HealthHealthSetUpdateRequest;
 import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.healthset.dto.HealthSetCreateRequest;
 import com.simol.ouncommon.healthset.enums.HealthSetStatus;
@@ -78,5 +79,31 @@ public class HealthSetEntity extends GlobalEntity {
 
     public void updateHealth(HealthEntity healthEntity) {
         this.health = healthEntity;
+    }
+    
+    public void update(HealthHealthSetUpdateRequest healthSetRequest) {
+        this.healthSetType = healthSetRequest.getHealthSetType();
+        this.setNumber = healthSetRequest.getSetNumber();
+        this.setCount = healthSetRequest.getSetCount();
+        this.setWeight = healthSetRequest.getSetWeight();
+        this.setDistance = healthSetRequest.getSetDistance();
+        this.setTime = healthSetRequest.getSetTime();
+        this.setSpeed = healthSetRequest.getSetSpeed();
+        this.description = healthSetRequest.getDescription();
+    }
+
+    public static HealthSetEntity create(HealthHealthSetUpdateRequest healthSetRequest, HealthEntity health) {
+        return HealthSetEntity.builder()
+            .health(health)
+            .healthSetType(healthSetRequest.getHealthSetType())
+            .setNumber(healthSetRequest.getSetNumber())
+            .setCount(healthSetRequest.getSetCount())
+            .setWeight(healthSetRequest.getSetWeight())
+            .setDistance(healthSetRequest.getSetDistance())
+            .setTime(healthSetRequest.getSetTime())
+            .setSpeed(healthSetRequest.getSetSpeed())
+            .description(healthSetRequest.getDescription())
+            .status(HealthSetStatus.ACTIVE)
+            .build();
     }
 }
