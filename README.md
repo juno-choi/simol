@@ -136,36 +136,20 @@ erDiagram
     HealthSet {
         bigint health_set_id PK "자동 증가"
         bigint health_id FK "health ID"
+        enum health_set_type "운동 타입"
         varchar description "세트에 대한 설명"
-        int sort "순서"
+        int set_number "세트 순서"
+        int set_count "세트당 개수"
+        int set_weight "세트 무게"
+        int set_distance "세트 거리"
+        int set_time "세트 시간"
+        int set_speed "세트 스피드"
         enum status "health detail 상태 (ACTIVE, INACTIVE)"
-    }
-
-    HealthSetTarget {
-        bigint health_set_target_id PK "자동 증가"
-        bigint health_set_id FK "health set id"
-        int number "목표 횟수"
-        int weight "목표 무게"
-        int distance "목표 거리"
-        int time "목표 수행 시간"
-        int spped "목표 속도"
-    }
-
-    HealthSetReal {
-        bigint health_set_real_id PK "자동 증가"
-        bigint health_set_id FK "health set id"
-        int number "실제 횟수"
-        int weight "실제 무게"
-        int distance "실제 거리"
-        int time "실제 수행 시간"
-        int spped "실제 속도"
     }
     
     Users ||--|{ Routine : "1 N"
     Routine ||--|{ Health : "1 N"
     Health ||--|{ HealthSet : "1 N"
-    HealthSet ||--|| HealthSetTarget : "1 1"
-    HealthSet ||--|| HealthSetReal : "1 1"
 ```
 
 # 📗 Reference

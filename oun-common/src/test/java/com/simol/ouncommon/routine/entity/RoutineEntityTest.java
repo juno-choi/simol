@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
+import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
+import com.simol.ouncommon.routine.enums.RoutineStatus;
 import com.simol.ouncommon.routine.vo.RoutineResponse;
 
 public class RoutineEntityTest {
