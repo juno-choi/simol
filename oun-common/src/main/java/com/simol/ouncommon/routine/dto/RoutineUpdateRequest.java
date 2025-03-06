@@ -1,20 +1,21 @@
 package com.simol.ouncommon.routine.dto;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
 @Schema(description = "루틴 생성 요청")
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RoutineUpdateRequest {
     @Schema(description = "루틴 아이디", example = "1")
@@ -32,4 +33,22 @@ public class RoutineUpdateRequest {
     @Schema(description = "루틴 상태(활성화 : ACTIVE, 비활성화 : INACTIVE)", example = "INACTIVE")
     @NotNull(message = "루틴 상태는 필수 입력 값입니다.")
     private RoutineStatus status;
+
+    @ArraySchema(
+        arraySchema = @Schema(
+            description = "루틴 health 목록", 
+            example = "[{\"health_id\": 1, \"name\": \"스쿼트\", \"description\": \"허리 꽂꽂히 아래에 내려가서는 빨리 올라오기!\", \"sort\": 1, \"status\": \"INACTIVE\"}]"
+        )
+    )
+    @JsonProperty("routine_health_list")
+    private List<RoutineHealthUpdateRequest> healthList = new ArrayList<>();
+
+    @Builder
+    public RoutineUpdateRequest(long routineId, String name, String description, RoutineStatus status, List<RoutineHealthUpdateRequest> healthList) {
+        this.routineId = routineId;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.healthList = healthList;
+    }
 }

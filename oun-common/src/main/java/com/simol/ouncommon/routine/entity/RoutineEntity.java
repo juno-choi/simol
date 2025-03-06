@@ -2,10 +2,14 @@ package com.simol.ouncommon.routine.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
+import com.simol.ouncommon.health.dto.HealthUpdateRequest;
 import com.simol.ouncommon.health.entity.HealthEntity;
+import com.simol.ouncommon.routine.dto.RoutineHealthUpdateRequest;
 import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
@@ -23,7 +27,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -83,5 +86,32 @@ public class RoutineEntity extends GlobalEntity {
     public void addHealth(HealthEntity health) {
         healthList.add(health);
         health.updateRoutine(this);
+    }
+
+    public void updateHealthList(List<RoutineHealthUpdateRequest> healthRequests) {
+        // 기존 Health ID를 Map으로 관리
+        Map<Long, HealthEntity> existingHealthMap = this.healthList.stream()
+            .filter(health -> health.getId() != null)
+            .collect(Collectors.toMap(HealthEntity::getId, health -> health));
+        
+        List<HealthEntity> updatedHealthList = new ArrayList<>();
+        
+        for (RoutineHealthUpdateRequest healthRequest : healthRequests) {
+            if (healthRequest.getHealthId() != null && existingHealthMap.containsKey(healthRequest.getHealthId())) {
+                // 기존 Health 업데이트
+                HealthEntity existingHealth = existingHealthMap.get(healthRequest.getHealthId());
+                existingHealth.update(healthRequest);
+                updatedHealthList.add(existingHealth);
+                existingHealthMap.remove(healthRequest.getHealthId());
+            } else {
+                // 새 Health 생성
+                HealthEntity newHealth = HealthEntity.create(healthRequest, this);
+                updatedHealthList.add(newHealth);
+            }
+        }
+        
+        // 컬렉션 교체
+        this.healthList.clear();
+        this.healthList.addAll(updatedHealthList);
     }
 }   

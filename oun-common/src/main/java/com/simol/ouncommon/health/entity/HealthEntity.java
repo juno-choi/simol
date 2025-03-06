@@ -5,6 +5,7 @@ import com.simol.ouncommon.global.entity.GlobalEntity;
 import com.simol.ouncommon.health.dto.HealthCreateRequest;
 import com.simol.ouncommon.health.dto.HealthUpdateRequest;
 import com.simol.ouncommon.health.enums.HealthStatus;
+import com.simol.ouncommon.routine.dto.RoutineHealthUpdateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 
 import jakarta.persistence.Column;
@@ -73,6 +74,23 @@ public class HealthEntity extends GlobalEntity {
 
     public void updateRoutine(RoutineEntity routine) {
         this.routine = routine;
+    }
+
+    public static HealthEntity create(RoutineHealthUpdateRequest healthUpdateRequest, RoutineEntity routine) {
+        return HealthEntity.builder()
+                .name(healthUpdateRequest.getName())
+                .description(healthUpdateRequest.getDescription())
+                .sort(healthUpdateRequest.getSort())
+                .status(healthUpdateRequest.getStatus())
+                .routine(routine)
+                .build();
+    }
+
+    public void update(RoutineHealthUpdateRequest healthRequest) {
+        this.name = healthRequest.getName();
+        this.description = healthRequest.getDescription();
+        this.sort = healthRequest.getSort();
+        this.status = healthRequest.getStatus();
     }
 
 }
