@@ -27,9 +27,17 @@ public class ErrorApi {
             .build();
     }
 
+    public static ErrorApi badRequest(String message, List<ErrorDto> errors) {
+        return ErrorApi.builder()
+            .code(ErrorCode.BAD_REQUEST.code)
+            .message(message)
+            .errors(errors)
+            .build();
+    }
+
     public static ErrorApi unauthorized(String message, List<ErrorDto> errors) {
         return ErrorApi.builder()
-            .code("0401")
+            .code(ErrorCode.UNAUTHORIZED.code)
             .message(message)
             .errors(errors)
             .build();
@@ -37,7 +45,15 @@ public class ErrorApi {
 
     public static ErrorApi accessDenied(String message, List<ErrorDto> errors) {
         return ErrorApi.builder()
-            .code("0403")
+            .code(ErrorCode.FORBIDDEN.code)
+            .message(message)
+            .errors(errors)
+            .build();
+    }
+
+    public static ErrorApi internalServerError(String message, List<ErrorDto> errors) {
+        return ErrorApi.builder()
+            .code(ErrorCode.INTERNAL_SERVER_ERROR.code)
             .message(message)
             .errors(errors)
             .build();
