@@ -27,17 +27,17 @@ public class RoutineUpdateRequest {
     @NotNull(message = "루틴 이름은 필수 입력 값입니다.")
     private String name;
 
-    @Schema(description = "루틴 설명", example = "하체 부시는 날")
+    @Schema(description = "루틴 설명", example = "하체 부시는 날222")
     private String description;
 
-    @Schema(description = "루틴 상태(활성화 : ACTIVE, 비활성화 : INACTIVE)", example = "INACTIVE")
+    @Schema(description = "루틴 상태(활성화 : ACTIVE, 비활성화 : INACTIVE)", example = "ACTIVE")
     @NotNull(message = "루틴 상태는 필수 입력 값입니다.")
     private RoutineStatus status;
 
     @ArraySchema(
         arraySchema = @Schema(
             description = "루틴 health 목록", 
-            example = "[{\"health_id\": 1, \"name\": \"스쿼트\", \"description\": \"허리 꽂꽂히 아래에 내려가서는 빨리 올라오기!\", \"sort\": 1, \"status\": \"INACTIVE\"}]"
+            example = "[{\"health_id\": 1, \"name\": \"스쿼트\", \"description\": \"허리 꽂꽂히 아래에 내려가서는 빨리 올라오기!\", \"sort\": 1, \"status\": \"ACTIVE\"}]"
         )
     )
     @JsonProperty("routine_health_list")

@@ -24,14 +24,14 @@ public class RoutineHealthUpdateRequest {
     @NotNull(message = "운동 이름은 필수 입력 값입니다.")
     private String name;
 
-    @Schema(description = "운동 설명", example = "허리 꽂꽂히 아래에 내려가서는 빨리 올라오기!")
+    @Schema(description = "운동 설명", example = "허리 꽂꽂히 아래에 내려가서는 빨리 올라오기!222")
     private String description;
 
     @Schema(description = "운동 순서", example = "1")
     @NotNull(message = "운동 순서는 필수 입력 값입니다.")
     private int sort;
 
-    @Schema(description = "운동 상태", example = "INACTIVE")
+    @Schema(description = "운동 상태", example = "ACTIVE")
     @NotNull(message = "운동 상태는 필수 입력 값입니다.")
     private HealthStatus status;
 }
