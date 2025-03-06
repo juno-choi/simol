@@ -1,13 +1,17 @@
 package com.simol.ouncommon.health.entity;
 
+import java.util.List;
+
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
 import com.simol.ouncommon.health.dto.HealthCreateRequest;
 import com.simol.ouncommon.health.dto.HealthUpdateRequest;
 import com.simol.ouncommon.health.enums.HealthStatus;
+import com.simol.ouncommon.healthset.entity.HealthSetEntity;
 import com.simol.ouncommon.routine.dto.RoutineHealthUpdateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,6 +22,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -45,6 +50,10 @@ public class HealthEntity extends GlobalEntity {
     // health 상태
     @Enumerated(EnumType.STRING)
     private HealthStatus status;
+
+    // health 세트 리스트
+    @OneToMany(mappedBy = "health", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HealthSetEntity> healthSetList;
 
     // health 이름
     private String name;
@@ -91,6 +100,11 @@ public class HealthEntity extends GlobalEntity {
         this.description = healthRequest.getDescription();
         this.sort = healthRequest.getSort();
         this.status = healthRequest.getStatus();
+    }
+
+    public void addHealthSet(HealthSetEntity healthSet) {
+        healthSetList.add(healthSet);
+        healthSet.updateHealth(this);
     }
 
 }

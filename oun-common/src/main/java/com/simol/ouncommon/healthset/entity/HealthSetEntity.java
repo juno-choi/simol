@@ -75,4 +75,8 @@ public class HealthSetEntity extends GlobalEntity {
             .status(HealthSetStatus.ACTIVE)
             .build();
     }
+
+    public void updateHealth(HealthEntity healthEntity) {
+        this.health = healthEntity;
+    }
 }

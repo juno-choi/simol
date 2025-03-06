@@ -35,6 +35,7 @@ public class HealthSetServiceImpl implements HealthSetService {
         HealthSetEntity healthDetail = HealthSetEntity.create(healthDetailCreateRequest, health);
         HealthSetEntity saveHealthDetail = healthSetRepository.save(healthDetail);
 
+        health.addHealthSet(saveHealthDetail);
         return HealthSetCreateResponse.of(saveHealthDetail);
     }
 
