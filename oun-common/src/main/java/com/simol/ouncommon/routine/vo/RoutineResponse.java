@@ -2,7 +2,10 @@ package com.simol.ouncommon.routine.vo;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
@@ -16,15 +19,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class RoutineResponse {
-    @JsonProperty("routine_id")
     private Long routineId;
     private String name;
     private String description;
     private RoutineStatus status;
-    @JsonProperty("created_at")
     private LocalDateTime createdAt;
-    @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
 
     public static RoutineResponse of(RoutineEntity routine) {

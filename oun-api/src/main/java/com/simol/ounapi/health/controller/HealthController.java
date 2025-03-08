@@ -60,7 +60,7 @@ public class HealthController {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = HealthResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
     })
-    public ResponseEntity<CommonApi<HealthResponse>> getHealth(@PathVariable(name = "health_id") Long healthId) {
+    public ResponseEntity<CommonApi<HealthResponse>> getHealth(@Schema(description = "운동 id", example = "1") @PathVariable(name = "health_id") Long healthId) {
         HealthResponse healthResponse = healthService.getHealth(healthId);
         return ResponseEntity.ok(CommonApi.success(healthResponse));
     }
