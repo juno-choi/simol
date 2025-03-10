@@ -74,6 +74,7 @@ public class RoutineEntity extends GlobalEntity {
         this.name = routineUpdateRequest.getName();
         this.description = routineUpdateRequest.getDescription();
         this.status = routineUpdateRequest.getStatus();
+        this.sort = routineUpdateRequest.getSort();
     }
 
     public void addHealth(HealthEntity health) {
