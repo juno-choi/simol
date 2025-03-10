@@ -13,4 +13,5 @@ public interface RoutineService {
     RoutineResponse getRoutine(Long routineId);
     RoutineListResponse getRoutineList(int page, int size, HttpServletRequest request);
     RoutineResponse updateRoutine(RoutineUpdateRequest routineUpdateRequest, HttpServletRequest request);
+    void deleteRoutine(Long routineId, HttpServletRequest request);
 }

@@ -76,4 +76,18 @@ public class RoutineServiceImpl implements RoutineService {
 
         return RoutineResponse.of(routineEntity);
     }
+
+    @Transactional
+    @Override
+    public void deleteRoutine(Long routineId, HttpServletRequest request) {
+        long userId = Long.parseLong(request.getAttribute("userId").toString());
+        RoutineEntity routineEntity = routineRepository.findById(routineId)
+            .orElseThrow(() -> new BadRequestException("Routine not found"));
+        
+        if (!routineEntity.getUser().getId().equals(userId)) {
+            throw new BadRequestException("Routine not found");
+        }
+
+        routineEntity.delete();
+    }
 }

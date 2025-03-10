@@ -119,4 +119,8 @@ public class RoutineEntity extends GlobalEntity {
             .healthList(new ArrayList<>())
             .build();
     }
+
+    public void delete() {
+        this.status = RoutineStatus.INACTIVE;
+    }
 }   

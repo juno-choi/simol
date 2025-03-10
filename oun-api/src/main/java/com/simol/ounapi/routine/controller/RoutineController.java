@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,5 +96,18 @@ public class RoutineController {
     ) {
         RoutineResponse routineResponse = routineService.updateRoutine(routineUpdateRequest, request);
         return ResponseEntity.ok(CommonApi.success(routineResponse));
+    }
+
+    @DeleteMapping("/{routine_id}")
+    @Operation(summary = "5. routine 삭제", description = "루틴을 삭제합니다.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "success"),
+        @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
+    })
+    public ResponseEntity<CommonApi<Void>> deleteRoutine(
+        @Schema(description = "루틴 아이디", example = "1") @PathVariable(name = "routine_id") Long routineId, HttpServletRequest request
+    ) {
+        routineService.deleteRoutine(routineId, request);
+        return ResponseEntity.ok(CommonApi.success(null));
     }
 }
