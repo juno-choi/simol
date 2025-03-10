@@ -138,4 +138,8 @@ public class HealthEntity extends GlobalEntity {
         healthSet.updateHealth(this);
     }
 
+    public void delete() {
+        this.status = HealthStatus.INACTIVE;
+    }
+
 }
