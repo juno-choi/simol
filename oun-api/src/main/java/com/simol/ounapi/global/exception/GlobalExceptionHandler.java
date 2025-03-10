@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.simol.ouncommon.api.ErrorApi;
 import com.simol.ouncommon.api.ErrorDto;
 import com.simol.ouncommon.exception.BadRequestException;
+import com.simol.ouncommon.exception.UnAuthorizedException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,11 +23,29 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler
+    public ResponseEntity<ErrorApi> handleException(UnAuthorizedException unauthorizedException) {
+        List<ErrorDto> errors = new ArrayList<>();
+        errors.add(ErrorDto.of("", unauthorizedException.getMessage()));
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            .body(ErrorApi.of("0401", "인증 실패", errors));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorApi> handleException(HttpMessageNotReadableException e) {
+        log.error("HttpMessageNotReadableException: {}", e.getMessage());
+        ErrorDto errorDto = ErrorDto.of("HttpMessageNotReadable", e.getMessage());
+        List<ErrorDto> errors = List.of(errorDto);
+        ErrorApi errorApi = ErrorApi.badRequest("Bad Request", errors);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorApi);
+    }
+
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorApi> handleBadRequestException(BadRequestException e) {
         log.error("BadRequestException: {}", e.getMessage());
-        ErrorDto errorDto = ErrorDto.of("error", e.getMessage());
-        List<ErrorDto> errors = List.of(errorDto);
+        List<ErrorDto> errors = new ArrayList<>();
+        errors.add(ErrorDto.of("BadRequest", e.getMessage()));
         ErrorApi errorApi = ErrorApi.badRequest("Bad Request", errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorApi);
     }
@@ -47,7 +67,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<ErrorApi> handleNullPointerException(NullPointerException e) {
         log.error("NullPointerException: {}", e.getMessage());
-        ErrorDto errorDto = ErrorDto.of("error", "필수 값이 누락되었습니다. 요청을 확인해주세요.");
+        ErrorDto errorDto = ErrorDto.of("NullPointer", "필수 값이 누락되었습니다. 요청을 확인해주세요.");
         List<ErrorDto> errors = List.of(errorDto);
         ErrorApi errorApi = ErrorApi.badRequest("Bad Request", errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorApi);

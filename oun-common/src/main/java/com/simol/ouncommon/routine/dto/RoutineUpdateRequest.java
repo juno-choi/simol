@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.simol.ouncommon.routine.enums.RoutineDays;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -34,6 +35,10 @@ public class RoutineUpdateRequest {
     @NotNull(message = "루틴 상태는 필수 입력 값입니다.")
     private RoutineStatus status;
 
+    @Schema(description = "루틴 요일", example = "MONDAY")
+    @NotNull(message = "루틴 요일은 필수 입력 값입니다.")
+    private RoutineDays days;
+
     @ArraySchema(
         arraySchema = @Schema(
             description = "루틴 health 목록", 
@@ -44,11 +49,12 @@ public class RoutineUpdateRequest {
     private List<RoutineHealthUpdateRequest> healthList = new ArrayList<>();
 
     @Builder
-    public RoutineUpdateRequest(long routineId, String name, String description, RoutineStatus status, List<RoutineHealthUpdateRequest> healthList) {
+    public RoutineUpdateRequest(long routineId, String name, String description, RoutineStatus status, RoutineDays days, List<RoutineHealthUpdateRequest> healthList) {
         this.routineId = routineId;
         this.name = name;
         this.description = description;
         this.status = status;
+        this.days = days;
         this.healthList = healthList;
     }
 }

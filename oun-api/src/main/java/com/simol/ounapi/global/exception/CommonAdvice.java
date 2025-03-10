@@ -17,7 +17,7 @@ import com.simol.ouncommon.exception.UnAuthorizedException;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestControllerAdvice(basePackages = {"com.simol.ounapi"})
+// @RestControllerAdvice(basePackages = {"com.simol.ounapi"})
 @Slf4j
 public class CommonAdvice {
     
@@ -43,12 +43,5 @@ public class CommonAdvice {
             .body(ErrorApi.of("0400", "요청을 다시 확인해주세요.", errors));
     }
 
-    @ExceptionHandler
-    public ResponseEntity<ErrorApi> handleException(UnAuthorizedException unauthorizedException) {
-        List<ErrorDto> errors = new ArrayList<>();
-        errors.add(ErrorDto.of("", unauthorizedException.getMessage()));
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-            .body(ErrorApi.of("0401", "인증 실패", errors));
-    }
 }

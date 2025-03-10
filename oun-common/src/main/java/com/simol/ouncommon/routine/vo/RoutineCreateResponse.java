@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
+import com.simol.ouncommon.routine.enums.RoutineDays;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,6 +32,8 @@ public class RoutineCreateResponse {
     private LocalDateTime createdAt;
     @Schema(description = "루틴 수정일", example = "2025-01-01T00:00:00")
     private LocalDateTime updatedAt;
+    @Schema(description = "루틴 요일", example = "MONDAY")
+    private RoutineDays days;
     
     public static RoutineCreateResponse of(RoutineEntity routineEntity) {
         return RoutineCreateResponse.builder()
@@ -38,6 +41,7 @@ public class RoutineCreateResponse {
             .name(routineEntity.getName())
             .description(routineEntity.getDescription())
             .status(routineEntity.getStatus())
+            .days(routineEntity.getDays())
             .createdAt(routineEntity.getCreatedAt())
             .updatedAt(routineEntity.getUpdatedAt())
             .build();

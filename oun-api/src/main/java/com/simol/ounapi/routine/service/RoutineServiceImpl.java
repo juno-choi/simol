@@ -36,7 +36,7 @@ public class RoutineServiceImpl implements RoutineService {
         UserEntity user = usersRepository.findById(userId)
             .orElseThrow(() -> new BadRequestException("User not found"));
 
-        RoutineEntity requestRoutineEntity = RoutineEntity.create(routineCreateRequest.getName(), routineCreateRequest.getDescription(), user);
+        RoutineEntity requestRoutineEntity = RoutineEntity.create(routineCreateRequest, user);
         RoutineEntity routineEntity = routineRepository.save(requestRoutineEntity);
 
         return RoutineCreateResponse.of(routineEntity);
@@ -75,5 +75,19 @@ public class RoutineServiceImpl implements RoutineService {
         routineEntity.updateHealthList(routineUpdateRequest.getHealthList());
 
         return RoutineResponse.of(routineEntity);
+    }
+
+    @Transactional
+    @Override
+    public void deleteRoutine(Long routineId, HttpServletRequest request) {
+        long userId = Long.parseLong(request.getAttribute("userId").toString());
+        RoutineEntity routineEntity = routineRepository.findById(routineId)
+            .orElseThrow(() -> new BadRequestException("Routine not found"));
+        
+        if (!routineEntity.getUser().getId().equals(userId)) {
+            throw new BadRequestException("Routine not found");
+        }
+
+        routineEntity.delete();
     }
 }

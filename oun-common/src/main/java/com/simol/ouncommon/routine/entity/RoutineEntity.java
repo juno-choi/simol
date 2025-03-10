@@ -7,10 +7,11 @@ import java.util.stream.Collectors;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
-import com.simol.ouncommon.health.dto.HealthUpdateRequest;
 import com.simol.ouncommon.health.entity.HealthEntity;
+import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.dto.RoutineHealthUpdateRequest;
 import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
+import com.simol.ouncommon.routine.enums.RoutineDays;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import jakarta.persistence.CascadeType;
@@ -58,29 +59,25 @@ public class RoutineEntity extends GlobalEntity {
     @Enumerated(EnumType.STRING)
     private RoutineStatus status;   //루틴 상태
 
+    @Enumerated(EnumType.ORDINAL)
+    private RoutineDays days; //루틴 요일
+
+
     @Builder
-    protected RoutineEntity(String name, String description, RoutineStatus status, List<HealthEntity> healthList, UserEntity user) {
+    protected RoutineEntity(String name, String description, RoutineDays days, RoutineStatus status, List<HealthEntity> healthList, UserEntity user) {
         this.name = name;
         this.description = description;
+        this.days = days;
         this.status = status;
         this.user = user;
         this.healthList = healthList;
-    }
-
-    public static RoutineEntity create(String name, String description, UserEntity user) {
-        return RoutineEntity.builder()
-            .name(name)
-            .description(description)
-            .status(RoutineStatus.ACTIVE)
-            .user(user)
-            .healthList(new ArrayList<>())
-            .build();
     }
 
     public void update(RoutineUpdateRequest routineUpdateRequest) {
         this.name = routineUpdateRequest.getName();
         this.description = routineUpdateRequest.getDescription();
         this.status = routineUpdateRequest.getStatus();
+        this.days = routineUpdateRequest.getDays();
     }
 
     public void addHealth(HealthEntity health) {
@@ -113,5 +110,20 @@ public class RoutineEntity extends GlobalEntity {
         // 컬렉션 교체
         this.healthList.clear();
         this.healthList.addAll(updatedHealthList);
+    }
+
+    public static RoutineEntity create(RoutineCreateRequest routineCreateRequest, UserEntity user) {
+        return RoutineEntity.builder()
+            .name(routineCreateRequest.getName())
+            .description(routineCreateRequest.getDescription())
+            .days(routineCreateRequest.getDays())
+            .status(RoutineStatus.ACTIVE)
+            .user(user)
+            .healthList(new ArrayList<>())
+            .build();
+    }
+
+    public void delete() {
+        this.status = RoutineStatus.INACTIVE;
     }
 }   
