@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -93,4 +94,14 @@ public class HealthController {
         return ResponseEntity.ok(CommonApi.success(healthResponse));
     }
     
+    @DeleteMapping("/{health_id}")
+    @Operation(summary = "5. 운동 삭제", description = "운동을 삭제합니다.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = HealthResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
+    })
+    public ResponseEntity<CommonApi<Void>> deleteHealth(@Schema(description = "운동 id", example = "1") @PathVariable(name = "health_id") Long healthId) {
+        healthService.deleteHealth(healthId);
+        return ResponseEntity.ok(CommonApi.success(null));
+    }
 }

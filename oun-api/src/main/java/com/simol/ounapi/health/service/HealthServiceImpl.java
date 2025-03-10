@@ -77,5 +77,15 @@ public class HealthServiceImpl implements HealthService {
 
         return HealthResponse.of(healthEntity);
     }
+
+    @Transactional
+    @Override
+    public void deleteHealth(Long healthId) {
+        
+        HealthEntity healthEntity = healthRepository.findById(healthId)
+            .orElseThrow(() -> new BadRequestException("Health not found"));
+
+        healthEntity.delete();
+    }
     
 }

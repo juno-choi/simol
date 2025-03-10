@@ -13,4 +13,5 @@ public interface HealthService {
     HealthResponse getHealth(Long healthId);
     HealthListResponse getHealthList(Long routineId, int page, int size);
     HealthResponse updateHealth(HealthUpdateRequest healthUpdateRequest, HttpServletRequest request);
+    void deleteHealth(Long healthId);
 }
