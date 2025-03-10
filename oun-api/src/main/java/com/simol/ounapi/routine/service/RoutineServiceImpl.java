@@ -36,7 +36,7 @@ public class RoutineServiceImpl implements RoutineService {
         UserEntity user = usersRepository.findById(userId)
             .orElseThrow(() -> new BadRequestException("User not found"));
 
-        RoutineEntity requestRoutineEntity = RoutineEntity.create(routineCreateRequest.getName(), routineCreateRequest.getDescription(), user);
+        RoutineEntity requestRoutineEntity = RoutineEntity.create(routineCreateRequest, user);
         RoutineEntity routineEntity = routineRepository.save(requestRoutineEntity);
 
         return RoutineCreateResponse.of(routineEntity);

@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
-import com.simol.ouncommon.health.dto.HealthUpdateRequest;
 import com.simol.ouncommon.health.entity.HealthEntity;
+import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.dto.RoutineHealthUpdateRequest;
 import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
@@ -58,23 +58,16 @@ public class RoutineEntity extends GlobalEntity {
     @Enumerated(EnumType.STRING)
     private RoutineStatus status;   //루틴 상태
 
+    private int sort;
+
     @Builder
-    protected RoutineEntity(String name, String description, RoutineStatus status, List<HealthEntity> healthList, UserEntity user) {
+    protected RoutineEntity(String name, String description, int sort, RoutineStatus status, List<HealthEntity> healthList, UserEntity user) {
         this.name = name;
         this.description = description;
+        this.sort = sort;
         this.status = status;
         this.user = user;
         this.healthList = healthList;
-    }
-
-    public static RoutineEntity create(String name, String description, UserEntity user) {
-        return RoutineEntity.builder()
-            .name(name)
-            .description(description)
-            .status(RoutineStatus.ACTIVE)
-            .user(user)
-            .healthList(new ArrayList<>())
-            .build();
     }
 
     public void update(RoutineUpdateRequest routineUpdateRequest) {
@@ -113,5 +106,16 @@ public class RoutineEntity extends GlobalEntity {
         // 컬렉션 교체
         this.healthList.clear();
         this.healthList.addAll(updatedHealthList);
+    }
+
+    public static RoutineEntity create(RoutineCreateRequest routineCreateRequest, UserEntity user) {
+        return RoutineEntity.builder()
+            .name(routineCreateRequest.getName())
+            .description(routineCreateRequest.getDescription())
+            .sort(routineCreateRequest.getSort())
+            .status(RoutineStatus.ACTIVE)
+            .user(user)
+            .healthList(new ArrayList<>())
+            .build();
     }
 }   

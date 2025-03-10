@@ -26,6 +26,7 @@ public class RoutineResponse {
     private String name;
     private String description;
     private RoutineStatus status;
+    private int sort;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -34,6 +35,7 @@ public class RoutineResponse {
             .routineId(routine.getId())
             .name(routine.getName())
             .description(routine.getDescription())
+            .sort(routine.getSort())
             .status(routine.getStatus())
             .createdAt(routine.getCreatedAt())
             .updatedAt(routine.getUpdatedAt())

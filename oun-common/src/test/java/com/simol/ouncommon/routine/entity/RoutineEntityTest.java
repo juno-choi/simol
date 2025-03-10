@@ -5,8 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
-import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
-import com.simol.ouncommon.routine.enums.RoutineStatus;
+import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.vo.RoutineResponse;
 
 public class RoutineEntityTest {
@@ -14,7 +13,8 @@ public class RoutineEntityTest {
     @DisplayName("루틴 생성 테스트")
     void createSuccess() {
         UserEntity user = UserEntity.create("test@test.com", "test", "test", "test");
-        RoutineEntity routineEntity = RoutineEntity.create("test", "test", user);
+        RoutineCreateRequest request = RoutineCreateRequest.builder().name("test").description("test").sort(1).build();
+        RoutineEntity routineEntity = RoutineEntity.create(request, user);
         
         RoutineResponse response = RoutineResponse.of(routineEntity);
 

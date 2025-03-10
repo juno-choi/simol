@@ -20,4 +20,8 @@ public class RoutineCreateRequest {
 
     @Schema(description = "루틴 설명", example = "하체 부시는 날")
     private String description;
+
+    @Schema(description = "루틴 정렬", example = "1")
+    @NotNull(message = "루틴 정렬은 필수 입력 값입니다.")
+    private int sort;
 }

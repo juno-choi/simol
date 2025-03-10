@@ -8,6 +8,7 @@ import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.health.dto.HealthCreateRequest;
 import com.simol.ouncommon.health.dto.HealthUpdateRequest;
 import com.simol.ouncommon.health.enums.HealthStatus;
+import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 
 
@@ -22,7 +23,8 @@ public class HealthEntityTest {
             .build();
 
         UserEntity user = UserEntity.create("test@test.com", "test", "test", "test");
-        RoutineEntity routine = RoutineEntity.create("test", "test", user);
+        RoutineCreateRequest request = RoutineCreateRequest.builder().name("test").description("test").sort(1).build();
+        RoutineEntity routine = RoutineEntity.create(request, user);
             
         HealthEntity health = HealthEntity.create(healthCreateRequest, routine, user);
 
@@ -42,7 +44,8 @@ public class HealthEntityTest {
             .build();
 
         UserEntity user = UserEntity.create("test@test.com", "test", "test", "test");
-        RoutineEntity routine = RoutineEntity.create("test", "test", user); 
+        RoutineCreateRequest request = RoutineCreateRequest.builder().name("test").description("test").sort(1).build();
+        RoutineEntity routine = RoutineEntity.create(request, user); 
         
         HealthEntity health = HealthEntity.create(healthCreateRequest, routine, user);
 

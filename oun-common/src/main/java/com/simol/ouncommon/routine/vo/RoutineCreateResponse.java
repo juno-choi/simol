@@ -31,6 +31,8 @@ public class RoutineCreateResponse {
     private LocalDateTime createdAt;
     @Schema(description = "루틴 수정일", example = "2025-01-01T00:00:00")
     private LocalDateTime updatedAt;
+    @Schema(description = "루틴 정렬", example = "1")
+    private int sort;
     
     public static RoutineCreateResponse of(RoutineEntity routineEntity) {
         return RoutineCreateResponse.builder()
@@ -38,6 +40,7 @@ public class RoutineCreateResponse {
             .name(routineEntity.getName())
             .description(routineEntity.getDescription())
             .status(routineEntity.getStatus())
+            .sort(routineEntity.getSort())
             .createdAt(routineEntity.getCreatedAt())
             .updatedAt(routineEntity.getUpdatedAt())
             .build();
