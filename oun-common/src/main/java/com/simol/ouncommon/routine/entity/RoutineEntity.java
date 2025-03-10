@@ -11,6 +11,7 @@ import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.dto.RoutineHealthUpdateRequest;
 import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
+import com.simol.ouncommon.routine.enums.RoutineDays;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import jakarta.persistence.CascadeType;
@@ -58,13 +59,15 @@ public class RoutineEntity extends GlobalEntity {
     @Enumerated(EnumType.STRING)
     private RoutineStatus status;   //루틴 상태
 
-    private int sort;
+    @Enumerated(EnumType.ORDINAL)
+    private RoutineDays days; //루틴 요일
+
 
     @Builder
-    protected RoutineEntity(String name, String description, int sort, RoutineStatus status, List<HealthEntity> healthList, UserEntity user) {
+    protected RoutineEntity(String name, String description, RoutineDays days, RoutineStatus status, List<HealthEntity> healthList, UserEntity user) {
         this.name = name;
         this.description = description;
-        this.sort = sort;
+        this.days = days;
         this.status = status;
         this.user = user;
         this.healthList = healthList;
@@ -74,7 +77,7 @@ public class RoutineEntity extends GlobalEntity {
         this.name = routineUpdateRequest.getName();
         this.description = routineUpdateRequest.getDescription();
         this.status = routineUpdateRequest.getStatus();
-        this.sort = routineUpdateRequest.getSort();
+        this.days = routineUpdateRequest.getDays();
     }
 
     public void addHealth(HealthEntity health) {
@@ -113,7 +116,7 @@ public class RoutineEntity extends GlobalEntity {
         return RoutineEntity.builder()
             .name(routineCreateRequest.getName())
             .description(routineCreateRequest.getDescription())
-            .sort(routineCreateRequest.getSort())
+            .days(routineCreateRequest.getDays())
             .status(RoutineStatus.ACTIVE)
             .user(user)
             .healthList(new ArrayList<>())

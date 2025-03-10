@@ -32,7 +32,7 @@ public class CustomRoutineRepositoryImpl implements CustomRoutineRepository {
             .where(builder)
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
-            .orderBy(routine.sort.asc())
+            .orderBy(routine.days.asc())
             .fetch();
 
         Long total = jpaQueryFactory.from(routine).where(builder).stream().count();

@@ -11,6 +11,7 @@ import com.simol.ouncommon.healthset.dto.HealthSetCreateRequest;
 import com.simol.ouncommon.healthset.enums.HealthSetType;
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
+import com.simol.ouncommon.routine.enums.RoutineDays;
 
 public class HealthSetEntityTest {
     @Test
@@ -28,7 +29,7 @@ public class HealthSetEntityTest {
             .build();
 
         UserEntity user = UserEntity.create("test@test.com", "test", "test", "test");
-        RoutineCreateRequest request = RoutineCreateRequest.builder().name("test").description("test").sort(1).build();
+        RoutineCreateRequest request = RoutineCreateRequest.builder().name("test").description("test").days(RoutineDays.MONDAY).build();
         RoutineEntity routine = RoutineEntity.create(request, user);
         HealthEntity health = HealthEntity.builder()
             .id(1L)
