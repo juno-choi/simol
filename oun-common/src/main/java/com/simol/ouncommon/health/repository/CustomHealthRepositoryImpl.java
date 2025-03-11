@@ -12,6 +12,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.health.entity.QHealthEntity;
 import com.simol.ouncommon.health.enums.HealthStatus;
+import com.simol.ouncommon.healthset.entity.QHealthSetEntity;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,12 +24,14 @@ public class CustomHealthRepositoryImpl implements CustomHealthRepository{
     @Override
     public Page<HealthEntity> findAllByPage(Pageable pageable, Long routineId) {
         QHealthEntity health = QHealthEntity.healthEntity;
+        QHealthSetEntity healthSet = QHealthSetEntity.healthSetEntity;
         BooleanBuilder builder = new BooleanBuilder();
 
         builder.and(health.routine.id.eq(routineId));
         builder.and(health.status.eq(HealthStatus.ACTIVE));
 
         List<HealthEntity> fetchResults = jpaQueryFactory.selectFrom(health)
+            .leftJoin(health.healthSetList, healthSet).on(healthSet.health.id.eq(health.id))
             .where(builder)
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
