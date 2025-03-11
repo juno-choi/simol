@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.simol.ouncommon.healthset.entity.HealthSetEntity;
 import com.simol.ouncommon.healthset.enums.HealthSetStatus;
-import com.simol.ouncommon.healthset.enums.HealthSetType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -30,9 +29,6 @@ public class HealthSetResponse {
 
     @Schema(description = "status", example = "ACTIVE")
     private HealthSetStatus status;
-
-    @Schema(description = "healthSetType", example = "WEIGHT")
-    private HealthSetType healthSetType;
 
     @Schema(description = "세트 번호 (정렬)", example = "1")
     private int setNumber;
@@ -61,7 +57,6 @@ public class HealthSetResponse {
     public static HealthSetResponse of(HealthSetEntity healthSet) {
         return HealthSetResponse.builder()
             .healthSetId(healthSet.getId())
-            .healthSetType(healthSet.getHealthSetType())
             .description(healthSet.getDescription())
             .status(healthSet.getStatus())
             .setNumber(healthSet.getSetNumber())

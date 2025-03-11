@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import com.simol.ouncommon.healthset.entity.HealthSetEntity;
 import com.simol.ouncommon.healthset.enums.HealthSetStatus;
-import com.simol.ouncommon.healthset.enums.HealthSetType;
 
 public class HealthSetResponseTest {
     @Test
@@ -20,7 +19,6 @@ public class HealthSetResponseTest {
             .id(HEALTH_SET_ID)
             .description(DESCRIPTION)
             .status(STATUS)
-            .healthSetType(HealthSetType.WEIGHT)
             .setNumber(1)
             .setCount(10)
             .setWeight(100)

@@ -8,7 +8,6 @@ import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.health.enums.HealthStatus;
 import com.simol.ouncommon.healthset.dto.HealthSetCreateRequest;
-import com.simol.ouncommon.healthset.enums.HealthSetType;
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 import com.simol.ouncommon.routine.enums.RoutineDays;
@@ -19,7 +18,6 @@ public class HealthSetEntityTest {
     void createSuccess() {
         HealthSetCreateRequest healthSetCreateRequest = HealthSetCreateRequest.builder()
             .description("test")
-            .healthSetType(HealthSetType.WEIGHT)
             .setNumber(1)
             .setCount(10)
             .setWeight(100)
@@ -44,7 +42,6 @@ public class HealthSetEntityTest {
 
         Assertions.assertThat(healthSet.getHealth()).isEqualTo(health);
         Assertions.assertThat(healthSet.getDescription()).isEqualTo("test");
-        Assertions.assertThat(healthSet.getHealthSetType()).isEqualTo(HealthSetType.WEIGHT);
         Assertions.assertThat(healthSet.getSetNumber()).isEqualTo(1);
         Assertions.assertThat(healthSet.getSetCount()).isEqualTo(10);
         Assertions.assertThat(healthSet.getSetWeight()).isEqualTo(100);

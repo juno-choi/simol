@@ -6,7 +6,6 @@ import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.healthset.dto.HealthSetCreateRequest;
 import com.simol.ouncommon.healthset.dto.HealthSetUpdateRequest;
 import com.simol.ouncommon.healthset.enums.HealthSetStatus;
-import com.simol.ouncommon.healthset.enums.HealthSetType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,10 +40,6 @@ public class HealthSetEntity extends GlobalEntity {
     @JoinColumn(name = "health_id")
     private HealthEntity health;
 
-    // 운동 타입
-    @Enumerated(EnumType.STRING)
-    private HealthSetType healthSetType;
-
     // 세트 번호
     private int setNumber;
     // 세트당 개수
@@ -66,7 +61,6 @@ public class HealthSetEntity extends GlobalEntity {
     public static HealthSetEntity create(HealthSetCreateRequest healthDetailCreateRequest, HealthEntity health) {
         return HealthSetEntity.builder()
             .health(health)
-            .healthSetType(healthDetailCreateRequest.getHealthSetType())
             .setNumber(healthDetailCreateRequest.getSetNumber())
             .setCount(healthDetailCreateRequest.getSetCount())
             .setWeight(healthDetailCreateRequest.getSetWeight())
@@ -83,7 +77,6 @@ public class HealthSetEntity extends GlobalEntity {
     }
     
     public void update(HealthHealthSetUpdateRequest healthSetRequest) {
-        this.healthSetType = healthSetRequest.getHealthSetType();
         this.setNumber = healthSetRequest.getSetNumber();
         this.setCount = healthSetRequest.getSetCount();
         this.setWeight = healthSetRequest.getSetWeight();
@@ -96,7 +89,6 @@ public class HealthSetEntity extends GlobalEntity {
     public static HealthSetEntity create(HealthHealthSetUpdateRequest healthSetRequest, HealthEntity health) {
         return HealthSetEntity.builder()
             .health(health)
-            .healthSetType(healthSetRequest.getHealthSetType())
             .setNumber(healthSetRequest.getSetNumber())
             .setCount(healthSetRequest.getSetCount())
             .setWeight(healthSetRequest.getSetWeight())
@@ -109,7 +101,6 @@ public class HealthSetEntity extends GlobalEntity {
     }
 
     public void update(HealthSetUpdateRequest healthSetUpdateRequest) {
-        this.healthSetType = healthSetUpdateRequest.getHealthSetType();
         this.setNumber = healthSetUpdateRequest.getSetNumber();
         this.setCount = healthSetUpdateRequest.getSetCount();
         this.setWeight = healthSetUpdateRequest.getSetWeight();
