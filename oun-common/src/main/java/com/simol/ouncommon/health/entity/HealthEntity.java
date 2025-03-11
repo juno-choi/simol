@@ -110,6 +110,7 @@ public class HealthEntity extends GlobalEntity {
         this.description = healthRequest.getDescription();
         this.sort = healthRequest.getSort();
         this.status = healthRequest.getStatus();
+        this.healthType = healthRequest.getHealthType();
     }
 
     public void updateHealthSetList(List<HealthHealthSetUpdateRequest> healthSetList) {

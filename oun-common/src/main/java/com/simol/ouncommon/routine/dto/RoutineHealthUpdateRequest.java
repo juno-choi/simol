@@ -1,6 +1,9 @@
 package com.simol.ouncommon.routine.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.simol.ouncommon.health.enums.HealthStatus;
 import com.simol.ouncommon.health.enums.HealthType;
 
@@ -16,9 +19,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoutineHealthUpdateRequest {
     @Schema(description = "운동 id", example = "1")
-    @JsonProperty("health_id")
     private Long healthId;
     
     @Schema(description = "운동 이름", example = "스쿼트")
