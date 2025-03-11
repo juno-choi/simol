@@ -2,6 +2,7 @@ package com.simol.ouncommon.routine.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simol.ouncommon.health.enums.HealthStatus;
+import com.simol.ouncommon.health.enums.HealthType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -34,4 +35,8 @@ public class RoutineHealthUpdateRequest {
     @Schema(description = "운동 상태", example = "ACTIVE")
     @NotNull(message = "운동 상태는 필수 입력 값입니다.")
     private HealthStatus status;
+
+    @Schema(description = "운동 타입", example = "WEIGHT")
+    @NotNull(message = "운동 타입은 필수 입력 값입니다.")
+    private HealthType healthType;
 }

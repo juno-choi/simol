@@ -11,6 +11,7 @@ import com.simol.ouncommon.health.dto.HealthCreateRequest;
 import com.simol.ouncommon.health.dto.HealthHealthSetUpdateRequest;
 import com.simol.ouncommon.health.dto.HealthUpdateRequest;
 import com.simol.ouncommon.health.enums.HealthStatus;
+import com.simol.ouncommon.health.enums.HealthType;
 import com.simol.ouncommon.healthset.entity.HealthSetEntity;
 import com.simol.ouncommon.routine.dto.RoutineHealthUpdateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
@@ -55,6 +56,9 @@ public class HealthEntity extends GlobalEntity {
     @Enumerated(EnumType.STRING)
     private HealthStatus status;
 
+    @Enumerated(EnumType.STRING)
+    private HealthType healthType;
+
     // health 세트 리스트
     @OneToMany(mappedBy = "health", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HealthSetEntity> healthSetList;
@@ -75,6 +79,7 @@ public class HealthEntity extends GlobalEntity {
                 .description(healthCreateRequest.getDescription())
                 .sort(healthCreateRequest.getSort())
                 .status(HealthStatus.ACTIVE)
+                .healthType(healthCreateRequest.getHealthType())
                 .build();
     }
 
@@ -95,6 +100,7 @@ public class HealthEntity extends GlobalEntity {
                 .description(healthUpdateRequest.getDescription())
                 .sort(healthUpdateRequest.getSort())
                 .status(healthUpdateRequest.getStatus())
+                .healthType(healthUpdateRequest.getHealthType())
                 .routine(routine)
                 .build();
     }

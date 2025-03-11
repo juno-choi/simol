@@ -42,7 +42,7 @@ public class RoutineUpdateRequest {
     @ArraySchema(
         arraySchema = @Schema(
             description = "루틴 health 목록", 
-            example = "[{\"health_id\": 1, \"name\": \"스쿼트\", \"description\": \"허리 꽂꽂히 아래에 내려가서는 빨리 올라오기!\", \"sort\": 1, \"status\": \"ACTIVE\"}]"
+            example = "[{\"health_id\": 1, \"name\": \"스쿼트\", \"description\": \"허리 꽂꽂히 아래에 내려가서는 빨리 올라오기!\", \"sort\": 1, \"status\": \"ACTIVE\", \"health_type\": \"WEIGHT\" }]"
         )
     )
     @JsonProperty("routine_health_list")

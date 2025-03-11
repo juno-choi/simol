@@ -1,6 +1,7 @@
 package com.simol.ouncommon.health.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.simol.ouncommon.health.enums.HealthType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
@@ -18,7 +19,7 @@ public class HealthCreateRequest {
     @JsonProperty("routine_id")
     private Long routineId;
 
-    @Schema(description = "건강 이름", example = "스쿼트")
+    @Schema(description = "운동 이름", example = "스쿼트")
     private String name;
 
     @Schema(description = "설명", example = "허리 꽂꽂히 아래에 내려가서는 천천히 올라오기!")
@@ -26,4 +27,7 @@ public class HealthCreateRequest {
 
     @Schema(description = "순서", example = "1")
     private int sort;
+
+    @Schema(description = "운동 타입", example = "WEIGHT")
+    private HealthType healthType;
 }

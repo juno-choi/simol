@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.health.enums.HealthStatus;
+import com.simol.ouncommon.health.enums.HealthType;
 import com.simol.ouncommon.healthset.vo.HealthSetResponse;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,6 +30,9 @@ public class HealthResponse {
     private int sort;
     @Schema(description = "운동 상태", example = "ACTIVE")
     private HealthStatus status;
+    @Schema(description = "운동 타입", example = "WEIGHT")
+    private HealthType healthType;
+
     @Schema(description = "운동 생성일", example = "2025-01-01 00:00:00")
     private LocalDateTime createdAt;
     @Schema(description = "운동 수정일", example = "2025-01-01 00:00:00")
@@ -44,6 +48,7 @@ public class HealthResponse {
             .description(health.getDescription())
             .sort(health.getSort())
             .status(health.getStatus())
+            .healthType(health.getHealthType())
             .healthSetList(health.getHealthSetList().stream().map(HealthSetResponse::of).toList())
             .createdAt(health.getCreatedAt())
             .updatedAt(health.getUpdatedAt())
