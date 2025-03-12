@@ -1,7 +1,6 @@
 package com.simol.ouncommon.healthset.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.simol.ouncommon.healthset.enums.HealthSetType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -20,11 +19,6 @@ public class HealthSetCreateRequest {
     @Schema(description = "운동 아이디", example = "1")
     @JsonProperty("health_id")
     private Long healthId;
-
-    @NotNull(message = "운동 타입은 필수 입력 값입니다.")
-    @Schema(description = "운동 타입", example = "WEIGHT")
-    @JsonProperty("health_set_type")
-    private HealthSetType healthSetType;
 
     @NotNull(message = "세트 번호는 필수 입력 값입니다.")
     @Schema(description = "세트 번호 (정렬)", example = "1")

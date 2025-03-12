@@ -2,7 +2,6 @@ package com.simol.ouncommon.healthset.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simol.ouncommon.healthset.enums.HealthSetStatus;
-import com.simol.ouncommon.healthset.enums.HealthSetType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
@@ -17,10 +16,6 @@ public class HealthSetUpdateRequest {
     @JsonProperty("health_set_id")
     @Schema(description = "healthSetId", example = "1")
     private long healthSetId;
-
-    @JsonProperty("health_set_type")
-    @Schema(description = "healthSetType", example = "RUNNING")
-    private HealthSetType healthSetType;
 
     @Schema(description = "description", example = "세트에 대한 설명")
     private String description;
