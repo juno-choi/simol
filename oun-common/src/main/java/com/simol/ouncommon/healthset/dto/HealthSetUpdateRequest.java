@@ -42,7 +42,7 @@ public class HealthSetUpdateRequest {
 
     @JsonProperty("set_speed")
     @Schema(description = "세트 속도", example = "9")
-    private int setSpeed;
+    private double setSpeed;
 
     @JsonProperty("status")
     @Schema(description = "상태", example = "ACTIVE")

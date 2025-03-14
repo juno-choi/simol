@@ -51,7 +51,7 @@ public class HealthSetEntity extends GlobalEntity {
     // 세트 시간
     private int setTime;
     // 세트 속도
-    private int setSpeed;
+    private double setSpeed;
 
     private String description;
     

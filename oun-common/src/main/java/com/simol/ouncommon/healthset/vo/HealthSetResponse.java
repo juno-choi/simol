@@ -46,7 +46,7 @@ public class HealthSetResponse {
     private int setTime;
 
     @Schema(description = "세트 속도", example = "100")
-    private int setSpeed;
+    private double setSpeed;
 
     @Schema(description = "생성일", example = "2025-01-01T00:00:00")
     private LocalDateTime createdAt;

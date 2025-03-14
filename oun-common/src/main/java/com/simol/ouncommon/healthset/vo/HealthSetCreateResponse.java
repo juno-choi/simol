@@ -44,7 +44,7 @@ public class HealthSetCreateResponse {
     private int setTime;
 
     @Schema(description = "세트 속도", example = "100")
-    private int setSpeed;
+    private double setSpeed;
 
     @Schema(description = "상태", example = "ACTIVE")
     private HealthSetStatus status;
