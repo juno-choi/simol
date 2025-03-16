@@ -67,7 +67,7 @@ public class RoutineServiceImpl implements RoutineService {
             .orElseThrow(() -> new BadRequestException("Routine not found"));
 
         if (!routineEntity.getUser().getId().equals(userId)) {
-            throw new BadRequestException("Routine not found");
+            throw new BadRequestException("User Routine not found");
         }
         
         routineEntity.update(routineUpdateRequest);

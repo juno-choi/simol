@@ -14,6 +14,7 @@ import com.simol.ouncommon.auth.entity.UserEntity;
 import com.simol.ouncommon.auth.repository.UsersRepository;
 import com.simol.ouncommon.exception.BadRequestException;
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
+import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 import com.simol.ouncommon.routine.repository.RoutineRepository;
 import com.simol.ouncommon.routine.vo.RoutineCreateResponse;
@@ -133,5 +134,81 @@ public class RoutineServiceImplTest {
         // then
         Assertions.assertThat(routineListResponse).isNotNull();
         Assertions.assertThat(routineListResponse.getRoutineList()).isNotEmpty();
+    }
+
+    @Test
+    @DisplayName("루틴 id 값이 존재하지 않으면 루틴 수정 실패")
+    void updateRoutineFail1() {
+        // given
+        final Long routineId = 1L;
+
+        RoutineUpdateRequest routineUpdateRequest = RequestFixtures.aRoutineUpdateRequest()
+            .build();
+
+        request.setAttribute("userId", 0L);
+
+        // when then
+        Assertions.assertThatExceptionOfType(BadRequestException.class)
+            .isThrownBy(() -> routineService.updateRoutine(routineUpdateRequest, request))
+            .withMessageContaining("Routine not found");
+    }
+
+    @Test
+    @DisplayName("루틴 id값이랑 요청 user id가 다르면 루틴 수정 실패")
+    void updateRoutineFail2() {
+        // given
+        UserEntity user = EntityFixtures.aUser()
+            .build();
+        UserEntity user2 = EntityFixtures.aUser()
+            .email("test2@test.com")
+            .build();
+
+        UserEntity saveUser = usersRepository.save(user);
+        UserEntity saveUser2 = usersRepository.save(user2);
+
+        RoutineCreateRequest routineCreateRequest = RequestFixtures.aRoutineCreateRequest()
+            .build();
+
+        RoutineEntity routine = routineRepository.save(RoutineEntity.create(routineCreateRequest, saveUser));
+
+        RoutineUpdateRequest routineUpdateRequest = RequestFixtures.aRoutineUpdateRequest()
+            .routineId(routine.getId())
+            .build();
+
+        request.setAttribute("userId", saveUser2.getId());
+
+        // when then
+        Assertions.assertThatExceptionOfType(BadRequestException.class)
+            .isThrownBy(() -> routineService.updateRoutine(routineUpdateRequest, request))
+            .withMessageContaining("User Routine not found");
+    }
+
+    @Test
+    @DisplayName("루틴 수정 성공")
+    void updateRoutineSuccess() {
+        // given
+        UserEntity user = EntityFixtures.aUser()
+            .build();
+
+        UserEntity saveUser = usersRepository.save(user);
+
+        RoutineCreateRequest routineCreateRequest = RequestFixtures.aRoutineCreateRequest()
+            .build();
+
+        RoutineEntity routine = routineRepository.save(RoutineEntity.create(routineCreateRequest, saveUser));
+
+        RoutineUpdateRequest routineUpdateRequest = RequestFixtures.aRoutineUpdateRequest()
+            .routineId(routine.getId())
+            .build();
+
+        request.setAttribute("userId", saveUser.getId());
+
+        // when
+        RoutineResponse routineResponse = routineService.updateRoutine(routineUpdateRequest, request);
+
+        // then
+        Assertions.assertThat(routineResponse).isNotNull();
+        Assertions.assertThat(routineResponse.getRoutineId()).isEqualTo(routine.getId());
+        Assertions.assertThat(routineResponse.getName()).isEqualTo("test");
     }
 }
