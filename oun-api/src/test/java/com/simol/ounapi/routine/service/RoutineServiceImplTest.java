@@ -17,6 +17,7 @@ import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
 import com.simol.ouncommon.routine.repository.RoutineRepository;
 import com.simol.ouncommon.routine.vo.RoutineCreateResponse;
+import com.simol.ouncommon.routine.vo.RoutineListResponse;
 import com.simol.ouncommon.routine.vo.RoutineResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -77,7 +78,7 @@ public class RoutineServiceImplTest {
     }
 
     @Test
-    @DisplayName("루틴 조회 실패")
+    @DisplayName("routine이 존재하지 않으면 루틴 조회 실패")
     void getRoutineFail1() {
         // given
         final Long routineId = 1L;
@@ -109,5 +110,28 @@ public class RoutineServiceImplTest {
         Assertions.assertThat(routineResponse).isNotNull();
         Assertions.assertThat(routineResponse.getRoutineId()).isEqualTo(routine.getId());
         Assertions.assertThat(routineResponse.getName()).isEqualTo("test");
+    }
+
+    @Test
+    @DisplayName("routine list 조회 성공")
+    void getRoutineListSuccess() {
+        // given
+        UserEntity user = EntityFixtures.aUser()
+            .build();
+
+        UserEntity saveUser = usersRepository.save(user);
+
+        RoutineCreateRequest routineCreateRequest = RequestFixtures.aRoutineCreateRequest()
+            .build();
+
+        routineRepository.save(RoutineEntity.create(routineCreateRequest, saveUser));
+        request.setAttribute("userId", saveUser.getId());
+
+        // when
+        RoutineListResponse routineListResponse = routineService.getRoutineList(0, 10, request);
+
+        // then
+        Assertions.assertThat(routineListResponse).isNotNull();
+        Assertions.assertThat(routineListResponse.getRoutineList()).isNotEmpty();
     }
 }
