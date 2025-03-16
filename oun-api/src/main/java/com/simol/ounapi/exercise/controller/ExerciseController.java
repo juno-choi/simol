@@ -72,7 +72,7 @@ public class ExerciseController {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = ExerciseListResponse.class))),
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorApi.class))),
     })
-    public ResponseEntity<CommonApi<ExerciseListResponse>> getHealthList(
+    public ResponseEntity<CommonApi<ExerciseListResponse>> getExerciseList(
         @Schema(description = "routine ID", example = "1")
         @RequestParam(name = "routine_id") Long routineId,
         @Schema(description = "페이지", example = "0")
@@ -94,7 +94,7 @@ public class ExerciseController {
         return ResponseEntity.ok(CommonApi.success(exerciseResponse));
     }
     
-    @DeleteMapping("/{health_id}")
+    @DeleteMapping("/{exercise_id}")
     @Operation(summary = "5. 운동 삭제", description = "운동을 삭제합니다.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "success", content = @Content(schema = @Schema(implementation = ExerciseResponse.class))),
