@@ -256,7 +256,6 @@ public class RoutineServiceImplTest {
 
     @Test
     @DisplayName("루틴 삭제 성공")
-    @Transactional
     void deleteRoutineSuccess() {
         // given
         UserEntity user = EntityFixtures.aUser()
@@ -272,6 +271,7 @@ public class RoutineServiceImplTest {
         routineService.deleteRoutine(routine.getId(), request);
 
         // then
-        Assertions.assertThat(routine.getStatus()).isEqualTo(RoutineStatus.INACTIVE);
+        RoutineEntity findRoutine = routineRepository.findById(routine.getId()).get();
+        Assertions.assertThat(findRoutine.getStatus()).isEqualTo(RoutineStatus.INACTIVE);
     }
 }
