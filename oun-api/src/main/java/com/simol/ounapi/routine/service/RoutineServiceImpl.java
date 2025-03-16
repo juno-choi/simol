@@ -71,8 +71,8 @@ public class RoutineServiceImpl implements RoutineService {
         }
         
         routineEntity.update(routineUpdateRequest);
-        // healthList 수정
-        routineEntity.updateHealthList(routineUpdateRequest.getHealthList());
+        // exerciseList 수정
+        routineEntity.updateExerciseList(routineUpdateRequest.getExerciseList());
 
         return RoutineResponse.of(routineEntity);
     }

@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
+import com.simol.ouncommon.exercise.entity.ExerciseEntity;
 import com.simol.ouncommon.global.entity.GlobalEntity;
-import com.simol.ouncommon.health.entity.HealthEntity;
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
-import com.simol.ouncommon.routine.dto.RoutineHealthUpdateRequest;
+import com.simol.ouncommon.routine.dto.RoutineExerciseUpdateRequest;
 import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
 import com.simol.ouncommon.routine.enums.RoutineDays;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
@@ -48,7 +48,7 @@ public class RoutineEntity extends GlobalEntity {
     private UserEntity user;
 
     @OneToMany(mappedBy = "routine", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HealthEntity> healthList = new ArrayList<>();
+    private List<ExerciseEntity> exerciseList = new ArrayList<>();
 
     @Column(nullable = false)
     private String name;    //루틴 이름
@@ -64,13 +64,13 @@ public class RoutineEntity extends GlobalEntity {
 
 
     @Builder
-    protected RoutineEntity(String name, String description, RoutineDays days, RoutineStatus status, List<HealthEntity> healthList, UserEntity user) {
+    protected RoutineEntity(String name, String description, RoutineDays days, RoutineStatus status, List<ExerciseEntity> exerciseList, UserEntity user) {
         this.name = name;
         this.description = description;
         this.days = days;
         this.status = status;
         this.user = user;
-        this.healthList = healthList;
+        this.exerciseList = exerciseList;
     }
 
     public void update(RoutineUpdateRequest routineUpdateRequest) {
@@ -80,36 +80,36 @@ public class RoutineEntity extends GlobalEntity {
         this.days = routineUpdateRequest.getDays();
     }
 
-    public void addHealth(HealthEntity health) {
-        healthList.add(health);
-        health.updateRoutine(this);
+    public void addExercise(ExerciseEntity exercise) {
+        exerciseList.add(exercise);
+        exercise.updateRoutine(this);
     }
 
-    public void updateHealthList(List<RoutineHealthUpdateRequest> healthRequests) {
+    public void updateExerciseList(List<RoutineExerciseUpdateRequest> routineExerciseUpdateRequestList) {
         // 기존 Health ID를 Map으로 관리
-        Map<Long, HealthEntity> existingHealthMap = this.healthList.stream()
-            .filter(health -> health.getId() != null)
-            .collect(Collectors.toMap(HealthEntity::getId, health -> health));
+        Map<Long, ExerciseEntity> existingExerciseMap = this.exerciseList.stream()
+            .filter(exercise -> exercise.getId() != null)
+            .collect(Collectors.toMap(ExerciseEntity::getId, exercise -> exercise));
         
-        List<HealthEntity> updatedHealthList = new ArrayList<>();
+        List<ExerciseEntity> updatedExerciseList = new ArrayList<>();
         
-        for (RoutineHealthUpdateRequest healthRequest : healthRequests) {
-            if (healthRequest.getHealthId() != null && existingHealthMap.containsKey(healthRequest.getHealthId())) {
+        for (RoutineExerciseUpdateRequest routineExerciseUpdateRequest : routineExerciseUpdateRequestList) {
+            if (routineExerciseUpdateRequest.getExerciseId() != null && existingExerciseMap.containsKey(routineExerciseUpdateRequest.getExerciseId())) {
                 // 기존 Health 업데이트
-                HealthEntity existingHealth = existingHealthMap.get(healthRequest.getHealthId());
-                existingHealth.update(healthRequest);
-                updatedHealthList.add(existingHealth);
-                existingHealthMap.remove(healthRequest.getHealthId());
+                ExerciseEntity existingExercise = existingExerciseMap.get(routineExerciseUpdateRequest.getExerciseId());
+                existingExercise.update(routineExerciseUpdateRequest);
+                updatedExerciseList.add(existingExercise);
+                existingExerciseMap.remove(routineExerciseUpdateRequest.getExerciseId());
             } else {
                 // 새 Health 생성
-                HealthEntity newHealth = HealthEntity.create(healthRequest, this);
-                updatedHealthList.add(newHealth);
+                ExerciseEntity newExercise = ExerciseEntity.create(routineExerciseUpdateRequest, this);
+                updatedExerciseList.add(newExercise);
             }
         }
         
         // 컬렉션 교체
-        this.healthList.clear();
-        this.healthList.addAll(updatedHealthList);
+        this.exerciseList.clear();
+        this.exerciseList.addAll(updatedExerciseList);
     }
 
     public static RoutineEntity create(RoutineCreateRequest routineCreateRequest, UserEntity user) {
@@ -119,7 +119,7 @@ public class RoutineEntity extends GlobalEntity {
             .days(routineCreateRequest.getDays())
             .status(RoutineStatus.ACTIVE)
             .user(user)
-            .healthList(new ArrayList<>())
+            .exerciseList(new ArrayList<>())
             .build();
     }
 

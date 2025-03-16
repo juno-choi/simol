@@ -41,20 +41,20 @@ public class RoutineUpdateRequest {
 
     @ArraySchema(
         arraySchema = @Schema(
-            description = "루틴 health 목록", 
-            example = "[{\"health_id\": 1, \"name\": \"스쿼트\", \"description\": \"허리 꽂꽂히 아래에 내려가서는 빨리 올라오기!\", \"sort\": 1, \"status\": \"ACTIVE\", \"health_type\": \"WEIGHT\" }]"
+            description = "루틴 exercise 목록", 
+            example = "[{\"exercise_id\": 1, \"name\": \"스쿼트\", \"description\": \"허리 꽂꽂히 아래에 내려가서는 빨리 올라오기!\", \"sort\": 1, \"status\": \"ACTIVE\", \"type\": \"WEIGHT\" }]"
         )
     )
-    @JsonProperty("routine_health_list")
-    private List<RoutineHealthUpdateRequest> healthList = new ArrayList<>();
+    @JsonProperty("routine_exercise_list")
+    private List<RoutineExerciseUpdateRequest> exerciseList = new ArrayList<>();
 
     @Builder
-    public RoutineUpdateRequest(long routineId, String name, String description, RoutineStatus status, RoutineDays days, List<RoutineHealthUpdateRequest> healthList) {
+    public RoutineUpdateRequest(long routineId, String name, String description, RoutineStatus status, RoutineDays days, List<RoutineExerciseUpdateRequest> exerciseList) {
         this.routineId = routineId;
         this.name = name;
         this.description = description;
         this.status = status;
         this.days = days;
-        this.healthList = healthList;
+        this.exerciseList = exerciseList;
     }
 }
