@@ -11,6 +11,8 @@ public class WhiteList {
         // h2
         "/h2-console/**",
         // test
-        "/api/test", "/api/test/**"
+        "/api/test", "/api/test/**",
+        // actuator
+        "/api/actuator/**", "/api/actuator", "/api/actuator/prometheus", "/user/actuator/**", "/user/actuator"
     };
 }
