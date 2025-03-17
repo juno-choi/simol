@@ -386,3 +386,7 @@ erDiagram
     ROUTINE ||--o{ EXERCISE : "1:N 관계"
     EXERCISE ||--o{ EXERCISE_SET : "1:N 관계"
 ```
+
+## 🟠 skill set
+
+`spring boot` `docker` `docker compose` `redis` `mysql` `swagger` `traefik` `java21` `gradle` `jpa` `querydsl`

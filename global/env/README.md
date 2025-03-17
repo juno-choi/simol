@@ -76,3 +76,9 @@ docker-compose -f ./traefik/docker-compose up -d --build
 ```
 docker-compose -f ./monitoring/docker-compose up -d --build
 ```
+
+grafana template
+
+19004 - statistics
+
+21308 - http
