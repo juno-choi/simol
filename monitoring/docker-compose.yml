@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"    # Prometheus UI 접근용 포트
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - oun-network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "9000:3000"    # Grafana UI 접근용 포트
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_ROOT_URL=http://localhost:3000  # Grafana root URL 설정
+      - GF_USERS_ALLOW_SIGN_UP=false   # 회원가입 비활성화
+    volumes:
+      - ./grafana-storage:/var/lib/grafana
+    networks:
+      - oun-network
+    restart: unless-stopped
+
+networks:
+  oun-network:
+    name: oun-network
+    driver: bridge
+    external: true    # 기존 네트워크 사용

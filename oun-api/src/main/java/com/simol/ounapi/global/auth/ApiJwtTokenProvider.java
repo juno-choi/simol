@@ -27,6 +27,15 @@ public class ApiJwtTokenProvider {
 
 
     public Authentication getAuthentication(HttpServletRequest request) {
+
+        StringBuffer requestURL = request.getRequestURL();
+        // actuator 요청이면 패스
+        if(requestURL.toString().contains("/actuator")) {
+            request.setAttribute("userId", "0");
+            request.setAttribute("userRole", "ROLE_TESTER");
+            return createTestAuthentication();
+        }
+
         // test token이 아니면 패스
         String userId = request.getHeader("X-User-Id");
         String userRole = request.getHeader("X-User-Role").toString().toUpperCase(Locale.ROOT);

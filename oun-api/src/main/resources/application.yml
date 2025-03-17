@@ -19,6 +19,20 @@ springdoc:
   api-docs:
     path: /api/v3/api-docs
 
+# monitoring
+management:
+  endpoints:
+    web:
+      base-path: /api/actuator
+      exposure:
+        include: prometheus, health, metrics
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: oun-api
+
 ---
 # local
 spring:

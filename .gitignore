@@ -38,3 +38,7 @@ out/
 
 ### Docker ###
 **/.env
+
+### Monitoring ###
+monitoring/grafana-storage/
+

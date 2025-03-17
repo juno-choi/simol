@@ -25,4 +25,8 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     // mysql 데이터베이스 설정
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 }

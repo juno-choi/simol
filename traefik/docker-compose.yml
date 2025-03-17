@@ -61,7 +61,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     labels:
       # 기본 API 라우터 (인증 필요)
-      - "traefik.http.routers.oun-api.rule=PathPrefix(`/api`) && !PathPrefix(`/api/swagger-ui`) && !PathPrefix(`/api/v3/api-docs`) && !Path(`/api/swagger-ui.html`) && !Path(`/api/test`)"
+      - "traefik.http.routers.oun-api.rule=PathPrefix(`/api`) && !PathPrefix(`/api/swagger-ui`) && !PathPrefix(`/api/v3/api-docs`) && !Path(`/api/swagger-ui.html`) && !Path(`/api/test`) && !PathPrefix(`/api/actuator`)"
       - "traefik.http.routers.oun-api.middlewares=cors,auth-forward"
       
       # Swagger UI 라우터 (인증 불필요)
@@ -72,6 +72,10 @@ services:
       - "traefik.http.routers.oun-api-test.rule=Path(`/api/test`)"
       - "traefik.http.routers.oun-api-test.middlewares=cors"
       
+      # actuator 라우터 (인증 불필요)
+      - "traefik.http.routers.oun-api-actuator.rule=PathPrefix(`/api/actuator`)"
+      - "traefik.http.routers.oun-api-actuator.middlewares=cors"
+
       # 공통 서비스 설정
       - "traefik.http.services.oun-api.loadbalancer.server.port=8080"
     networks:
