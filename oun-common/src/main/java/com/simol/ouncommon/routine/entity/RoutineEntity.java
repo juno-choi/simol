@@ -11,7 +11,6 @@ import com.simol.ouncommon.global.entity.GlobalEntity;
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.dto.RoutineExerciseUpdateRequest;
 import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
-import com.simol.ouncommon.routine.enums.RoutineDays;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import jakarta.persistence.CascadeType;
@@ -59,15 +58,11 @@ public class RoutineEntity extends GlobalEntity {
     @Enumerated(EnumType.STRING)
     private RoutineStatus status;   //루틴 상태
 
-    @Enumerated(EnumType.ORDINAL)
-    private RoutineDays days; //루틴 요일
-
 
     @Builder
-    protected RoutineEntity(String name, String description, RoutineDays days, RoutineStatus status, List<ExerciseEntity> exerciseList, UserEntity user) {
+    protected RoutineEntity(String name, String description, RoutineStatus status, List<ExerciseEntity> exerciseList, UserEntity user) {
         this.name = name;
         this.description = description;
-        this.days = days;
         this.status = status;
         this.user = user;
         this.exerciseList = exerciseList;
@@ -77,7 +72,6 @@ public class RoutineEntity extends GlobalEntity {
         this.name = routineUpdateRequest.getName();
         this.description = routineUpdateRequest.getDescription();
         this.status = routineUpdateRequest.getStatus();
-        this.days = routineUpdateRequest.getDays();
     }
 
     public void addExercise(ExerciseEntity exercise) {
@@ -116,7 +110,6 @@ public class RoutineEntity extends GlobalEntity {
         return RoutineEntity.builder()
             .name(routineCreateRequest.getName())
             .description(routineCreateRequest.getDescription())
-            .days(routineCreateRequest.getDays())
             .status(RoutineStatus.ACTIVE)
             .user(user)
             .exerciseList(new ArrayList<>())

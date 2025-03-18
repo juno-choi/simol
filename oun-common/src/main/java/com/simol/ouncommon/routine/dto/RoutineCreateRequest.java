@@ -1,7 +1,5 @@
 package com.simol.ouncommon.routine.dto;
 
-import com.simol.ouncommon.routine.enums.RoutineDays;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -23,7 +21,4 @@ public class RoutineCreateRequest {
     @Schema(description = "루틴 설명", example = "하체 부시는 날")
     private String description;
 
-    @Schema(description = "루틴 요일", example = "MONDAY")
-    @NotNull(message = "루틴 요일은 필수 입력 값입니다.")
-    private RoutineDays days;
 }

@@ -1,5 +1,7 @@
 package com.simol.ouncommon.exercise.vo;
 
+import java.util.ArrayList;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,7 @@ public class ExerciseResponseTest {
             .description(DESCRIPTION)
             .sort(SORT)
             .status(STATUS)
+            .exerciseSetList(new ArrayList<>())
             .build();
 
         ExerciseResponse exerciseResponse = ExerciseResponse.of(exercise);
