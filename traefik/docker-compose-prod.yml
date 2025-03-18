@@ -1,0 +1,125 @@
+version: '3.7'
+
+services:
+  traefik:
+    image: traefik:v3.3
+    container_name: oun-traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      # SSL 인증서 관련 설정 추가
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      # HTTP → HTTPS 리다이렉션
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+    labels: 
+      - "traefik.enable=true"
+      # 인증 미들웨어 정의
+      - "traefik.http.middlewares.auth-forward.forwardauth.address=http://oun-user:8080/user/auth"
+      - "traefik.http.middlewares.auth-forward.forwardauth.authResponseHeaders=X-User-Id,X-User-Role"
+      # CORS 미들웨어 설정
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE,OPTIONS"
+      - "traefik.http.middlewares.cors.headers.accesscontrolalloworiginlist=*"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowheaders=Content-Type,Authorization,X-User-Id,X-User-Role"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowcredentials=true"
+      - "traefik.http.middlewares.cors.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.cors.headers.addvaryheader=true"
+      # Traefik 대시보드에 SSL 적용
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`${DOMAIN_TRAEFIK}`)"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      - "traefik.http.routers.traefik-dashboard.tls=true"
+      - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+    ports:
+      - "80:80"
+      - "443:443"  # SSL 포트 추가
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt  # 인증서 저장 디렉토리 마운트
+    environment:
+      - DOMAIN_MAIN=${DOMAIN_MAIN}
+      - DOMAIN_TRAEFIK=${DOMAIN_TRAEFIK}
+      - ACME_EMAIL=${ACME_EMAIL}
+    networks:
+      - oun-network    
+      
+  oun-user:
+    build:
+      context: ../oun-user
+      dockerfile: Dockerfile
+    container_name: oun-user
+    environment:
+      - TZ=Asia/Seoul
+      - SERVER_PROFILE=${SERVER_PROFILE}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - DOMAIN_MAIN=${DOMAIN_MAIN}
+    labels:
+      - "traefik.http.routers.oun-user.rule=Host(`${DOMAIN_MAIN}`) && PathPrefix(`/user`)"
+      - "traefik.http.routers.oun-user.middlewares=cors"
+      - "traefik.http.routers.oun-user.tls=true"
+      - "traefik.http.routers.oun-user.tls.certresolver=myresolver"
+      - "traefik.http.routers.oun-user.entrypoints=websecure"
+      - "traefik.http.services.oun-user.loadbalancer.server.port=8080"
+    networks:
+      - oun-network
+
+  oun-api:
+    build:
+      context: ../oun-api
+      dockerfile: Dockerfile
+    container_name: oun-api
+    environment:
+      - TZ=Asia/Seoul
+      - SERVER_PROFILE=${SERVER_PROFILE}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - DOMAIN_MAIN=${DOMAIN_MAIN}
+    labels:
+      # 기본 API 라우터 (인증 필요)
+      - "traefik.http.routers.oun-api.rule=Host(`${DOMAIN_MAIN}`) && PathPrefix(`/api`) && !PathPrefix(`/api/swagger-ui`) && !PathPrefix(`/api/v3/api-docs`) && !Path(`/api/swagger-ui.html`) && !Path(`/api/test`) && !PathPrefix(`/api/actuator`)"
+      - "traefik.http.routers.oun-api.middlewares=cors,auth-forward"
+      - "traefik.http.routers.oun-api.tls=true"
+      - "traefik.http.routers.oun-api.tls.certresolver=myresolver"
+      - "traefik.http.routers.oun-api.entrypoints=websecure"
+      
+      # Swagger UI 라우터 (인증 불필요)
+      - "traefik.http.routers.oun-api-swagger.rule=Host(`${DOMAIN_MAIN}`) && (PathPrefix(`/api/swagger-ui/`) || PathPrefix(`/api/v3/api-docs`) || Path(`/api/swagger-ui.html`))"
+      - "traefik.http.routers.oun-api-swagger.middlewares=cors"
+      - "traefik.http.routers.oun-api-swagger.tls=true"
+      - "traefik.http.routers.oun-api-swagger.tls.certresolver=myresolver"
+      - "traefik.http.routers.oun-api-swagger.entrypoints=websecure"
+      
+      # 테스트 엔드포인트 (인증 불필요)
+      - "traefik.http.routers.oun-api-test.rule=Host(`${DOMAIN_MAIN}`) && Path(`/api/test`)"
+      - "traefik.http.routers.oun-api-test.middlewares=cors"
+      - "traefik.http.routers.oun-api-test.tls=true"
+      - "traefik.http.routers.oun-api-test.tls.certresolver=myresolver"
+      - "traefik.http.routers.oun-api-test.entrypoints=websecure"
+      
+      # actuator 라우터 (인증 불필요)
+      - "traefik.http.routers.oun-api-actuator.rule=Host(`${DOMAIN_MAIN}`) && PathPrefix(`/api/actuator`)"
+      - "traefik.http.routers.oun-api-actuator.middlewares=cors"
+      - "traefik.http.routers.oun-api-actuator.tls=true"
+      - "traefik.http.routers.oun-api-actuator.tls.certresolver=myresolver"
+      - "traefik.http.routers.oun-api-actuator.entrypoints=websecure"
+
+      # 공통 서비스 설정
+      - "traefik.http.services.oun-api.loadbalancer.server.port=8080"
+    networks:
+      - oun-network
+
+networks:
+  oun-network:
+    name: oun-network
+    driver: bridge
