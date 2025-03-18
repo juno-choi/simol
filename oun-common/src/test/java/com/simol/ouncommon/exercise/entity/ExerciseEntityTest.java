@@ -10,7 +10,6 @@ import com.simol.ouncommon.exercise.dto.ExerciseUpdateRequest;
 import com.simol.ouncommon.exercise.enums.ExerciseStatus;
 import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
-import com.simol.ouncommon.routine.enums.RoutineDays;
 
 public class ExerciseEntityTest {
     @Test
@@ -23,7 +22,7 @@ public class ExerciseEntityTest {
             .build();
 
         UserEntity user = UserEntity.create("test@test.com", "test", "test", "test");
-        RoutineCreateRequest request = RoutineCreateRequest.builder().name("test").description("test").days(RoutineDays.MONDAY).build();
+        RoutineCreateRequest request = RoutineCreateRequest.builder().name("test").description("test").build();
         RoutineEntity routine = RoutineEntity.create(request, user);
             
         ExerciseEntity exercise = ExerciseEntity.create(exerciseCreateRequest, routine, user);
@@ -43,7 +42,7 @@ public class ExerciseEntityTest {
             .build();
 
         UserEntity user = UserEntity.create("test@test.com", "test", "test", "test");
-        RoutineCreateRequest request = RoutineCreateRequest.builder().name("test").description("test").days(RoutineDays.MONDAY).build();
+        RoutineCreateRequest request = RoutineCreateRequest.builder().name("test").description("test").build();
         RoutineEntity routine = RoutineEntity.create(request, user); 
         
         ExerciseEntity exercise = ExerciseEntity.create(exerciseCreateRequest, routine, user);

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.simol.ouncommon.routine.entity.RoutineEntity;
-import com.simol.ouncommon.routine.enums.RoutineDays;
 import com.simol.ouncommon.routine.enums.RoutineStatus;
 
 import lombok.AccessLevel;
@@ -26,7 +25,6 @@ public class RoutineResponse {
     private String name;
     private String description;
     private RoutineStatus status;
-    private RoutineDays days;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -35,7 +33,6 @@ public class RoutineResponse {
             .routineId(routine.getId())
             .name(routine.getName())
             .description(routine.getDescription())
-            .days(routine.getDays())
             .status(routine.getStatus())
             .createdAt(routine.getCreatedAt())
             .updatedAt(routine.getUpdatedAt())
