@@ -1,4 +1,8 @@
 
+# 🔴 project preview
+
+[프로젝트 미리보기](https://simol-oun.vercel.app/)
+
 # 📗 Reference
 
 [참고자료](./global/reference/README.md)
@@ -6,6 +10,10 @@
 # 👨‍💻 Proejct 실행
 
 [project 설정 및 실행방법](./global/env/README.md)
+
+# 🔴 front project
+
+[oun-front github](https://github.com/juno-choi/oun-front)
 
 # 🔴 project 구성
 
