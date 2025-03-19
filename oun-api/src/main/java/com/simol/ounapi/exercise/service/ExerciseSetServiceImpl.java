@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.simol.simolcommon.exception.BadRequestException;
-import com.simol.simolcommon.exercise.dto.ExerciseSetCreateRequest;
-import com.simol.simolcommon.exercise.dto.ExerciseSetUpdateRequest;
-import com.simol.simolcommon.exercise.entity.ExerciseEntity;
-import com.simol.simolcommon.exercise.entity.ExerciseSetEntity;
-import com.simol.simolcommon.exercise.repository.ExerciseRepository;
-import com.simol.simolcommon.exercise.repository.ExerciseSetRepository;
-import com.simol.simolcommon.exercise.service.ExerciseSetService;
-import com.simol.simolcommon.exercise.vo.ExerciseSetCreateResponse;
-import com.simol.simolcommon.exercise.vo.ExerciseSetListResponse;
-import com.simol.simolcommon.exercise.vo.ExerciseSetResponse;
+import com.simol.simolcommon.oun.exercise.dto.ExerciseSetCreateRequest;
+import com.simol.simolcommon.oun.exercise.dto.ExerciseSetUpdateRequest;
+import com.simol.simolcommon.oun.exercise.entity.ExerciseEntity;
+import com.simol.simolcommon.oun.exercise.entity.ExerciseSetEntity;
+import com.simol.simolcommon.oun.exercise.repository.ExerciseRepository;
+import com.simol.simolcommon.oun.exercise.repository.ExerciseSetRepository;
+import com.simol.simolcommon.oun.exercise.service.ExerciseSetService;
+import com.simol.simolcommon.oun.exercise.vo.ExerciseSetCreateResponse;
+import com.simol.simolcommon.oun.exercise.vo.ExerciseSetListResponse;
+import com.simol.simolcommon.oun.exercise.vo.ExerciseSetResponse;
 
 import lombok.RequiredArgsConstructor;
 

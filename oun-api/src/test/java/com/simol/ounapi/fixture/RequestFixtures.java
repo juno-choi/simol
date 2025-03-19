@@ -2,12 +2,12 @@ package com.simol.ounapi.fixture;
 
 import java.util.ArrayList;
 
-import com.simol.simolcommon.exercise.dto.ExerciseCreateRequest;
-import com.simol.simolcommon.exercise.dto.ExerciseSetCreateRequest;
-import com.simol.simolcommon.exercise.dto.ExerciseUpdateRequest;
-import com.simol.simolcommon.exercise.enums.ExerciseType;
-import com.simol.simolcommon.routine.dto.RoutineCreateRequest;
-import com.simol.simolcommon.routine.dto.RoutineUpdateRequest;
+import com.simol.simolcommon.oun.exercise.dto.ExerciseCreateRequest;
+import com.simol.simolcommon.oun.exercise.dto.ExerciseSetCreateRequest;
+import com.simol.simolcommon.oun.exercise.dto.ExerciseUpdateRequest;
+import com.simol.simolcommon.oun.exercise.enums.ExerciseType;
+import com.simol.simolcommon.oun.routine.dto.RoutineCreateRequest;
+import com.simol.simolcommon.oun.routine.dto.RoutineUpdateRequest;
 
 public class RequestFixtures {
     public static RoutineCreateRequest.RoutineCreateRequestBuilder aRoutineCreateRequest() {

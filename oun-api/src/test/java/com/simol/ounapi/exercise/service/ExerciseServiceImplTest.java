@@ -13,17 +13,17 @@ import com.simol.ounapi.fixture.RequestFixtures;
 import com.simol.simolcommon.auth.entity.UserEntity;
 import com.simol.simolcommon.auth.repository.UsersRepository;
 import com.simol.simolcommon.exception.BadRequestException;
-import com.simol.simolcommon.exercise.dto.ExerciseCreateRequest;
-import com.simol.simolcommon.exercise.dto.ExerciseUpdateRequest;
-import com.simol.simolcommon.exercise.entity.ExerciseEntity;
-import com.simol.simolcommon.exercise.enums.ExerciseStatus;
-import com.simol.simolcommon.exercise.repository.ExerciseRepository;
-import com.simol.simolcommon.exercise.vo.ExerciseCreateResponse;
-import com.simol.simolcommon.exercise.vo.ExerciseResponse;
-import com.simol.simolcommon.exercise.vo.ExerciseListResponse;
-import com.simol.simolcommon.routine.dto.RoutineCreateRequest;
-import com.simol.simolcommon.routine.entity.RoutineEntity;
-import com.simol.simolcommon.routine.repository.RoutineRepository;
+import com.simol.simolcommon.oun.exercise.dto.ExerciseCreateRequest;
+import com.simol.simolcommon.oun.exercise.dto.ExerciseUpdateRequest;
+import com.simol.simolcommon.oun.exercise.entity.ExerciseEntity;
+import com.simol.simolcommon.oun.exercise.enums.ExerciseStatus;
+import com.simol.simolcommon.oun.exercise.repository.ExerciseRepository;
+import com.simol.simolcommon.oun.exercise.vo.ExerciseCreateResponse;
+import com.simol.simolcommon.oun.exercise.vo.ExerciseListResponse;
+import com.simol.simolcommon.oun.exercise.vo.ExerciseResponse;
+import com.simol.simolcommon.oun.routine.dto.RoutineCreateRequest;
+import com.simol.simolcommon.oun.routine.entity.RoutineEntity;
+import com.simol.simolcommon.oun.routine.repository.RoutineRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 

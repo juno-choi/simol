@@ -13,17 +13,16 @@ import com.simol.ounapi.fixture.RequestFixtures;
 import com.simol.simolcommon.auth.entity.UserEntity;
 import com.simol.simolcommon.auth.repository.UsersRepository;
 import com.simol.simolcommon.exception.BadRequestException;
-import com.simol.simolcommon.routine.dto.RoutineCreateRequest;
-import com.simol.simolcommon.routine.dto.RoutineUpdateRequest;
-import com.simol.simolcommon.routine.entity.RoutineEntity;
-import com.simol.simolcommon.routine.enums.RoutineStatus;
-import com.simol.simolcommon.routine.repository.RoutineRepository;
-import com.simol.simolcommon.routine.vo.RoutineCreateResponse;
-import com.simol.simolcommon.routine.vo.RoutineListResponse;
-import com.simol.simolcommon.routine.vo.RoutineResponse;
+import com.simol.simolcommon.oun.routine.dto.RoutineCreateRequest;
+import com.simol.simolcommon.oun.routine.dto.RoutineUpdateRequest;
+import com.simol.simolcommon.oun.routine.entity.RoutineEntity;
+import com.simol.simolcommon.oun.routine.enums.RoutineStatus;
+import com.simol.simolcommon.oun.routine.repository.RoutineRepository;
+import com.simol.simolcommon.oun.routine.vo.RoutineCreateResponse;
+import com.simol.simolcommon.oun.routine.vo.RoutineListResponse;
+import com.simol.simolcommon.oun.routine.vo.RoutineResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.transaction.Transactional;
 
 @SpringBootTest
 public class RoutineServiceImplTest {
