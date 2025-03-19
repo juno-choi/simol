@@ -46,7 +46,7 @@ services:
       - DOMAIN_TRAEFIK=${DOMAIN_TRAEFIK}
       - ACME_EMAIL=${ACME_EMAIL}
     networks:
-      - oun-network    
+      - simol-network    
       
 networks:
   simol-network:

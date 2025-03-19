@@ -9,17 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-import com.simol.simolcommon.routine.service.RoutineService;
 import com.simol.simolcommon.auth.entity.UserEntity;
 import com.simol.simolcommon.auth.repository.UsersRepository;
 import com.simol.simolcommon.exception.BadRequestException;
-import com.simol.simolcommon.routine.dto.RoutineCreateRequest;
-import com.simol.simolcommon.routine.dto.RoutineUpdateRequest;
-import com.simol.simolcommon.routine.entity.RoutineEntity;
-import com.simol.simolcommon.routine.repository.RoutineRepository;
-import com.simol.simolcommon.routine.vo.RoutineCreateResponse;
-import com.simol.simolcommon.routine.vo.RoutineListResponse;
-import com.simol.simolcommon.routine.vo.RoutineResponse;
+import com.simol.simolcommon.oun.routine.dto.RoutineCreateRequest;
+import com.simol.simolcommon.oun.routine.dto.RoutineUpdateRequest;
+import com.simol.simolcommon.oun.routine.entity.RoutineEntity;
+import com.simol.simolcommon.oun.routine.repository.RoutineRepository;
+import com.simol.simolcommon.oun.routine.service.RoutineService;
+import com.simol.simolcommon.oun.routine.vo.RoutineCreateResponse;
+import com.simol.simolcommon.oun.routine.vo.RoutineListResponse;
+import com.simol.simolcommon.oun.routine.vo.RoutineResponse;
 
 @Service
 @RequiredArgsConstructor
