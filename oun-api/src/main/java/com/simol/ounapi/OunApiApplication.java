@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.simol.simolcommon.*", "com.simol.ounapi.*"})
-@EntityScan(basePackages = {"com.simol.simolcommon.*.entity"})
-@EnableJpaRepositories(basePackages = {"com.simol.simolcommon.*.repository"})
+@EntityScan(basePackages = {"com.simol.simolcommon"})
+@EnableJpaRepositories(basePackages = {"com.simol.simolcommon"})
 public class OunApiApplication {
 
 	public static void main(String[] args) {

@@ -3,7 +3,7 @@ services:
 
   simol-user:
     build:
-      context: ../simol-user
+      context: .
       dockerfile: Dockerfile
     container_name: simol-user
     environment:
