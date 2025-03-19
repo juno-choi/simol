@@ -1,4 +1,4 @@
-package com.simol.ounuser.config.jwt;
+package com.simol.simoluser.config.jwt;
 
 import java.security.Key;
 import java.time.Instant;

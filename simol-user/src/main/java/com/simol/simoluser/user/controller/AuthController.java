@@ -1,4 +1,4 @@
-package com.simol.ounuser.user.controller;
+package com.simol.simoluser.user.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.simol.ouncommon.api.CommonApi;
 import com.simol.ouncommon.auth.vo.AuthTokenResponse;
-import com.simol.ounuser.user.service.AuthService;
-import com.simol.ounuser.user.vo.RedirectUrlResponse;
-import com.simol.ounuser.user.vo.UserInfoResponse;
+import com.simol.simoluser.user.service.AuthService;
+import com.simol.simoluser.user.vo.RedirectUrlResponse;
+import com.simol.simoluser.user.vo.UserInfoResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,4 +1,4 @@
-package com.simol.ounuser.health.controller;
+package com.simol.simoluser.health.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

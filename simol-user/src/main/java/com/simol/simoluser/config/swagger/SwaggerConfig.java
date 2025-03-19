@@ -1,4 +1,4 @@
-package com.simol.ounuser.config.swagger;
+package com.simol.simoluser.config.swagger;
 
 import java.util.List;
 

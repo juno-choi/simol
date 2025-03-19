@@ -1,4 +1,4 @@
-package com.simol.ounuser.user.service;
+package com.simol.simoluser.user.service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -16,10 +16,10 @@ import com.simol.ouncommon.auth.repository.UsersRepository;
 import com.simol.ouncommon.auth.vo.AuthTokenResponse;
 import com.simol.ouncommon.auth.vo.Token;
 import com.simol.ouncommon.exception.UnAuthorizedException;
-import com.simol.ounuser.config.jwt.JwtProvider;
-import com.simol.ounuser.user.vo.GoogleUserInfoResponse;
-import com.simol.ounuser.user.vo.RedirectUrlResponse;
-import com.simol.ounuser.user.vo.UserInfoResponse;
+import com.simol.simoluser.config.jwt.JwtProvider;
+import com.simol.simoluser.user.vo.GoogleUserInfoResponse;
+import com.simol.simoluser.user.vo.RedirectUrlResponse;
+import com.simol.simoluser.user.vo.UserInfoResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

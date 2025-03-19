@@ -1,4 +1,4 @@
-package com.simol.ounuser.user.vo;
+package com.simol.simoluser.user.vo;
 
 import com.simol.ouncommon.auth.entity.UserEntity;
 

@@ -1,4 +1,4 @@
-package com.simol.ounuser.config.web;
+package com.simol.simoluser.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

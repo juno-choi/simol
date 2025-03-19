@@ -1,4 +1,4 @@
-package com.simol.ounuser.config.security;
+package com.simol.simoluser.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.simol.ounuser.config.redis;
+package com.simol.simoluser.config.redis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
