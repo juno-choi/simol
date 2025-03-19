@@ -9,21 +9,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.simol.ounapi.fixture.EntityFixtures;
 import com.simol.ounapi.fixture.RequestFixtures;
-import com.simol.ouncommon.auth.entity.UserEntity;
-import com.simol.ouncommon.auth.repository.UsersRepository;
-import com.simol.ouncommon.exception.BadRequestException;
-import com.simol.ouncommon.exercise.dto.ExerciseCreateRequest;
-import com.simol.ouncommon.exercise.dto.ExerciseSetCreateRequest;
-import com.simol.ouncommon.exercise.entity.ExerciseEntity;
-import com.simol.ouncommon.exercise.entity.ExerciseSetEntity;
-import com.simol.ouncommon.exercise.repository.ExerciseRepository;
-import com.simol.ouncommon.exercise.repository.ExerciseSetRepository;
-import com.simol.ouncommon.exercise.vo.ExerciseSetCreateResponse;
-import com.simol.ouncommon.exercise.vo.ExerciseSetResponse;
-import com.simol.ouncommon.exercise.vo.ExerciseSetListResponse;
-import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
-import com.simol.ouncommon.routine.entity.RoutineEntity;
-import com.simol.ouncommon.routine.repository.RoutineRepository;
+import com.simol.simolcommon.auth.entity.UserEntity;
+import com.simol.simolcommon.auth.repository.UsersRepository;
+import com.simol.simolcommon.exception.BadRequestException;
+import com.simol.simolcommon.exercise.dto.ExerciseCreateRequest;
+import com.simol.simolcommon.exercise.dto.ExerciseSetCreateRequest;
+import com.simol.simolcommon.exercise.entity.ExerciseEntity;
+import com.simol.simolcommon.exercise.entity.ExerciseSetEntity;
+import com.simol.simolcommon.exercise.repository.ExerciseRepository;
+import com.simol.simolcommon.exercise.repository.ExerciseSetRepository;
+import com.simol.simolcommon.exercise.vo.ExerciseSetCreateResponse;
+import com.simol.simolcommon.exercise.vo.ExerciseSetResponse;
+import com.simol.simolcommon.exercise.vo.ExerciseSetListResponse;
+import com.simol.simolcommon.routine.dto.RoutineCreateRequest;
+import com.simol.simolcommon.routine.entity.RoutineEntity;
+import com.simol.simolcommon.routine.repository.RoutineRepository;
 
 @SpringBootTest
 public class ExerciseSetServiceImplTest {

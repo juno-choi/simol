@@ -14,16 +14,16 @@ springdoc:
     persist-authorization: true # 브라우저를 새로고침 하더라도 인증정보 유지
     urlsPrimaryName: total api
     groups-order: desc
-    path: /api/swagger-ui.html
+    path: /api/oun/swagger-ui.html
   # API 문서 경로 설정 추가
   api-docs:
-    path: /api/v3/api-docs
+    path: /api/oun/v3/api-docs
 
 # monitoring
 management:
   endpoints:
     web:
-      base-path: /api/actuator
+      base-path: /api/oun/actuator
       exposure:
         include: prometheus, health, metrics
   endpoint:
@@ -63,7 +63,7 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mysql://oun-mysql:3306/oun?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://simol-mysql:3306/simol?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}

@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  simol-user:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: simol-user
+    environment:
+      - TZ=Asia/Seoul
+      - SERVER_PROFILE=${SERVER_PROFILE}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    labels:
+      - traefik.http.routers.simol-user.rule=PathPrefix(`/user`)
+      - traefik.http.routers.simol-user.middlewares=cors
+    networks:
+      - simol-network
+
+
+# simol-user와 redis 네트워크 동일하게 처리
+networks:
+  simol-network:
+    name: simol-network
+    driver: bridge

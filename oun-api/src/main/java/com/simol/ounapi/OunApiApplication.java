@@ -7,9 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.simol.ouncommon.*", "com.simol.ounapi.*"})
-@EntityScan(basePackages = {"com.simol.ouncommon.*.entity"})
-@EnableJpaRepositories(basePackages = {"com.simol.ouncommon.*.repository"})
+@ComponentScan(basePackages = {"com.simol.simolcommon.*", "com.simol.ounapi.*"})
+@EntityScan(basePackages = {"com.simol.simolcommon.*.entity"})
+@EnableJpaRepositories(basePackages = {"com.simol.simolcommon.*.repository"})
 public class OunApiApplication {
 
 	public static void main(String[] args) {

@@ -1,6 +1,6 @@
 package com.simol.ounapi.fixture;
 
-import com.simol.ouncommon.auth.entity.UserEntity;
+import com.simol.simolcommon.auth.entity.UserEntity;
 
 public class EntityFixtures {
     public static UserEntity.UserEntityBuilder aUser() {

@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.simol.ouncommon.auth.vo.WhiteList;
+import com.simol.simolcommon.auth.vo.WhiteList;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

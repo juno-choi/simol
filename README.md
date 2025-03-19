@@ -9,7 +9,19 @@
 
 # 👨‍💻 Proejct 실행
 
-[project 설정 및 실행방법](./global/env/README.md)
+순서대로 실행하시길 권장드립니다.
+
+[mysql 실행방법](./mysql/README.md)
+
+[redis 실행방법](./redis/README.md)
+
+[traefik 실행방법](./traefik/README.md)
+
+[simol-user 실행방법](./simol-user/README.md)
+
+[oun-api 실행방법](./oun-api/README.md)
+
+[monitoring](./monitoring/README.md)
 
 # 🔴 front project
 
@@ -17,9 +29,9 @@
 
 # 🔴 project 구성
 
-`oun-common` 프로젝트 전체적으로 사용되는 entity, dto, vo, repository 등 공동 사용 모듈
+`simol-common` 프로젝트 전체적으로 사용되는 entity, dto, vo, repository 등 공동 사용 모듈
 
-`oun-user` 회원 가입, 로그인 정보를 관리하는 모듈
+`simol-user` 회원 가입, 로그인 정보를 관리하는 모듈
 
 `oun-api` endpoint를 관리하는 모듈
 
@@ -28,7 +40,7 @@
 ### 🟢 구성도
 ```mermaid
 ---
-title: oun 프로젝트 인프라 구성도
+title: simol 프로젝트 인프라 구성도
 ---
 flowchart TB
     subgraph "클라이언트"
@@ -40,7 +52,7 @@ flowchart TB
     end
 
     subgraph "인증"
-        User[oun-user/회원 관리 모듈]
+        User[simol-user/회원 관리 모듈]
     end
 
     subgraph "서비스"
@@ -48,7 +60,7 @@ flowchart TB
     end
 
     subgraph "공통 모듈"
-        Common[oun-common/공통 모듈]
+        Common[simol-common/공통 모듈]
     end
 
     subgraph "모니터링 시스템"

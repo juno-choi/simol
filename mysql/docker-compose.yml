@@ -1,12 +1,12 @@
 version: "3.7"
 services:
-  oun-mysql:
+  simol-mysql:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: oun-mysql
+    container_name: simol-mysql
     environment:
-      - MYSQL_DATABASE=oun
+      - MYSQL_DATABASE=simol
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -15,12 +15,12 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
-      - oun-network
+      - simol-network
 
 volumes:
   mysql-data:
 
 networks:
-  oun-network:
-    name: oun-network
+  simol-network:
+    name: simol-network
     driver: bridge

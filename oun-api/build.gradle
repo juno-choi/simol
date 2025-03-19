@@ -10,7 +10,7 @@ tasks.withType(org.springframework.boot.gradle.tasks.bundling.BootJar) {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation project(':oun-common')
+    implementation project(':simol-common')
     // aop
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     // jwt

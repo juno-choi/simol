@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+
+  oun-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: oun-api
+    environment:
+      - TZ=Asia/Seoul
+      - SERVER_PROFILE=${SERVER_PROFILE}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    labels:
+      # 기본 API 라우터 (인증 필요)
+      - "traefik.http.routers.oun-api.rule=PathPrefix(`/api/oun`) && !PathPrefix(`/api/oun/swagger-ui`) && !PathPrefix(`/api/oun/v3/api-docs`) && !Path(`/api/oun/swagger-ui.html`) && !Path(`/api/oun/test`) && !PathPrefix(`/api/oun/actuator`)"
+      - "traefik.http.routers.oun-api.middlewares=cors,auth-forward"
+      
+      # Swagger UI 라우터 (인증 불필요)
+      - "traefik.http.routers.oun-api-swagger.rule=PathPrefix(`/api/oun/swagger-ui/`) || PathPrefix(`/api/oun/v3/api-docs`) || Path(`/api/oun/swagger-ui.html`)"
+      - "traefik.http.routers.oun-api-swagger.middlewares=cors"
+      
+      # 테스트 엔드포인트 (인증 불필요)
+      - "traefik.http.routers.oun-api-test.rule=Path(`/api/oun/test`)"
+      - "traefik.http.routers.oun-api-test.middlewares=cors"
+      
+      # actuator 라우터 (인증 불필요)
+      - "traefik.http.routers.oun-api-actuator.rule=PathPrefix(`/api/oun/actuator`)"
+      - "traefik.http.routers.oun-api-actuator.middlewares=cors"
+
+      # 공통 서비스 설정
+      - "traefik.http.services.oun-api.loadbalancer.server.port=8080"
+    networks:
+      - simol-network
+
+
+# simol-user와 redis 네트워크 동일하게 처리
+networks:
+  simol-network:
+    name: simol-network
+    driver: bridge

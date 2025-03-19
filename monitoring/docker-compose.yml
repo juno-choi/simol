@@ -9,7 +9,7 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
-      - oun-network
+      - simol-network
     restart: unless-stopped
 
   grafana:
@@ -25,11 +25,11 @@ services:
     volumes:
       - ./grafana-storage:/var/lib/grafana
     networks:
-      - oun-network
+      - simol-network
     restart: unless-stopped
 
 networks:
-  oun-network:
-    name: oun-network
+  simol-network:
+    name: simol-network
     driver: bridge
     external: true    # 기존 네트워크 사용

@@ -65,12 +65,12 @@ subprojects {
 
 project(':oun-api') {
 	dependencies {
-		implementation project(':oun-common')
+		implementation project(':simol-common')
 	}
 }
 
-project(':oun-user') {
+project(':simol-user') {
 	dependencies {
-		implementation project(':oun-common')
+		implementation project(':simol-common')
 	}
 }

@@ -10,17 +10,17 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.simol.ounapi.fixture.EntityFixtures;
 import com.simol.ounapi.fixture.RequestFixtures;
-import com.simol.ouncommon.auth.entity.UserEntity;
-import com.simol.ouncommon.auth.repository.UsersRepository;
-import com.simol.ouncommon.exception.BadRequestException;
-import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
-import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
-import com.simol.ouncommon.routine.entity.RoutineEntity;
-import com.simol.ouncommon.routine.enums.RoutineStatus;
-import com.simol.ouncommon.routine.repository.RoutineRepository;
-import com.simol.ouncommon.routine.vo.RoutineCreateResponse;
-import com.simol.ouncommon.routine.vo.RoutineListResponse;
-import com.simol.ouncommon.routine.vo.RoutineResponse;
+import com.simol.simolcommon.auth.entity.UserEntity;
+import com.simol.simolcommon.auth.repository.UsersRepository;
+import com.simol.simolcommon.exception.BadRequestException;
+import com.simol.simolcommon.routine.dto.RoutineCreateRequest;
+import com.simol.simolcommon.routine.dto.RoutineUpdateRequest;
+import com.simol.simolcommon.routine.entity.RoutineEntity;
+import com.simol.simolcommon.routine.enums.RoutineStatus;
+import com.simol.simolcommon.routine.repository.RoutineRepository;
+import com.simol.simolcommon.routine.vo.RoutineCreateResponse;
+import com.simol.simolcommon.routine.vo.RoutineListResponse;
+import com.simol.simolcommon.routine.vo.RoutineResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;

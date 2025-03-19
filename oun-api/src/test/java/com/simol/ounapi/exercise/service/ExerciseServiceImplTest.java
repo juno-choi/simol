@@ -1,7 +1,5 @@
 package com.simol.ounapi.exercise.service;
 
-import java.util.Optional;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,20 +10,20 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.simol.ounapi.fixture.EntityFixtures;
 import com.simol.ounapi.fixture.RequestFixtures;
-import com.simol.ouncommon.auth.entity.UserEntity;
-import com.simol.ouncommon.auth.repository.UsersRepository;
-import com.simol.ouncommon.exception.BadRequestException;
-import com.simol.ouncommon.exercise.dto.ExerciseCreateRequest;
-import com.simol.ouncommon.exercise.dto.ExerciseUpdateRequest;
-import com.simol.ouncommon.exercise.entity.ExerciseEntity;
-import com.simol.ouncommon.exercise.enums.ExerciseStatus;
-import com.simol.ouncommon.exercise.repository.ExerciseRepository;
-import com.simol.ouncommon.exercise.vo.ExerciseCreateResponse;
-import com.simol.ouncommon.exercise.vo.ExerciseResponse;
-import com.simol.ouncommon.exercise.vo.ExerciseListResponse;
-import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
-import com.simol.ouncommon.routine.entity.RoutineEntity;
-import com.simol.ouncommon.routine.repository.RoutineRepository;
+import com.simol.simolcommon.auth.entity.UserEntity;
+import com.simol.simolcommon.auth.repository.UsersRepository;
+import com.simol.simolcommon.exception.BadRequestException;
+import com.simol.simolcommon.exercise.dto.ExerciseCreateRequest;
+import com.simol.simolcommon.exercise.dto.ExerciseUpdateRequest;
+import com.simol.simolcommon.exercise.entity.ExerciseEntity;
+import com.simol.simolcommon.exercise.enums.ExerciseStatus;
+import com.simol.simolcommon.exercise.repository.ExerciseRepository;
+import com.simol.simolcommon.exercise.vo.ExerciseCreateResponse;
+import com.simol.simolcommon.exercise.vo.ExerciseResponse;
+import com.simol.simolcommon.exercise.vo.ExerciseListResponse;
+import com.simol.simolcommon.routine.dto.RoutineCreateRequest;
+import com.simol.simolcommon.routine.entity.RoutineEntity;
+import com.simol.simolcommon.routine.repository.RoutineRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -164,7 +162,7 @@ public class ExerciseServiceImplTest {
         ExerciseCreateRequest exerciseCreateRequest = RequestFixtures.aExerciseCreateRequest()
             .routineId(routine.getId())
             .build();
-        ExerciseEntity exercise = exerciseRepository.save(ExerciseEntity.create(exerciseCreateRequest, routine, saveUser));
+        exerciseRepository.save(ExerciseEntity.create(exerciseCreateRequest, routine, saveUser));
 
         // when
         ExerciseListResponse exerciseListResponse = exerciseService.getExerciseList(routine.getId(), 0, 10);
