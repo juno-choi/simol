@@ -17,10 +17,12 @@ MYSQL_ROOT_PASSWORD=your_mysql_root_password
 
 `local`
 ```
+./gradlew :oun-api:clean :oun-api:build
 docker-compose -f ./oun-api/docker-compose-local up -d --build
 ```
 
 `prod`
 ```
+./gradlew :oun-api:clean :oun-api:build
 docker-compose -f ./oun-api/docker-compose-prod up -d --build
 ```

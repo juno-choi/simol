@@ -20,10 +20,12 @@ MYSQL_ROOT_PASSWORD=your_mysql_root_password
 
 `local`
 ```
+./gradlew :simol-user:clean :simol-user:build
 docker-compose -f ./simol-user/docker-compose-local up -d --build
 ```
 
 `prod`
 ```
+./gradlew :simol-user:clean :simol-user:build
 docker-compose -f ./simol-user/docker-compose-prod up -d --build
 ```
