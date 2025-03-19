@@ -3,7 +3,7 @@ services:
 
   oun-api:
     build:
-      context: ../oun-api
+      context: .
       dockerfile: Dockerfile
     container_name: oun-api
     environment:
@@ -16,28 +16,28 @@ services:
       - DOMAIN_MAIN=${DOMAIN_MAIN}
     labels:
       # 기본 API 라우터 (인증 필요)
-      - "traefik.http.routers.oun-api.rule=Host(`${DOMAIN_MAIN}`) && PathPrefix(`/api`) && !PathPrefix(`/api/swagger-ui`) && !PathPrefix(`/api/v3/api-docs`) && !Path(`/api/swagger-ui.html`) && !Path(`/api/test`) && !PathPrefix(`/api/actuator`)"
+      - "traefik.http.routers.oun-api.rule=Host(`${DOMAIN_MAIN}`) && PathPrefix(`/api/oun`) && !PathPrefix(`/api/oun/swagger-ui`) && !PathPrefix(`/api/oun/v3/api-docs`) && !Path(`/api/oun/swagger-ui.html`) && !Path(`/api/oun/test`) && !PathPrefix(`/api/oun/actuator`)"
       - "traefik.http.routers.oun-api.middlewares=cors,auth-forward"
       - "traefik.http.routers.oun-api.tls=true"
       - "traefik.http.routers.oun-api.tls.certresolver=myresolver"
       - "traefik.http.routers.oun-api.entrypoints=websecure"
       
       # Swagger UI 라우터 (인증 불필요)
-      - "traefik.http.routers.oun-api-swagger.rule=Host(`${DOMAIN_MAIN}`) && (PathPrefix(`/api/swagger-ui/`) || PathPrefix(`/api/v3/api-docs`) || Path(`/api/swagger-ui.html`))"
+      - "traefik.http.routers.oun-api-swagger.rule=Host(`${DOMAIN_MAIN}`) && (PathPrefix(`/api/oun/swagger-ui/`) || PathPrefix(`/api/oun/v3/api-docs`) || Path(`/api/oun/swagger-ui.html`))"
       - "traefik.http.routers.oun-api-swagger.middlewares=cors"
       - "traefik.http.routers.oun-api-swagger.tls=true"
       - "traefik.http.routers.oun-api-swagger.tls.certresolver=myresolver"
       - "traefik.http.routers.oun-api-swagger.entrypoints=websecure"
       
       # 테스트 엔드포인트 (인증 불필요)
-      - "traefik.http.routers.oun-api-test.rule=Host(`${DOMAIN_MAIN}`) && Path(`/api/test`)"
+      - "traefik.http.routers.oun-api-test.rule=Host(`${DOMAIN_MAIN}`) && Path(`/api/oun/test`)"
       - "traefik.http.routers.oun-api-test.middlewares=cors"
       - "traefik.http.routers.oun-api-test.tls=true"
       - "traefik.http.routers.oun-api-test.tls.certresolver=myresolver"
       - "traefik.http.routers.oun-api-test.entrypoints=websecure"
       
       # actuator 라우터 (인증 불필요)
-      - "traefik.http.routers.oun-api-actuator.rule=Host(`${DOMAIN_MAIN}`) && PathPrefix(`/api/actuator`)"
+      - "traefik.http.routers.oun-api-actuator.rule=Host(`${DOMAIN_MAIN}`) && PathPrefix(`/api/oun/actuator`)"
       - "traefik.http.routers.oun-api-actuator.middlewares=cors"
       - "traefik.http.routers.oun-api-actuator.tls=true"
       - "traefik.http.routers.oun-api-actuator.tls.certresolver=myresolver"

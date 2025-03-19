@@ -5,14 +5,14 @@ public class WhiteList {
         "/favicon.ico", 
         // swagger
         // api
-        "/api/swagger/**", "/api/swagger-ui/**", "/api/v3/api-docs/**", "/api/v3/api-docs", "/api/swagger-ui.html", "/api/swagger-ui/index.html",
+        "/api/oun/swagger/**", "/api/oun/swagger-ui/**", "/api/oun/v3/api-docs/**", "/api/oun/v3/api-docs", "/api/oun/swagger-ui.html", "/api/oun/swagger-ui/index.html",
         // user
         "/user/swagger/**", "/user/swagger-ui/**", "/user/v3/api-docs/**", "/user/v3/api-docs", "/user/swagger-ui.html", "/user/swagger-ui/index.html",
         // h2
         "/h2-console/**",
         // test
-        "/api/test", "/api/test/**",
+        "/api/oun/test", "/api/oun/test/**",
         // actuator
-        "/api/actuator/**", "/api/actuator", "/api/actuator/prometheus", "/user/actuator/**", "/user/actuator"
+        "/api/oun/actuator/**", "/api/oun/actuator", "/api/oun/actuator/prometheus", "/user/actuator/**", "/user/actuator"
     };
 }

@@ -35,7 +35,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/routine")
+@RequestMapping("/api/oun/routine")
 @RequiredArgsConstructor
 @Tag(name = "01. Routine", description = "루틴 API")
 @SecurityRequirement(name = "X-User-Id")

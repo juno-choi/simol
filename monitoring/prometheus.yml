@@ -4,11 +4,11 @@ global:
 
 scrape_configs:
   - job_name: 'oun-api'
-    metrics_path: '/api/actuator/prometheus'
+    metrics_path: '/api/oun/actuator/prometheus'
     static_configs:
       - targets: ['oun-api:8080']
     
   # - job_name: 'simol-user'
-  #   metrics_path: '/actuator/prometheus'
+  #   metrics_path: '/user/actuator/prometheus'
   #   static_configs:
   #     - targets: ['simol-user:8080']
