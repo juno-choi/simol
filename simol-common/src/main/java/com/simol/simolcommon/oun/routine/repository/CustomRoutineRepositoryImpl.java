@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.simol.simolcommon.oun.routine.entity.QRoutineEntity;
 import com.simol.simolcommon.oun.routine.entity.RoutineEntity;
 import com.simol.simolcommon.oun.routine.enums.RoutineStatus;
-import com.simol.simolcommon.routine.entity.QRoutineEntity;
 
 import lombok.RequiredArgsConstructor;
 

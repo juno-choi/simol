@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.simol.simolcommon.exercise.entity.QExerciseSetEntity;
+import com.simol.simolcommon.oun.exercise.entity.QExerciseSetEntity;
 import com.simol.simolcommon.oun.exercise.entity.ExerciseSetEntity;
 import com.simol.simolcommon.oun.exercise.enums.ExerciseSetStatus;
 
