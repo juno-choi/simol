@@ -29,7 +29,7 @@
 
 # 🔴 project 구성
 
-`oun-common` 프로젝트 전체적으로 사용되는 entity, dto, vo, repository 등 공동 사용 모듈
+`simol-common` 프로젝트 전체적으로 사용되는 entity, dto, vo, repository 등 공동 사용 모듈
 
 `simol-user` 회원 가입, 로그인 정보를 관리하는 모듈
 
@@ -60,7 +60,7 @@ flowchart TB
     end
 
     subgraph "공통 모듈"
-        Common[oun-common/공통 모듈]
+        Common[simol-common/공통 모듈]
     end
 
     subgraph "모니터링 시스템"

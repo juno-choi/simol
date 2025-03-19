@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simol.ounapi.test.domain.dto.TestValidationRequest;
-import com.simol.ouncommon.api.CommonApi;
-import com.simol.ouncommon.api.ErrorApi;
-import com.simol.ouncommon.exception.BadRequestException;
+import com.simol.simolcommon.api.CommonApi;
+import com.simol.simolcommon.api.ErrorApi;
+import com.simol.simolcommon.exception.BadRequestException;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;

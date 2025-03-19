@@ -18,10 +18,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.simol.ouncommon.auth.entity.UserEntity;
-import com.simol.ouncommon.auth.repository.UsersRepository;
-import com.simol.ouncommon.auth.vo.Token;
-import com.simol.ouncommon.auth.vo.WhiteList;
+import com.simol.simolcommon.auth.entity.UserEntity;
+import com.simol.simolcommon.auth.repository.UsersRepository;
+import com.simol.simolcommon.auth.vo.Token;
+import com.simol.simolcommon.auth.vo.WhiteList;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

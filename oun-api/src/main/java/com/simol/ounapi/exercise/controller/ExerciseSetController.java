@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simol.ouncommon.api.CommonApi;
-import com.simol.ouncommon.api.ErrorApi;
-import com.simol.ouncommon.exercise.dto.ExerciseSetCreateRequest;
-import com.simol.ouncommon.exercise.dto.ExerciseSetUpdateRequest;
-import com.simol.ouncommon.exercise.service.ExerciseSetService;
-import com.simol.ouncommon.exercise.vo.ExerciseSetCreateResponse;
-import com.simol.ouncommon.exercise.vo.ExerciseSetListResponse;
-import com.simol.ouncommon.exercise.vo.ExerciseSetResponse;
+import com.simol.simolcommon.api.CommonApi;
+import com.simol.simolcommon.api.ErrorApi;
+import com.simol.simolcommon.exercise.dto.ExerciseSetCreateRequest;
+import com.simol.simolcommon.exercise.dto.ExerciseSetUpdateRequest;
+import com.simol.simolcommon.exercise.service.ExerciseSetService;
+import com.simol.simolcommon.exercise.vo.ExerciseSetCreateResponse;
+import com.simol.simolcommon.exercise.vo.ExerciseSetListResponse;
+import com.simol.simolcommon.exercise.vo.ExerciseSetResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

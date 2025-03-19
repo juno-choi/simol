@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simol.ouncommon.api.CommonApi;
-import com.simol.ouncommon.api.ErrorApi;
-import com.simol.ouncommon.routine.dto.RoutineCreateRequest;
-import com.simol.ouncommon.routine.dto.RoutineUpdateRequest;
-import com.simol.ouncommon.routine.service.RoutineService;
-import com.simol.ouncommon.routine.vo.RoutineCreateResponse;
-import com.simol.ouncommon.routine.vo.RoutineListResponse;
-import com.simol.ouncommon.routine.vo.RoutineResponse;
+import com.simol.simolcommon.api.CommonApi;
+import com.simol.simolcommon.api.ErrorApi;
+import com.simol.simolcommon.routine.dto.RoutineCreateRequest;
+import com.simol.simolcommon.routine.dto.RoutineUpdateRequest;
+import com.simol.simolcommon.routine.service.RoutineService;
+import com.simol.simolcommon.routine.vo.RoutineCreateResponse;
+import com.simol.simolcommon.routine.vo.RoutineListResponse;
+import com.simol.simolcommon.routine.vo.RoutineResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

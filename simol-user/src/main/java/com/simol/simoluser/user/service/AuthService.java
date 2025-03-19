@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
-import com.simol.ouncommon.auth.entity.UserEntity;
-import com.simol.ouncommon.auth.repository.UsersRepository;
-import com.simol.ouncommon.auth.vo.AuthTokenResponse;
-import com.simol.ouncommon.auth.vo.Token;
-import com.simol.ouncommon.exception.UnAuthorizedException;
+import com.simol.simolcommon.auth.entity.UserEntity;
+import com.simol.simolcommon.auth.repository.UsersRepository;
+import com.simol.simolcommon.auth.vo.AuthTokenResponse;
+import com.simol.simolcommon.auth.vo.Token;
+import com.simol.simolcommon.exception.UnAuthorizedException;
 import com.simol.simoluser.config.jwt.JwtProvider;
 import com.simol.simoluser.user.vo.GoogleUserInfoResponse;
 import com.simol.simoluser.user.vo.RedirectUrlResponse;

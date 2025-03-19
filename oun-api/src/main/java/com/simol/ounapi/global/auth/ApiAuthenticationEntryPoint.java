@@ -10,8 +10,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.simol.ouncommon.api.ErrorApi;
-import com.simol.ouncommon.api.ErrorDto;
+import com.simol.simolcommon.api.ErrorApi;
+import com.simol.simolcommon.api.ErrorDto;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

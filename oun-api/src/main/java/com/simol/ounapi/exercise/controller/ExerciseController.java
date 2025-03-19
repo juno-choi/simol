@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simol.ouncommon.api.CommonApi;
-import com.simol.ouncommon.api.ErrorApi;
-import com.simol.ouncommon.exercise.dto.ExerciseCreateRequest;
-import com.simol.ouncommon.exercise.dto.ExerciseUpdateRequest;
-import com.simol.ouncommon.exercise.service.ExerciseService;
-import com.simol.ouncommon.exercise.vo.ExerciseCreateResponse;
-import com.simol.ouncommon.exercise.vo.ExerciseListResponse;
-import com.simol.ouncommon.exercise.vo.ExerciseResponse;
+import com.simol.simolcommon.api.CommonApi;
+import com.simol.simolcommon.api.ErrorApi;
+import com.simol.simolcommon.exercise.dto.ExerciseCreateRequest;
+import com.simol.simolcommon.exercise.dto.ExerciseUpdateRequest;
+import com.simol.simolcommon.exercise.service.ExerciseService;
+import com.simol.simolcommon.exercise.vo.ExerciseCreateResponse;
+import com.simol.simolcommon.exercise.vo.ExerciseListResponse;
+import com.simol.simolcommon.exercise.vo.ExerciseResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
