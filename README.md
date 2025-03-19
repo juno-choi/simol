@@ -40,7 +40,7 @@
 ### 🟢 구성도
 ```mermaid
 ---
-title: oun 프로젝트 인프라 구성도
+title: simol 프로젝트 인프라 구성도
 ---
 flowchart TB
     subgraph "클라이언트"
