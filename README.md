@@ -9,7 +9,19 @@
 
 # 👨‍💻 Proejct 실행
 
-[project 설정 및 실행방법](./global/env/README.md)
+순서대로 실행하시길 권장드립니다.
+
+[mysql 실행방법](./mysql/README.md)
+
+[redis 실행방법](./redis/README.md)
+
+[traefik 실행방법](./traefik/README.md)
+
+[simol-user 실행방법](./simol-user/README.md)
+
+[oun-api 실행방법](./oun-api/README.md)
+
+[monitoring](./monitoring/README.md)
 
 # 🔴 front project
 
