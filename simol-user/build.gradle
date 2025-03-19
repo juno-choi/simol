@@ -4,7 +4,7 @@ version = '1.0.0'
 
 tasks.withType(org.springframework.boot.gradle.tasks.bundling.BootJar) {
     enabled = true
-    archiveBaseName = "oun-user"
+    archiveBaseName = "simol-user"
     archiveVersion = version
 }
 

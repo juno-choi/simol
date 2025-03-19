@@ -1,10 +1,10 @@
 version: '3.7'
 services:
-  oun-user:
-    container_name: oun-user
-    build: .
-    ports:
-      - 8080:8080
+  simol-user:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: simol-user
     environment:
       - TZ=Asia/Seoul
       - SERVER_PROFILE=${SERVER_PROFILE}
@@ -13,11 +13,15 @@ services:
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    labels:
+      - traefik.http.routers.simol-user.rule=PathPrefix(`/user`)
+      - traefik.http.routers.simol-user.middlewares=cors
     networks:
-      - oun-network  # 네트워크 연결 추가
+      - simol-network
 
-# oun-user와 redis 네트워크 동일하게 처리
+
+# simol-user와 redis 네트워크 동일하게 처리
 networks:
-  oun-network:
-    name: oun-network
+  simol-network:
+    name: simol-network
     driver: bridge

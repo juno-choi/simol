@@ -19,7 +19,7 @@
 
 `oun-common` 프로젝트 전체적으로 사용되는 entity, dto, vo, repository 등 공동 사용 모듈
 
-`oun-user` 회원 가입, 로그인 정보를 관리하는 모듈
+`simol-user` 회원 가입, 로그인 정보를 관리하는 모듈
 
 `oun-api` endpoint를 관리하는 모듈
 
@@ -40,7 +40,7 @@ flowchart TB
     end
 
     subgraph "인증"
-        User[oun-user/회원 관리 모듈]
+        User[simol-user/회원 관리 모듈]
     end
 
     subgraph "서비스"

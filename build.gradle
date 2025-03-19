@@ -69,7 +69,7 @@ project(':oun-api') {
 	}
 }
 
-project(':oun-user') {
+project(':simol-user') {
 	dependencies {
 		implementation project(':oun-common')
 	}

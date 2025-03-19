@@ -63,7 +63,7 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mysql://oun-mysql:3306/oun?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://simol-mysql:3306/simol?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}

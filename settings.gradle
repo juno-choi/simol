@@ -9,4 +9,4 @@ rootProject.name = 'oun'
 
 include 'oun-api'
 include 'oun-common'
-include 'oun-user'
+include 'simol-user'
