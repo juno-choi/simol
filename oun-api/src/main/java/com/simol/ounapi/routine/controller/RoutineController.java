@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simol.simolcommon.api.CommonApi;
-import com.simol.simolcommon.api.ErrorApi;
+import com.simol.simolcommon.common.api.CommonApi;
+import com.simol.simolcommon.common.api.ErrorApi;
 import com.simol.simolcommon.oun.routine.dto.RoutineCreateRequest;
 import com.simol.simolcommon.oun.routine.dto.RoutineUpdateRequest;
 import com.simol.simolcommon.oun.routine.service.RoutineService;

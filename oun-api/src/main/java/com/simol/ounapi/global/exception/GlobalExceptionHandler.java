@@ -12,10 +12,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.simol.simolcommon.api.ErrorApi;
-import com.simol.simolcommon.api.ErrorDto;
-import com.simol.simolcommon.exception.BadRequestException;
-import com.simol.simolcommon.exception.UnAuthorizedException;
+import com.simol.simolcommon.common.api.ErrorApi;
+import com.simol.simolcommon.common.api.ErrorDto;
+import com.simol.simolcommon.common.exception.BadRequestException;
+import com.simol.simolcommon.common.exception.UnAuthorizedException;
 
 import lombok.extern.slf4j.Slf4j;
 

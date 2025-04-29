@@ -15,7 +15,7 @@ import com.simol.ounapi.global.auth.ApiAccessDeniedHandler;
 import com.simol.ounapi.global.auth.ApiAuthenticationEntryPoint;
 import com.simol.ounapi.global.auth.ApiJwtTokenProvider;
 import com.simol.ounapi.global.auth.AuthFilter;
-import com.simol.simolcommon.auth.vo.WhiteList;
+import com.simol.simolcommon.common.auth.vo.WhiteList;
 
 import lombok.RequiredArgsConstructor;
 

@@ -6,9 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.simol.simolcommon.auth.entity.UserEntity;
-import com.simol.simolcommon.auth.repository.UsersRepository;
-import com.simol.simolcommon.exception.BadRequestException;
+import com.simol.simolcommon.common.auth.entity.UserEntity;
+import com.simol.simolcommon.common.auth.repository.UsersRepository;
+import com.simol.simolcommon.common.exception.BadRequestException;
 import com.simol.simolcommon.oun.exercise.dto.ExerciseCreateRequest;
 import com.simol.simolcommon.oun.exercise.dto.ExerciseUpdateRequest;
 import com.simol.simolcommon.oun.exercise.entity.ExerciseEntity;

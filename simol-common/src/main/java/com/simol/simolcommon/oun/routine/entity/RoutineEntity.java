@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.simol.simolcommon.auth.entity.UserEntity;
-import com.simol.simolcommon.global.entity.GlobalEntity;
+import com.simol.simolcommon.common.auth.entity.UserEntity;
+import com.simol.simolcommon.common.global.entity.GlobalEntity;
 import com.simol.simolcommon.oun.exercise.entity.ExerciseEntity;
 import com.simol.simolcommon.oun.routine.dto.RoutineCreateRequest;
 import com.simol.simolcommon.oun.routine.dto.RoutineExerciseUpdateRequest;

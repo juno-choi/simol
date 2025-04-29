@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simol.simolcommon.api.CommonApi;
-import com.simol.simolcommon.api.ErrorApi;
+import com.simol.simolcommon.common.api.CommonApi;
+import com.simol.simolcommon.common.api.ErrorApi;
 import com.simol.simolcommon.oun.exercise.dto.ExerciseSetCreateRequest;
 import com.simol.simolcommon.oun.exercise.dto.ExerciseSetUpdateRequest;
 import com.simol.simolcommon.oun.exercise.service.ExerciseSetService;

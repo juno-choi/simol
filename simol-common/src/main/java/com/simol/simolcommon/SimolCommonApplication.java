@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"com.simol.simolcommon"})
-@EnableJpaRepositories(basePackages = {"com.simol.simolcommon"})
+@EntityScan(basePackages = {"com.simol.simolcommon.common.*"})
+@EnableJpaRepositories(basePackages = {"com.simol.simolcommon.common.*"})
 public class SimolCommonApplication {
 
 	public static void main(String[] args) {

@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.simol.simolcommon.auth.entity.UserEntity;
+import com.simol.simolcommon.common.auth.entity.UserEntity;
 import com.simol.simolcommon.oun.routine.dto.RoutineCreateRequest;
 import com.simol.simolcommon.oun.routine.entity.RoutineEntity;
 import com.simol.simolcommon.oun.routine.vo.RoutineResponse;

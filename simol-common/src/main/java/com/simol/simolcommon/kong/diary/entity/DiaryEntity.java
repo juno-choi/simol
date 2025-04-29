@@ -1,9 +1,7 @@
 package com.simol.simolcommon.kong.diary.entity;
 
-import java.time.LocalDateTime;
-
-import com.simol.simolcommon.auth.entity.UserEntity;
-import com.simol.simolcommon.global.entity.GlobalEntity;
+import com.simol.simolcommon.common.auth.entity.UserEntity;
+import com.simol.simolcommon.common.global.entity.GlobalEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;

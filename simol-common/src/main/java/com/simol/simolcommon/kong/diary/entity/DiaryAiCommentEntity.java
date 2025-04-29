@@ -1,6 +1,6 @@
 package com.simol.simolcommon.kong.diary.entity;
 
-import com.simol.simolcommon.global.entity.GlobalEntity;
+import com.simol.simolcommon.common.global.entity.GlobalEntity;
 import com.simol.simolcommon.kong.diary.enums.DiaryEmotion;
 
 import jakarta.persistence.Column;

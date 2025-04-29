@@ -1,6 +1,6 @@
 package com.simol.simolcommon.oun.exercise.entity;
 
-import com.simol.simolcommon.global.entity.GlobalEntity;
+import com.simol.simolcommon.common.global.entity.GlobalEntity;
 import com.simol.simolcommon.oun.exercise.dto.ExerciseSetCreateRequest;
 import com.simol.simolcommon.oun.exercise.dto.ExerciseSetListUpdateRequest;
 import com.simol.simolcommon.oun.exercise.dto.ExerciseSetUpdateRequest;

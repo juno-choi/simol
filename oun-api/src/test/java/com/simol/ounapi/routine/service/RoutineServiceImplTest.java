@@ -10,9 +10,9 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.simol.ounapi.fixture.EntityFixtures;
 import com.simol.ounapi.fixture.RequestFixtures;
-import com.simol.simolcommon.auth.entity.UserEntity;
-import com.simol.simolcommon.auth.repository.UsersRepository;
-import com.simol.simolcommon.exception.BadRequestException;
+import com.simol.simolcommon.common.auth.entity.UserEntity;
+import com.simol.simolcommon.common.auth.repository.UsersRepository;
+import com.simol.simolcommon.common.exception.BadRequestException;
 import com.simol.simolcommon.oun.routine.dto.RoutineCreateRequest;
 import com.simol.simolcommon.oun.routine.dto.RoutineUpdateRequest;
 import com.simol.simolcommon.oun.routine.entity.RoutineEntity;
@@ -141,8 +141,6 @@ public class RoutineServiceImplTest {
     @DisplayName("루틴 id 값이 존재하지 않으면 루틴 수정 실패")
     void updateRoutineFail1() {
         // given
-        final Long routineId = 1L;
-
         RoutineUpdateRequest routineUpdateRequest = RequestFixtures.aRoutineUpdateRequest()
             .build();
 

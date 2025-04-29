@@ -1,6 +1,6 @@
 package com.simol.simoluser.user.vo;
 
-import com.simol.simolcommon.auth.entity.UserEntity;
+import com.simol.simolcommon.common.auth.entity.UserEntity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;

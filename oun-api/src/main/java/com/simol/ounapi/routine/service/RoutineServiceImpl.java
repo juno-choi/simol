@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-import com.simol.simolcommon.auth.entity.UserEntity;
-import com.simol.simolcommon.auth.repository.UsersRepository;
-import com.simol.simolcommon.exception.BadRequestException;
+import com.simol.simolcommon.common.auth.entity.UserEntity;
+import com.simol.simolcommon.common.auth.repository.UsersRepository;
+import com.simol.simolcommon.common.exception.BadRequestException;
 import com.simol.simolcommon.oun.routine.dto.RoutineCreateRequest;
 import com.simol.simolcommon.oun.routine.dto.RoutineUpdateRequest;
 import com.simol.simolcommon.oun.routine.entity.RoutineEntity;

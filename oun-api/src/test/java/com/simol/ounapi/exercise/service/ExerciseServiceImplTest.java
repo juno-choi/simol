@@ -10,9 +10,9 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.simol.ounapi.fixture.EntityFixtures;
 import com.simol.ounapi.fixture.RequestFixtures;
-import com.simol.simolcommon.auth.entity.UserEntity;
-import com.simol.simolcommon.auth.repository.UsersRepository;
-import com.simol.simolcommon.exception.BadRequestException;
+import com.simol.simolcommon.common.auth.entity.UserEntity;
+import com.simol.simolcommon.common.auth.repository.UsersRepository;
+import com.simol.simolcommon.common.exception.BadRequestException;
 import com.simol.simolcommon.oun.exercise.dto.ExerciseCreateRequest;
 import com.simol.simolcommon.oun.exercise.dto.ExerciseUpdateRequest;
 import com.simol.simolcommon.oun.exercise.entity.ExerciseEntity;

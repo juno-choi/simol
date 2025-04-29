@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simol.simolcommon.api.CommonApi;
-import com.simol.simolcommon.auth.vo.AuthTokenResponse;
+import com.simol.simolcommon.common.api.CommonApi;
+import com.simol.simolcommon.common.auth.vo.AuthTokenResponse;
 import com.simol.simoluser.user.service.AuthService;
 import com.simol.simoluser.user.vo.RedirectUrlResponse;
 import com.simol.simoluser.user.vo.UserInfoResponse;
