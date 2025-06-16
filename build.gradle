@@ -76,7 +76,7 @@ project(':simol-user') {
 	}
 }
 
-project(':kong') {
+project(':sium') {
 
 	dependencies {
 		implementation project(':simol-common')
