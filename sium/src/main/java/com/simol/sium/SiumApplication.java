@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.simol.simolcommon.common.*", "com.simol.simolcommon.sium.*"})
-@EntityScan(basePackages = {"com.simol.simolcommon.common.sium.*.entity"})
-@EnableJpaRepositories(basePackages = {"com.simol.simolcommon.common.sium.*.repository"})
+@EntityScan(basePackages = {"com.simol.simolcommon.common.*.entity", "com.simol.simolcommon.sium.*.entity"})
+@EnableJpaRepositories(basePackages = {"com.simol.simolcommon.common.*.repository", "com.simol.simolcommon.sium.*.repository"})
 public class SiumApplication {
 
     public static void main(String[] args) {
