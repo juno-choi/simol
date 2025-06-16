@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: sium-api
+  profiles:
+    active: ${SERVER_PROFILE:local}
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY:oun_temp_secret_key_123456789012}
+
+springdoc:
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    persist-authorization: true # ????? ???? ???? ???? ??
+    urlsPrimaryName: total api
+    groups-order: desc
+    path: /api/sium/swagger-ui.html
+  # API ?? ?? ?? ??
+  api-docs:
+    path: /api/sium/v3/api-docs
+
+# monitoring
+management:
+  endpoints:
+    web:
+      base-path: /api/sium/actuator
+      exposure:
+        include: prometheus, health, metrics
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: sium-api
+
+---
+# local
+spring:
+  config:
+    activate:
+      on-profile: local
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+---
+# dev
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mysql://simol-mysql:3306/sium?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: false
