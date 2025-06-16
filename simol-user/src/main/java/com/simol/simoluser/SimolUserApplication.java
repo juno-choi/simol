@@ -8,8 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.simol.simolcommon.*", "com.simol.simoluser.*"})
-@EntityScan(basePackages = {"com.simol.simolcommon.*.entity"})
-@EnableJpaRepositories(basePackages = {"com.simol.simolcommon.*.repository"})
+@EntityScan(basePackages = {"com.simol.simolcommon.*.*.entity"})
+@EnableJpaRepositories(basePackages = {"com.simol.simolcommon.*.*.repository"})
 public class SimolUserApplication {
 
 	public static void main(String[] args) {
